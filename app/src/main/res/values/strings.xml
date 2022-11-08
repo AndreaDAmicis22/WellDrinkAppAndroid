@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">WellDrink</string>
+    <string name="home_inpSearch">Search</string>
+    <string name="home_favouriteIngredient">Favourite ingredient</string>
+    <string name="home_favoriteIngredientValue">Redbull</string>
+    <string name="home_random_txtTitle">Cuba Libre</string>
+    <string name="home_random_txtValue">Drink cubano</string>
+</resources>
