@@ -5,4 +5,10 @@
     <string name="home_favoriteIngredientValue">Redbull</string>
     <string name="home_random_txtTitle">Cuba Libre</string>
     <string name="home_random_txtValue">Drink cubano</string>
+    <string name="first_txtSubtitle">Choose favourite</string>
+    <string name="first_card_img">Ingredient</string>
+    <string name="first_card1_txt">Tequila</string>
+    <string name="first_card2_txt">Gin</string>
+    <string name="first_card3_txt">Vodka</string>
+    <string name="first_card4_txt">Rum</string>
 </resources>
