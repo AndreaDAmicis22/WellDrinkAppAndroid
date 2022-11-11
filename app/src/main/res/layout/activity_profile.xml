@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/profile_gdlBegin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/profile_gdlEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <ImageView
+        android:id="@+id/profile_profile_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/profile_txtNameProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/profile_gdlEnd"
+        app:layout_constraintStart_toStartOf="@+id/profile_gdlBegin"
+        app:layout_constraintTop_toBottomOf="@id/profile_profile_img" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/profile_info_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/profile_gdlEnd"
+        app:layout_constraintStart_toStartOf="@+id/profile_gdlBegin"
+        app:layout_constraintTop_toBottomOf="@id/profile_txtNameProfile">
+
+        <androidx.gridlayout.widget.GridLayout
+            android:id="@+id/profile_grdLeaderboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:columnCount="2"
+            app:rowCount="2">
+
+            <Button
+                android:id="@+id/profile_grd_btnFavouriteDrink"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/profile_grd_btnFavouriteDrink" />
+
+            <Button
+                android:id="@+id/profile_grd_btnFavouriteIngredient"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/profile_grd_btnFavouriteIngredient" />
+
+            <Button
+                android:id="@+id/profile_grd_btnTastedList"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/profile_grd_btnTastedList" />
+
+            <Button
+                android:id="@+id/profile_grd_btnVisitedBar"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/profile_grd_btnVisitedBar" />
+        </androidx.gridlayout.widget.GridLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/profile_gdlEnd"
+        app:layout_constraintStart_toStartOf="@id/profile_gdlBegin"
+        app:layout_constraintTop_toBottomOf="@+id/view2">
+
+        <Button
+            android:id="@+id/profile_btnTop100"
+            android:layout_width="316dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/profile_btnTop100" />
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="316dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#000000"
+        app:layout_constraintEnd_toEndOf="@id/profile_gdlEnd"
+        app:layout_constraintStart_toStartOf="@id/profile_gdlBegin"
+        app:layout_constraintTop_toBottomOf="@+id/profile_info_card" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
