@@ -5,7 +5,7 @@
     <string name="home_favoriteIngredientValue">Soda</string>
     <string name="home_random_txtTitle">Cuba Libre</string>
     <string name="home_random_txtValue">Drink cubano</string>
-    <string name="first_txtSubtitle">Choose favourite</string>
+    <string name="first_txtSubtitle">Choose your favourite</string>
     <string name="first_card_img">Ingredient</string>
     <string name="first_card1_txt">Tequila</string>
     <string name="first_card2_txt">Gin</string>
@@ -18,10 +18,12 @@
     <string name="research_filter_btnTaste">Taste</string>
     <string name="research_filter_btnGlass">Glass</string>
     <string name="profile_grd_btnFavouriteDrink">Favourite Drink</string>
-    <string name="profile_grd_btnFavouriteIngredient">Favourite Ingredient</string>
+    <string name="profile_grd_btnFavouriteIngredient">Favourite ingredient</string>
     <string name="profile_grd_btnTastedList">Tasted List</string>
     <string name="profile_grd_btnVisitedBar">Visited Bar</string>
     <string name="profile_btnTop100">Top 100</string>
     <string name="home_btnProfile">Profile</string>
     <string name="research_scvResults">Scrollview</string>
+    <string name="home_random_img">Image</string>
+    <string name="profile_txtNameProfile">Nome utente</string>
 </resources>

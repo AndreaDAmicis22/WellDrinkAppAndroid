@@ -32,11 +32,12 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="@id/home_gdlBegin"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="?attr/textInputFilledStyle"
         android:id="@+id/research_inpSearch"
+        style="?attr/textInputFilledStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -49,7 +50,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/home_inpSearch"/>
+            android:hint="@string/home_inpSearch" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -70,8 +71,8 @@
             android:orientation="horizontal">
 
             <com.google.android.material.card.MaterialCardView
-                style="?attr/materialCardViewElevatedStyle"
                 android:id="@+id/home_card1"
+                style="?attr/materialCardViewElevatedStyle"
                 android:layout_width="180dp"
                 android:layout_height="120dp"
                 android:layout_marginStart="8dp"
@@ -172,13 +173,13 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/home_random_card"
+        style="?attr/materialCardViewElevatedStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@id/home_gdlEnd"
         app:layout_constraintStart_toStartOf="@id/home_gdlBegin"
-        app:layout_constraintTop_toBottomOf="@id/home_scvFavorite"
-        style="?attr/materialCardViewElevatedStyle">
+        app:layout_constraintTop_toBottomOf="@id/home_scvFavorite">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -190,6 +191,7 @@
                 android:layout_height="100dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
+                android:contentDescription="@string/home_random_img"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/home_random_btn"
@@ -209,22 +211,22 @@
 
             <TextView
                 android:id="@+id/home_random_txtTitle"
-                android:textAppearance="?attr/textAppearanceTitleMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/home_random_txtTitle"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/home_random_txtValue"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="@string/home_random_txtValue"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/home_random_txtTitle"

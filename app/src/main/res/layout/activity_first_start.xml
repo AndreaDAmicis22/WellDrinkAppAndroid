@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/app_name"
+        android:textSize="40sp"
         app:layout_constraintEnd_toStartOf="@+id/first_gdlEnd"
         app:layout_constraintStart_toStartOf="@+id/first_gdlBegin"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/first_txtSubtitle"
+        android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/first_gdlEnd"
         app:layout_constraintStart_toStartOf="@+id/first_gdlBegin"
         app:layout_constraintTop_toBottomOf="@+id/first_txtTitle" />
@@ -61,15 +63,18 @@
                 app:columnCount="2"
                 app:rowCount="2">
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/first_card1"
+                    style="?attr/materialCardViewElevatedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/first_card1_img"
@@ -82,28 +87,41 @@
                             app:layout_constraintTop_toTopOf="parent"
                             tools:srcCompat="@tools:sample/avatars" />
 
-                        <TextView
-                            android:id="@+id/first_card1_txt"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/first_card1_txt"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/first_card1_img" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            android:orientation="vertical"
+                            android:padding="16dp">
 
-                </androidx.cardview.widget.CardView>
+                            <TextView
+                                android:id="@+id/first_card1_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/first_card1_txt"
+                                android:textAlignment="center"
+                                android:textAppearance="?attr/textAppearanceTitleMedium"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/first_card1_img" />
 
-                <androidx.cardview.widget.CardView
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/first_card2"
+                    style="?attr/materialCardViewElevatedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp">
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/first_card2_img"
@@ -116,29 +134,41 @@
                             app:layout_constraintTop_toTopOf="parent"
                             tools:srcCompat="@tools:sample/avatars" />
 
-                        <TextView
-                            android:id="@+id/first_card2_txt"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/first_card2_txt"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/first_card2_img" />
+                            android:orientation="vertical"
+                            android:padding="16dp">
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            <TextView
+                                android:id="@+id/first_card2_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/first_card2_txt"
+                                android:textAlignment="center"
+                                android:textAppearance="?attr/textAppearanceTitleMedium"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/first_card1_img" />
 
-                </androidx.cardview.widget.CardView>
+                        </LinearLayout>
 
-                <androidx.cardview.widget.CardView
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/first_card3"
+                    style="?attr/materialCardViewElevatedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/first_card3_img"
@@ -151,28 +181,41 @@
                             app:layout_constraintTop_toTopOf="parent"
                             tools:srcCompat="@tools:sample/avatars" />
 
-                        <TextView
-                            android:id="@+id/first_card3_txt"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/first_card3_txt"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/first_card3_img" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            android:orientation="vertical"
+                            android:padding="16dp">
 
-                </androidx.cardview.widget.CardView>
+                            <TextView
+                                android:id="@+id/first_card3_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/first_card3_txt"
+                                android:textAlignment="center"
+                                android:textAppearance="?attr/textAppearanceTitleMedium"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/first_card1_img" />
 
-                <androidx.cardview.widget.CardView
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/first_card4"
+                    style="?attr/materialCardViewElevatedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp">
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/first_card4_img"
@@ -185,18 +228,28 @@
                             app:layout_constraintTop_toTopOf="parent"
                             tools:srcCompat="@tools:sample/avatars" />
 
-                        <TextView
-                            android:id="@+id/first_card4_txt"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/first_card4_txt"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/first_card4_img" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            android:orientation="vertical"
+                            android:padding="16dp">
 
-                </androidx.cardview.widget.CardView>
+                            <TextView
+                                android:id="@+id/first_card4_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/first_card4_txt"
+                                android:textAlignment="center"
+                                android:textAppearance="?attr/textAppearanceTitleMedium"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/first_card1_img" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
 
             </androidx.gridlayout.widget.GridLayout>
         </LinearLayout>
@@ -204,19 +257,23 @@
 
     <Button
         android:id="@+id/first_btnNext"
+        style="?attr/materialIconButtonFilledStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="@string/first_btnNext"
+        android:contentDescription="@string/first_btnNext"
+        app:icon="@drawable/ic_baseline_arrow_forward_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/first_gdlEnd" />
 
     <Button
         android:id="@+id/first_btnPrevious"
+        style="?attr/materialIconButtonFilledStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="@string/first_btnPrevious"
+        android:contentDescription="@string/first_btnPrevious"
+        app:icon="@drawable/ic_baseline_arrow_back_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/first_gdlBegin" />
 
