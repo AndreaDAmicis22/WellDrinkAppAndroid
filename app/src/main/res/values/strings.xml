@@ -17,13 +17,14 @@
     <string name="research_filter_btnName">Name</string>
     <string name="research_filter_btnTaste">Taste</string>
     <string name="research_filter_btnGlass">Glass</string>
-    <string name="profile_grd_btnFavouriteDrink">Favourite Drink</string>
-    <string name="profile_grd_btnFavouriteIngredient">Favourite ingredient</string>
-    <string name="profile_grd_btnTastedList">Tasted List</string>
-    <string name="profile_grd_btnVisitedBar">Visited Bar</string>
+    <string name="profile_grd_btnFavouriteDrink">Top drinks</string>
+    <string name="profile_grd_btnFavouriteIngredient">Top ingredients</string>
+    <string name="profile_grd_btnTastedList">Drunk list</string>
+    <string name="profile_grd_btnVisitedBar">Visited bar</string>
     <string name="profile_btnTop100">Top 100</string>
     <string name="home_btnProfile">Profile</string>
     <string name="research_scvResults">Scrollview</string>
     <string name="home_random_img">Image</string>
     <string name="profile_txtNameProfile">Nome utente</string>
+    <string name="profile_img">Profile picture</string>
 </resources>
