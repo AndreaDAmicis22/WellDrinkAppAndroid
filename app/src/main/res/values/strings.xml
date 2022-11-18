@@ -22,4 +22,6 @@
     <string name="profile_grd_btnTastedList">Tasted List</string>
     <string name="profile_grd_btnVisitedBar">Visited Bar</string>
     <string name="profile_btnTop100">Top 100</string>
+    <string name="home_btnProfile">Profile</string>
+    <string name="research_scvResults">Scrollview</string>
 </resources>
