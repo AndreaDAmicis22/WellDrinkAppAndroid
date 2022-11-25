@@ -36,4 +36,5 @@
     <string name="details_card_btn">Buy</string>
     <string name="details_prep_textTitle">Recipe</string>
     <string name="details_prep_txtBody">Put in the glass</string>
+    <string name="details_img">Drink image</string>
 </resources>
