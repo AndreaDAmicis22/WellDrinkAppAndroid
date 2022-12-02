@@ -37,4 +37,8 @@
     <string name="details_prep_textTitle">Recipe</string>
     <string name="details_prep_txtBody">Put in the glass</string>
     <string name="details_img">Drink image</string>
+    <string name="nav_main">Home</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_research">Research</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

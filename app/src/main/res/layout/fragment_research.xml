@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    tools:context=".ResearchActivity">
+    tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/research_gdlBegin"
@@ -20,33 +20,14 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="16dp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/research_inpSearch"
-        style="?attr/textInputFilledStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/research_gdlEnd"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/research_gdlBegin"
-        app:layout_constraintTop_toTopOf="parent"
-        app:startIconDrawable="@drawable/ic_baseline_search_24">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/home_inpSearch"
-            tools:ignore="TextContrastCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
-
     <ScrollView
         android:id="@+id/research_scvFilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toStartOf="@+id/research_gdlEnd"
         app:layout_constraintStart_toStartOf="@+id/research_gdlBegin"
-        app:layout_constraintTop_toBottomOf="@id/research_inpSearch">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <HorizontalScrollView
@@ -104,8 +85,8 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/research_gdlEnd"
-        app:layout_constraintStart_toStartOf="@id/research_gdlBegin"
+        app:layout_constraintEnd_toStartOf="@+id/research_gdlEnd"
+        app:layout_constraintStart_toStartOf="@+id/research_gdlBegin"
         app:layout_constraintTop_toBottomOf="@+id/research_scvFilter">
 
         <LinearLayout
