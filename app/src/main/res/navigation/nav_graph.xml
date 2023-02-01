@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/fragment_main">
     <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.welldrink.ProfileFragment"
-        android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile" />
-    <fragment
-        android:id="@+id/mainFragment"
+        android:id="@+id/fragment_main"
         android:name="com.example.welldrink.MainFragment"
-        android:label="MainFragment"
+        android:label="@string/nav_main"
         tools:layout="@layout/fragment_main"/>
     <fragment
-        android:id="@+id/researchFragment"
+        android:id="@+id/fragment_research"
         android:name="com.example.welldrink.ResearchFragment"
-        android:label="ResearchFragment"
+        android:label="@string/nav_research"
         tools:layout="@layout/fragment_research" />
+    <fragment
+        android:id="@+id/fragment_profile"
+        android:name="com.example.welldrink.ProfileFragment"
+        android:label="@string/nav_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
