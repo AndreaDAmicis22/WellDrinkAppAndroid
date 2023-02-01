@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -11,6 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.lang.reflect.Array;
@@ -26,9 +30,11 @@ public class MainFragment extends Fragment {
     private static final String TAG = MainFragment.class.getSimpleName();
 
     private String[] names;
+    private String[] ingrs;
 
     public MainFragment() {
         names = new String[] {"Name 1", "Name 2", "Name 3", "Name 4", "Name 5"};
+        ingrs = new String[] {"Ingr 1", "Ingr 2", "Ingr 3", "Ingr 4", "Ingr 5"};
     }
 
     /**
@@ -54,11 +60,21 @@ public class MainFragment extends Fragment {
         Button button = view.findViewById(R.id.home_random_btn);
         TextView name = view.findViewById(R.id.home_random_txtTitle);
         TextView desc = view.findViewById(R.id.home_random_txtValue);
+        CardView card = view.findViewById(R.id.home_card1);
+        LinearLayout linFav = view.findViewById(R.id.home_linFavorite);
+        TextView textView = new TextView(view.getContext());
+        textView.setText("Test");
+        CardView test = new CardView(view.getContext());
+        linFav.addView(textView);
         Random rand = new Random();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int pos = rand.nextInt(names.length);
+                String actualName = (String) name.getText();
+                int pos;
+                do {
+                    pos = rand.nextInt(names.length);
+                } while (names[pos].equals(actualName));
                 name.setText(names[pos]);
                 desc.setText(names[pos].toLowerCase());
             }
