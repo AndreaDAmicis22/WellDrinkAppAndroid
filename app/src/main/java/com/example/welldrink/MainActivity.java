@@ -1,7 +1,11 @@
 package com.example.welldrink;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -11,28 +15,44 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.example.welldrink.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.navigation.NavigationView;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    private ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        NavHostFragment navHostFragment = (NavHostFragment)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_main);
-        if (navHostFragment == null)
-            Log.d(TAG, "Null");
-        else {
-            NavController navController = navHostFragment.getNavController();
-            BottomNavigationView bottomNav = findViewById(R.id.home_navbar);
-            AppBarConfiguration appBarConfiguration =
-                    new AppBarConfiguration.Builder(R.id.fragment_main, R.id.fragment_research, R.id.fragment_profile).build();
-            NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-            NavigationUI.setupWithNavController(bottomNav, navController);
-        }
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+        binding.homeNavbar.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.fragment_main:
+                    replaceFragment(new MainFragment());
+                    break;
+                case R.id.fragment_research:
+                    replaceFragment(new ResearchFragment());
+                    break;
+                case R.id.fragment_profile:
+                    replaceFragment(new ProfileFragment());
+                    break;
+            }
+            return true;
+        });
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.home_fragment, fragment);
+        fragmentTransaction.commit();
     }
 }
