@@ -6,9 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import java.lang.reflect.Array;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,8 +23,12 @@ import android.view.ViewGroup;
  */
 public class MainFragment extends Fragment {
 
+    private static final String TAG = MainFragment.class.getSimpleName();
+
+    private String[] names;
+
     public MainFragment() {
-        // Required empty public constructor
+        names = new String[] {"Name 1", "Name 2", "Name 3", "Name 4", "Name 5"};
     }
 
     /**
@@ -40,8 +50,20 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        Button button = view.findViewById(R.id.home_random_btn);
+        TextView name = view.findViewById(R.id.home_random_txtTitle);
+        TextView desc = view.findViewById(R.id.home_random_txtValue);
+        Random rand = new Random();
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pos = rand.nextInt(names.length);
+                name.setText(names[pos]);
+                desc.setText(names[pos].toLowerCase());
+            }
+        });
+        return view;
     }
 
     @Override
