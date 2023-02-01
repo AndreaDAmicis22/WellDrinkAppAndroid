@@ -110,7 +110,7 @@
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/research_card_img"
                         tools:ignore="ImageContrastCheck"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        android:src="@drawable/ic_baseline_local_drink_128" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
