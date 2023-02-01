@@ -93,17 +93,6 @@
             android:text="@string/profile_grd_btnVisitedBar" />
     </androidx.gridlayout.widget.GridLayout>
 
-    <Button
-        android:id="@+id/profile_btnTop100"
-        style="@style/Widget.Material3.Button.ElevatedButton"
-        android:layout_width="316dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/profile_btnTop100"
-        app:layout_constraintEnd_toStartOf="@+id/profile_gdlEnd"
-        app:layout_constraintStart_toStartOf="@+id/profile_gdlBegin"
-        app:layout_constraintTop_toBottomOf="@+id/profile_grdLeaderboard" />
-
     <View
         android:id="@+id/view2"
         android:layout_width="316dp"
@@ -114,6 +103,17 @@
         app:layout_constraintBottom_toTopOf="@+id/profile_btnTop100"
         app:layout_constraintEnd_toEndOf="@id/profile_gdlEnd"
         app:layout_constraintStart_toStartOf="@id/profile_gdlBegin"
+        app:layout_constraintTop_toBottomOf="@+id/profile_grdLeaderboard" />
+
+    <Button
+        android:id="@+id/profile_btnTop100"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="316dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/profile_btnTop100"
+        app:layout_constraintEnd_toStartOf="@+id/profile_gdlEnd"
+        app:layout_constraintStart_toStartOf="@+id/profile_gdlBegin"
         app:layout_constraintTop_toBottomOf="@+id/profile_grdLeaderboard" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

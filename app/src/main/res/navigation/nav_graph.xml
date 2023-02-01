@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.welldrink.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/mainFragment"
@@ -17,6 +17,6 @@
     <fragment
         android:id="@+id/researchFragment"
         android:name="com.example.welldrink.ResearchFragment"
-        android:label="fragment_research"
+        android:label="ResearchFragment"
         tools:layout="@layout/fragment_research" />
 </navigation>
