@@ -78,7 +78,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 List<Drink> array = new ArrayList<>();
                 for (int i = 0; i < 1000; i++){
-                    array.add(new Drink(i, Integer.toString(1),null, null, null));
+                    array.add(new Drink(i, Integer.toString(2),null, null, null));
                 }
                 ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
                 profileRecycleView.setAdapter(adapter);
@@ -90,7 +90,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 List<Drink> array = new ArrayList<>();
                 for (int i = 0; i < 1000; i++){
-                    array.add(new Drink(i, Integer.toString(1),null, null, null));
+                    array.add(new Drink(i, Integer.toString(3),null, null, null));
                 }
                 ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
                 profileRecycleView.setAdapter(adapter);
@@ -102,7 +102,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 List<Drink> array = new ArrayList<>();
                 for (int i = 0; i < 1000; i++){
-                    array.add(new Drink(i, Integer.toString(1),null, null, null));
+                    array.add(new Drink(i, Integer.toString(4),null, null, null));
                 }
                 ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
                 profileRecycleView.setAdapter(adapter);
@@ -113,7 +113,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 List<Drink> array = new ArrayList<>();
                 for (int i = 0; i < 1000; i++){
-                    array.add(new Drink(i, Integer.toString(1),null, null, null));
+                    array.add(new Drink(i, Integer.toString(5),null, null, null));
                 }
                 ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
                 profileRecycleView.setAdapter(adapter);
