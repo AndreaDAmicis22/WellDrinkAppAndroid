@@ -1,8 +1,8 @@
-package com.example.welldrink;
+package com.example.welldrink.ui;
 
-import static com.example.welldrink.util.Constants.DB_REALTIME;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.DatabaseReference;
+import com.example.welldrink.R;
+import com.example.welldrink.adapter.MainFavoriteRecyclerAdapter;
+import com.example.welldrink.model.Favorite;
 
 
 import android.os.Bundle;

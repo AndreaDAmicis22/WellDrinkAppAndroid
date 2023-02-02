@@ -1,4 +1,4 @@
-package com.example.welldrink;
+package com.example.welldrink.model;
 
 public class Favorite {
     private final boolean drink;

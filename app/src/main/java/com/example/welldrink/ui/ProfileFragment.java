@@ -1,10 +1,9 @@
-package com.example.welldrink;
+package com.example.welldrink.ui;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+
+import com.example.welldrink.model.Drink;
+import com.example.welldrink.R;
+import com.example.welldrink.adapter.ProfileRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,8 +97,8 @@ public class ProfileFragment extends Fragment {
 
         List<Drink> array = new ArrayList<>();
         for (int i = 0; i < 10; i++){
-            array.add(new Drink(i,"i","i","i","i","i","i",
-                    "i", "i","i", "i", null, null));
+            //array.add(new Drink(i,"i","i","i","i","i","i",
+            //        "i", "i","i", "i", null, null));
         }
         Log.d(TAG, "cacca");
         ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
