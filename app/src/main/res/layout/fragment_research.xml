@@ -106,7 +106,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/profile_card1_img"
+                        android:id="@+id/drink_small_img"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/research_card_img"
@@ -120,7 +120,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/profile_card1_txt"
+                            android:id="@+id/drink_small_txt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"

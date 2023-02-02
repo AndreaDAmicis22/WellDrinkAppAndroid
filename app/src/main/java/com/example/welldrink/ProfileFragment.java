@@ -2,8 +2,12 @@ package com.example.welldrink;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,14 +17,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
     private static final String TAG = ProfileFragment.class.getSimpleName();
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private List<String> drinkList;
+    private List<Drink> drinkList;
     private View view;
     private ScrollView scrollView;
     private LinearLayout linearLayout;
@@ -29,35 +32,22 @@ public class ProfileFragment extends Fragment {
     private Button tastedListButton;
     private Button visitedBarButton;
 
-    private String mParam1;
-    private String mParam2;
-
     public ProfileFragment() {
 
     }
 
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static ProfileFragment newInstance() {
+        return new ProfileFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        LinearLayout linearLayout = view.findViewById(R.id.profile_linFirst);
         Button favoriteDrinkButton = view.findViewById(R.id.profile_grd_btnFavouriteDrink);
         Button favoriteIngredientButton = view.findViewById(R.id.profile_grd_btnFavouriteIngredient);
         Button tastedListButton = view.findViewById(R.id.profile_grd_btnTastedList);
@@ -66,7 +56,7 @@ public class ProfileFragment extends Fragment {
         favoriteDrinkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addItemCardView();
+
             }
         });
 
@@ -90,18 +80,25 @@ public class ProfileFragment extends Fragment {
 
             }
         });
-
         return view;
     }
 
-    public void addItemCardView(){
-        linearLayout.addView(copyCardView());
-    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-    public CardView copyCardView(){
-        CardView cardView = view.findViewById(R.id.profile_cardview);
-        CardView newCardView = cardView;
-        return newCardView;
-    }
+        RecyclerView profileRecycleView = view.findViewById(R.id.profile_rcv);
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
+        profileRecycleView.setLayoutManager(linearLayoutManager);
+
+        List<Drink> array = new ArrayList<>();
+        for (int i = 0; i < 10; i++){
+            array.add(new Drink(i,"i","i","i","i","i","i",
+                    "i", "i","i", "i", null, null));
+        }
+        Log.d(TAG, "cacca");
+        ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
+        profileRecycleView.setAdapter(adapter);
+    }
 }
