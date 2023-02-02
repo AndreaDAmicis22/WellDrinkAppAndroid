@@ -79,4 +79,45 @@
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <Button
+        android:id="@+id/login_btnSignUp"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_btnSignUp"
+        app:layout_constraintEnd_toStartOf="@+id/login_gdlEnd"
+        app:layout_constraintStart_toStartOf="@+id/login_gdlBegin"
+        app:layout_constraintTop_toBottomOf="@+id/login_txtOr" />
+
+    <Button
+        android:id="@+id/login_btnLogin"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/login_btnLogin"
+        app:layout_constraintEnd_toStartOf="@+id/login_gdlEnd"
+        app:layout_constraintStart_toStartOf="@+id/login_gdlBegin"
+        app:layout_constraintTop_toBottomOf="@+id/login_pswLayout" />
+
+    <TextView
+        android:id="@+id/login_txtOr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_txtOr"
+        app:layout_constraintEnd_toStartOf="@+id/login_gdlEnd"
+        app:layout_constraintStart_toStartOf="@+id/login_gdlBegin"
+        app:layout_constraintTop_toBottomOf="@+id/login_btnLogin" />
+
+    <Button
+        android:id="@+id/login_btnLoginGoogle"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/login_btnLoginGoogle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/login_gdlEnd"
+        app:layout_constraintStart_toStartOf="@+id/login_gdlBegin" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -45,4 +45,8 @@
     <string name="fav_card_title_ingredient">Favorite Ingredient</string>
     <string name="profile_btnLogOut">Log out</string>
     <string name="login_txtTitle">Login</string>
+    <string name="login_btnSignUp">Sign up</string>
+    <string name="login_btnLogin">Login</string>
+    <string name="login_txtOr">OR</string>
+    <string name="login_btnLoginGoogle">Login with Google</string>
 </resources>
