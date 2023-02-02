@@ -1,13 +1,15 @@
-package com.example.welldrink;
+package com.example.welldrink.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.welldrink.model.Drink;
+import com.example.welldrink.R;
 
 import java.util.List;
 

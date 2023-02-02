@@ -1,4 +1,9 @@
-package com.example.welldrink;
+package com.example.welldrink.ui;
+
+import com.example.welldrink.R;
+import com.example.welldrink.adapter.MainFavoriteRecyclerAdapter;
+import com.example.welldrink.model.Favorite;
+
 
 import android.os.Bundle;
 
@@ -59,6 +64,13 @@ public class MainFragment extends Fragment {
             name.setText(names[pos]);
             desc.setText(names[pos].toLowerCase());
         });
+
+//        FirebaseDatabase database = FirebaseDatabase.getInstance(DB_REALTIME);
+//        DatabaseReference myRef = database.getReference("message");
+//
+//        myRef.setValue("Hello, World!");
+//        Log.d("TEST", myRef.toString());
+
         return view;
     }
 

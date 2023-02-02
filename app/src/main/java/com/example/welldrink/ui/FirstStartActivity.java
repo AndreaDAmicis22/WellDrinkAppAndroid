@@ -1,8 +1,10 @@
-package com.example.welldrink;
+package com.example.welldrink.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.welldrink.R;
 
 public class FirstStartActivity extends AppCompatActivity {
 

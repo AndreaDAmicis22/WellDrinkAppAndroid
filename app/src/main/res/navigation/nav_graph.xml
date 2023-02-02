@@ -6,17 +6,17 @@
     app:startDestination="@id/fragment_main">
     <fragment
         android:id="@+id/fragment_main"
-        android:name="com.example.welldrink.MainFragment"
+        android:name="com.example.welldrink.ui.MainFragment"
         android:label="@string/nav_main"
         tools:layout="@layout/fragment_main"/>
     <fragment
         android:id="@+id/fragment_research"
-        android:name="com.example.welldrink.ResearchFragment"
+        android:name="com.example.welldrink.ui.ResearchFragment"
         android:label="@string/nav_research"
         tools:layout="@layout/fragment_research" />
     <fragment
         android:id="@+id/fragment_profile"
-        android:name="com.example.welldrink.ProfileFragment"
+        android:name="com.example.welldrink.ui.ProfileFragment"
         android:label="@string/nav_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>
