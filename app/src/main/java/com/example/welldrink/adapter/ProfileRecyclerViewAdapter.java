@@ -52,7 +52,7 @@ public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecy
         }
 
         public void bind(Drink drink){
-            drinkName.setText(drink.getTitle());
+            drinkName.setText(drink.getName());
             //drinkImage.setImageURI();
         }
     }

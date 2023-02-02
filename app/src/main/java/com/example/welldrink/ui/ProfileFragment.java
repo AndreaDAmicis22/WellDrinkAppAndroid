@@ -1,4 +1,4 @@
-package com.example.welldrink;
+package com.example.welldrink.ui;
 
 import android.os.Bundle;
 
@@ -16,6 +16,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+
+import com.example.welldrink.R;
+import com.example.welldrink.adapter.ProfileRecyclerViewAdapter;
+import com.example.welldrink.model.Drink;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +66,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 List<Drink> array = new ArrayList<>();
                 for (int i = 0; i < 1000; i++){
-                    array.add(new Drink(i, Integer.toString(1),"i","i","i","i","i",
-                            "i", "i","i", "i", null, null));
+                    array.add(new Drink(i, Integer.toString(1),null, null, null));
                 }
                 ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
                 profileRecycleView.setAdapter(adapter);
@@ -75,8 +78,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 List<Drink> array = new ArrayList<>();
                 for (int i = 0; i < 1000; i++){
-                    array.add(new Drink(i, Integer.toString(2),"i","i","i","i","i",
-                            "i", "i","i", "i", null, null));
+                    array.add(new Drink(i, Integer.toString(1),null, null, null));
                 }
                 ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
                 profileRecycleView.setAdapter(adapter);
@@ -88,8 +90,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 List<Drink> array = new ArrayList<>();
                 for (int i = 0; i < 1000; i++){
-                    array.add(new Drink(i, Integer.toString(3),"i","i","i","i","i",
-                            "i", "i","i", "i", null, null));
+                    array.add(new Drink(i, Integer.toString(1),null, null, null));
                 }
                 ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
                 profileRecycleView.setAdapter(adapter);
@@ -101,8 +102,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 List<Drink> array = new ArrayList<>();
                 for (int i = 0; i < 1000; i++){
-                    array.add(new Drink(i, Integer.toString(4),"i","i","i","i","i",
-                            "i", "i","i", "i", null, null));
+                    array.add(new Drink(i, Integer.toString(1),null, null, null));
                 }
                 ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
                 profileRecycleView.setAdapter(adapter);
@@ -113,8 +113,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 List<Drink> array = new ArrayList<>();
                 for (int i = 0; i < 1000; i++){
-                    array.add(new Drink(i, Integer.toString(5),"i","i","i","i","i",
-                            "i", "i","i", "i", null, null));
+                    array.add(new Drink(i, Integer.toString(1),null, null, null));
                 }
                 ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
                 profileRecycleView.setAdapter(adapter);
