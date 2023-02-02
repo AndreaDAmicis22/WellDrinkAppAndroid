@@ -1,5 +1,10 @@
 package com.example.welldrink;
 
+import static com.example.welldrink.util.Constants.DB_REALTIME;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.DatabaseReference;
+
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -59,6 +64,13 @@ public class MainFragment extends Fragment {
             name.setText(names[pos]);
             desc.setText(names[pos].toLowerCase());
         });
+
+//        FirebaseDatabase database = FirebaseDatabase.getInstance(DB_REALTIME);
+//        DatabaseReference myRef = database.getReference("message");
+//
+//        myRef.setValue("Hello, World!");
+//        Log.d("TEST", myRef.toString());
+
         return view;
     }
 
