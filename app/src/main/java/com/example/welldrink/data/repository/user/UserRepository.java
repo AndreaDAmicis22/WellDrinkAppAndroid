@@ -25,6 +25,18 @@ public class UserRepository implements IUserRepository, UserResponseCallback{
 
     @Override
     public void onSuccessFromAuthentication(User user) {
+        if(user != null){
+            userRemoteDataSource.saveUser(user);
+        }
+    }
+
+    @Override
+    public void onSuccessFromRemoteDatabase(User user) {
+
+    }
+
+    @Override
+    public void onFailureFromRemoteDatabase(String message) {
 
     }
 }

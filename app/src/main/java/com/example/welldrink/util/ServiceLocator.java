@@ -1,6 +1,13 @@
 package com.example.welldrink.util;
 
 
+import com.example.welldrink.data.repository.user.IUserRepository;
+import com.example.welldrink.data.repository.user.UserRepository;
+import com.example.welldrink.data.source.user.BaseUserAuthenticationRemoteDataSource;
+import com.example.welldrink.data.source.user.BaseUserRemoteDataSource;
+import com.example.welldrink.data.source.user.UserAuthenticationRemoteDataSource;
+import com.example.welldrink.data.source.user.UserRemoteDataSource;
+
 //singleton
 public class ServiceLocator {
 
@@ -17,6 +24,12 @@ public class ServiceLocator {
             }
         }
         return INSTANCE;
+    }
+
+    public IUserRepository getUserRepository(){
+        BaseUserRemoteDataSource userRemoteDataSource = new UserRemoteDataSource();
+        BaseUserAuthenticationRemoteDataSource userAuthenticationRemoteDataSource = new UserAuthenticationRemoteDataSource();
+        return new UserRepository(userRemoteDataSource, userAuthenticationRemoteDataSource);
     }
 
 }
