@@ -9,10 +9,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MainFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MainFragment extends Fragment {
 
     private static final String TAG = MainFragment.class.getSimpleName();
@@ -54,7 +52,11 @@ public class MainFragment extends Fragment {
         Button button = view.findViewById(R.id.home_random_btn);
         TextView name = view.findViewById(R.id.home_random_txtTitle);
         TextView desc = view.findViewById(R.id.home_random_txtValue);
+        CardView card = view.findViewById(R.id.home_random_card);
         Random rand = new Random();
+        card.setOnClickListener(view1 -> {
+            Navigation.findNavController(requireView()).navigate(R.id.action_fragment_main_to_fragment_details);
+        });
         button.setOnClickListener(view1 -> {
             String actualName = (String) name.getText();
             int pos;
