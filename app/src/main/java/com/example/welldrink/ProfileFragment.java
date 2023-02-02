@@ -24,10 +24,10 @@ public class ProfileFragment extends Fragment {
     private View view;
     private ScrollView scrollView;
     private LinearLayout linearLayout;
-    private Button FavoriteDrinkButton;
-    private Button FavoriteIngredientButton;
-    private Button TastedListButton;
-    private Button VisitedBarButton;
+    private Button favoriteDrinkButton;
+    private Button favoriteIngredientButton;
+    private Button tastedListButton;
+    private Button visitedBarButton;
 
     private String mParam1;
     private String mParam2;
@@ -55,20 +55,42 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         LinearLayout linearLayout = view.findViewById(R.id.profile_linFirst);
         Button favoriteDrinkButton = view.findViewById(R.id.profile_grd_btnFavouriteDrink);
         Button favoriteIngredientButton = view.findViewById(R.id.profile_grd_btnFavouriteIngredient);
         Button tastedListButton = view.findViewById(R.id.profile_grd_btnTastedList);
         Button visitedBarButton = view.findViewById(R.id.profile_grd_btnVisitedBar);
+
         favoriteDrinkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addItemCardView();
             }
         });
+
+        favoriteIngredientButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        tastedListButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        visitedBarButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         return view;
     }
 
