@@ -4,20 +4,18 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -29,23 +27,14 @@ public class MainFragment extends Fragment {
 
     private static final String TAG = MainFragment.class.getSimpleName();
 
-    private String[] names;
-    private String[] ingrs;
+    private final String[] names;
 
     public MainFragment() {
-        names = new String[] {"Name 1", "Name 2", "Name 3", "Name 4", "Name 5"};
-        ingrs = new String[] {"Ingr 1", "Ingr 2", "Ingr 3", "Ingr 4", "Ingr 5"};
+        names = new String[]{"Name 1", "Name 2", "Name 3", "Name 4", "Name 5"};
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment MainFragment.
-     */
     public static MainFragment newInstance() {
-        MainFragment fragment = new MainFragment();
-        return fragment;
+        return new MainFragment();
     }
 
     @Override
@@ -60,24 +49,15 @@ public class MainFragment extends Fragment {
         Button button = view.findViewById(R.id.home_random_btn);
         TextView name = view.findViewById(R.id.home_random_txtTitle);
         TextView desc = view.findViewById(R.id.home_random_txtValue);
-        CardView card = view.findViewById(R.id.home_card1);
-        LinearLayout linFav = view.findViewById(R.id.home_linFavorite);
-        TextView textView = new TextView(view.getContext());
-        textView.setText("Test");
-        CardView test = new CardView(view.getContext());
-        linFav.addView(textView);
         Random rand = new Random();
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String actualName = (String) name.getText();
-                int pos;
-                do {
-                    pos = rand.nextInt(names.length);
-                } while (names[pos].equals(actualName));
-                name.setText(names[pos]);
-                desc.setText(names[pos].toLowerCase());
-            }
+        button.setOnClickListener(view1 -> {
+            String actualName = (String) name.getText();
+            int pos;
+            do {
+                pos = rand.nextInt(names.length);
+            } while (names[pos].equals(actualName));
+            name.setText(names[pos]);
+            desc.setText(names[pos].toLowerCase());
         });
         return view;
     }
@@ -85,5 +65,19 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        List<Favorite> favs = getFavsUser();
+        for (int i = 0; i < 5; i++) {
+            favs.add(new Favorite(false, "Soda"));
+        }
+        RecyclerView recyclerView = view.findViewById(R.id.home_rcvFavorite);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
+        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        MainFavoriteRecyclerAdapter adapter = new MainFavoriteRecyclerAdapter(favs);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private ArrayList<Favorite> getFavsUser() {
+        return new ArrayList<>();
     }
 }

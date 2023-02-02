@@ -20,68 +20,14 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="16dp" />
 
-    <ListView
-        android:id="@+id/home_listFavorite"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_rcvFavorite"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_height="0dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <HorizontalScrollView
-        android:id="@+id/home_scvFavorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:scrollbars="none"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:id="@+id/home_linFavorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/home_card1"
-                style="?attr/materialCardViewElevatedStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <TextView
-                        android:id="@+id/home_card1_txtTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="@string/home_favouriteIngredient"
-                        android:textAppearance="?attr/textAppearanceTitleMedium" />
-
-                    <TextView
-                        android:id="@+id/home_card1_txtValue"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="@string/home_favoriteIngredientValue"
-                        android:textAppearance="?attr/textAppearanceBodyMedium"
-                        app:drawableEndCompat="@drawable/ic_baseline_star_24"
-                        app:drawableTint="@color/yellow" />
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
-    </HorizontalScrollView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/home_random_card"
@@ -91,7 +37,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toStartOf="@+id/home_gdlEnd"
         app:layout_constraintStart_toStartOf="@+id/home_gdlBegin"
-        app:layout_constraintTop_toBottomOf="@+id/home_scvFavorite">
+        app:layout_constraintTop_toBottomOf="@+id/home_rcvFavorite">
 
         <LinearLayout
             android:layout_width="match_parent"
