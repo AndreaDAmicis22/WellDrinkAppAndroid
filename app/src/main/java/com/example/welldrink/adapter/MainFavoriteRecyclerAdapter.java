@@ -43,7 +43,6 @@ public class MainFavoriteRecyclerAdapter extends RecyclerView.Adapter<MainFavori
     }
 
     public static class FavoriteViewHolder extends RecyclerView.ViewHolder {
-
         private final TextView title;
         private final TextView value;
 
