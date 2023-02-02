@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,9 +17,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import com.example.welldrink.model.Drink;
 import com.example.welldrink.R;
 import com.example.welldrink.adapter.ProfileRecyclerViewAdapter;
+import com.example.welldrink.model.Drink;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,36 +52,71 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        RecyclerView profileRecycleView = view.findViewById(R.id.profile_rcv);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
+        profileRecycleView.setLayoutManager(linearLayoutManager);
         Button favoriteDrinkButton = view.findViewById(R.id.profile_grd_btnFavouriteDrink);
         Button favoriteIngredientButton = view.findViewById(R.id.profile_grd_btnFavouriteIngredient);
         Button tastedListButton = view.findViewById(R.id.profile_grd_btnTastedList);
         Button visitedBarButton = view.findViewById(R.id.profile_grd_btnVisitedBar);
+        Button top20Button = view.findViewById(R.id.profile_btnTop20);
 
         favoriteDrinkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                List<Drink> array = new ArrayList<>();
+                for (int i = 0; i < 1000; i++){
+                    array.add(new Drink(i, Integer.toString(1),null, null, null));
+                }
+                ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
+                profileRecycleView.setAdapter(adapter);
             }
         });
 
         favoriteIngredientButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
+                List<Drink> array = new ArrayList<>();
+                for (int i = 0; i < 1000; i++){
+                    array.add(new Drink(i, Integer.toString(1),null, null, null));
+                }
+                ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
+                profileRecycleView.setAdapter(adapter);
             }
         });
 
         tastedListButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
+                List<Drink> array = new ArrayList<>();
+                for (int i = 0; i < 1000; i++){
+                    array.add(new Drink(i, Integer.toString(1),null, null, null));
+                }
+                ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
+                profileRecycleView.setAdapter(adapter);
             }
         });
 
         visitedBarButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
+                List<Drink> array = new ArrayList<>();
+                for (int i = 0; i < 1000; i++){
+                    array.add(new Drink(i, Integer.toString(1),null, null, null));
+                }
+                ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
+                profileRecycleView.setAdapter(adapter);
+            }
+        });
+        top20Button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                List<Drink> array = new ArrayList<>();
+                for (int i = 0; i < 1000; i++){
+                    array.add(new Drink(i, Integer.toString(1),null, null, null));
+                }
+                ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
+                profileRecycleView.setAdapter(adapter);
             }
         });
         return view;
@@ -89,19 +125,5 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        RecyclerView profileRecycleView = view.findViewById(R.id.profile_rcv);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
-        profileRecycleView.setLayoutManager(linearLayoutManager);
-
-        List<Drink> array = new ArrayList<>();
-        for (int i = 0; i < 10; i++){
-            //array.add(new Drink(i,"i","i","i","i","i","i",
-            //        "i", "i","i", "i", null, null));
-        }
-        Log.d(TAG, "cacca");
-        ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
-        profileRecycleView.setAdapter(adapter);
     }
 }

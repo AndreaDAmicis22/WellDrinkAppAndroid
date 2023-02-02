@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.welldrink.R;
+import com.example.welldrink.databinding.ActivityMainBinding;
 
 
 public class MainActivity extends AppCompatActivity {
