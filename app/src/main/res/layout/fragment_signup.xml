@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    tools:context=".SignupFragment"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
@@ -34,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/login_txtTitle"
+        android:text="@string/signup_txtTitle"
         android:textSize="24sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
@@ -42,13 +43,30 @@
         app:layout_constraintTop_toBottomOf="@+id/signup_imageView" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/signup_txtEmailLayout"
+        android:id="@+id/signup_txtUsernameLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@id/signup_gdlEnd"
         app:layout_constraintStart_toEndOf="@id/signup_gdlBegin"
         app:layout_constraintTop_toBottomOf="@+id/signup_txtTitle"
+        app:startIconDrawable="@drawable/ic_baseline_account_circle_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signup_txtUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/signup_txtUsername" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/signup_txtEmailLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@id/signup_gdlEnd"
+        app:layout_constraintStart_toEndOf="@id/signup_gdlBegin"
+        app:layout_constraintTop_toBottomOf="@id/signup_txtUsernameLayout"
         app:startIconDrawable="@drawable/baseline_alternate_email_24">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -79,43 +97,43 @@
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/login_btnSignUp"
-        style="@style/Widget.Material3.Button.ElevatedButton"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/signup_confpswLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/login_btnSignUp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
-        app:layout_constraintStart_toStartOf="@+id/signup_gdlBegin"
-        app:layout_constraintTop_toBottomOf="@+id/login_txtOr" />
+        app:layout_constraintStart_toEndOf="@id/signup_gdlBegin"
+        app:layout_constraintTop_toBottomOf="@+id/signup_pswLayout"
+        app:passwordToggleEnabled="true"
+        app:startIconDrawable="@drawable/baseline_lock_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_txtConfPsw"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/login_txtConfPsw"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/signup_btnSignup"
         style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/login_btnLogin"
+        android:layout_marginTop="16dp"
+        android:text="@string/login_btnSignUp"
         app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
         app:layout_constraintStart_toStartOf="@+id/signup_gdlBegin"
-        app:layout_constraintTop_toBottomOf="@+id/signup_pswLayout" />
-
-    <TextView
-        android:id="@+id/login_txtOr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login_txtOr"
-        app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
-        app:layout_constraintStart_toStartOf="@+id/signup_gdlBegin"
-        app:layout_constraintTop_toBottomOf="@+id/signup_btnSignup" />
+        app:layout_constraintTop_toBottomOf="@+id/signup_confpswLayout" />
 
     <Button
-        android:id="@+id/login_btnLoginGoogle"
+        android:id="@+id/signup_btnBackLogin"
         style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/login_btnLoginGoogle"
+        android:layout_marginBottom="16dp"
+        android:text="@string/signup_btnBackLogin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
         app:layout_constraintStart_toStartOf="@+id/signup_gdlBegin" />

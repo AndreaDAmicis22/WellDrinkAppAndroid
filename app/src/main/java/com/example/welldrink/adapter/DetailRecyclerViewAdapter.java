@@ -14,34 +14,34 @@ import com.example.welldrink.model.Ingredient;
 import java.util.List;
 public class DetailRecyclerViewAdapter extends RecyclerView.Adapter<DetailRecyclerViewAdapter.DetailsViewHolder> {
 
-    private List<Ingredient> ingredientList;
+    private final List<Ingredient> ingredientList;
+
     public DetailRecyclerViewAdapter(List<Ingredient> ingredientList){
         this.ingredientList = ingredientList;
     }
+
     @NonNull
     @Override
     public DetailsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredient_small, parent, false);
-
+        View view = LayoutInflater.from(parent.getContext()).inflate(
+                R.layout.ingredient_small, parent, false);
         return new DetailsViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull DetailsViewHolder holder, int position) {
         holder.bind(ingredientList.get(position));
-
     }
 
     @Override
     public int getItemCount() {
-        if (ingredientList != null){
+        if (ingredientList != null)
             return ingredientList.size();
-        }
-        return 0;
+        else
+            return 0;
     }
 
-    public class DetailsViewHolder extends RecyclerView.ViewHolder {
-
+    public static class DetailsViewHolder extends RecyclerView.ViewHolder {
         private final TextView ingredientName;
         private final TextView ingredientQt;
 
