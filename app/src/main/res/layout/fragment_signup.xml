@@ -33,32 +33,33 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/signup_txtUsername"
+        android:id="@+id/signup_txtUsernameLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@id/signup_gdlEnd"
         app:layout_constraintStart_toEndOf="@id/signup_gdlBegin"
         app:layout_constraintTop_toBottomOf="@+id/signup_txtTitle"
         app:startIconDrawable="@drawable/ic_baseline_account_circle_24">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signup_txtUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/signup_txtUsername" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/signup_txtEmail"
+        android:id="@+id/signup_txtEmailLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@id/signup_gdlEnd"
         app:layout_constraintStart_toEndOf="@id/signup_gdlBegin"
-        app:layout_constraintTop_toBottomOf="@id/signup_txtUsername"
+        app:layout_constraintTop_toBottomOf="@+id/signup_txtUsernameLayout"
         app:startIconDrawable="@drawable/baseline_alternate_email_24">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signup_txtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
@@ -67,17 +68,17 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/signup_txtPsw"
+        android:id="@+id/signup_txtPswLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
         app:layout_constraintStart_toEndOf="@id/signup_gdlBegin"
-        app:layout_constraintTop_toBottomOf="@+id/signup_txtEmail"
+        app:layout_constraintTop_toBottomOf="@+id/signup_txtEmailLayout"
         app:passwordToggleEnabled="true"
         app:startIconDrawable="@drawable/baseline_lock_24">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signup_txtPsw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
@@ -85,17 +86,17 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/signup_txtConfpsw"
+        android:id="@+id/signup_txtConfpswLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
         app:layout_constraintStart_toEndOf="@id/signup_gdlBegin"
-        app:layout_constraintTop_toBottomOf="@+id/signup_txtPsw"
+        app:layout_constraintTop_toBottomOf="@+id/signup_txtPswLayout"
         app:passwordToggleEnabled="true"
         app:startIconDrawable="@drawable/baseline_lock_24">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signup_txtConfPsw"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/login_txtConfPsw"
@@ -111,7 +112,7 @@
         android:text="@string/signup_btnSignup"
         app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
         app:layout_constraintStart_toStartOf="@+id/signup_gdlBegin"
-        app:layout_constraintTop_toBottomOf="@+id/signup_txtConfpsw" />
+        app:layout_constraintTop_toBottomOf="@+id/signup_txtConfpswLayout" />
 
     <Button
         android:id="@+id/signup_btnBackLogin"
