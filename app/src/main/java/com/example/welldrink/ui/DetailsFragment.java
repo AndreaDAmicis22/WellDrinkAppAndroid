@@ -1,10 +1,18 @@
 package com.example.welldrink.ui;
 
+import android.content.res.Resources;
+import android.graphics.BlendMode;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,12 +36,13 @@ import java.util.List;
 public class DetailsFragment  extends Fragment {
 
     private boolean onLike;
+
     public DetailsFragment() {
-        // Required empty public constructor
+
     }
 
 
-    public static DetailsFragment newInstance(String param1, String param2) {
+    public static DetailsFragment newInstance() {
         return new DetailsFragment();
     }
 
@@ -46,7 +55,7 @@ public class DetailsFragment  extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_details, container, false);
-        ImageButton btnLike = view.findViewById(R.id.details_btnLike);
+        Button btnLike = view.findViewById(R.id.details_btnLike);
         btnLike.setOnClickListener(view1 -> {
              onLike = likeOn(btnLike, onLike);
         });
@@ -69,16 +78,11 @@ public class DetailsFragment  extends Fragment {
 
     }
 
-    private Boolean likeOn(ImageButton button, Boolean bool){
-        if(bool == false){
-            button.setPressed(true);
-            button.setActivated(true);
-            return true;
-        }
-        else {
-            button.setPressed(false);
-            button.setActivated(false);
-        }
-        return false;
+    private Boolean likeOn(Button button, Boolean bool){
+        if(!bool)
+            button.setBackground(getResources().getDrawable(R.drawable.ic_baseline_thumb_up_alt_24, getContext().getTheme()));
+        else
+            button.setBackground(getResources().getDrawable(R.drawable.ic_baseline_thumb_up_off_alt_24, getContext().getTheme()));
+        return !bool;
     }
 }

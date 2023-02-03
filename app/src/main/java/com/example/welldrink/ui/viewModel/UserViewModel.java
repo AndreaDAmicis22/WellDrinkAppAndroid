@@ -23,14 +23,18 @@ public class UserViewModel extends ViewModel {
         if(userMutableLiveData == null){
             setUserMutableLiveData(email, password, isLogIn);
         }
+//        else{
+//            getUser(email, password, isLogIn);
+//        }
         return userMutableLiveData;
     }
 
-    public void getUser(String email, String password){
-        setUserMutableLiveData(email, password, true);
+    public void getUser(String email, String password, boolean isLogin){
+        setUserMutableLiveData(email, password, isLogin);
     }
 
     private void setUserMutableLiveData(String email, String password, boolean isLogIn){
+        Log.d("AUTH", "setUserMutableLiveData");
         this.userMutableLiveData = this.userRepository.getUser(email, password, isLogIn);
     }
 

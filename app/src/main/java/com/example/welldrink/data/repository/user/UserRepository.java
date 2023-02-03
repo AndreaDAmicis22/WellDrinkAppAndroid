@@ -1,5 +1,7 @@
 package com.example.welldrink.data.repository.user;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.welldrink.data.source.user.BaseUserAuthenticationRemoteDataSource;
@@ -54,6 +56,7 @@ public class UserRepository implements IUserRepository, UserResponseCallback{
     public void onSuccessFromRemoteDatabase(User user) {
         Result.Success<User> result = new Result.Success<User>(user);
         userMutableLiveData.postValue(result);
+        Log.d("AUTH", "onSuccessFromRemoteDatabase -> posted");
     }
 
     @Override
