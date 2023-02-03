@@ -19,8 +19,11 @@ public class UserRemoteDataSource extends BaseUserRemoteDataSource{
     private final DatabaseReference databaseReference;
 
     public UserRemoteDataSource() {
+        Log.d("dataSource", "startConst");
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance(DB_REALTIME);
+        Log.d("dataSource", "firebaseDatabase");
         databaseReference = firebaseDatabase.getReference().getRef();
+        Log.d("dataSource", "getRef");
     }
 
     @Override
@@ -44,6 +47,7 @@ public class UserRemoteDataSource extends BaseUserRemoteDataSource{
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.d("AUTH", "saveUser -> onCancelled");
+                Log.d("AUTH", error.getMessage());
                 userResponseCallback.onFailureFromRemoteDatabase(error.getMessage());
             }
         });

@@ -1,5 +1,7 @@
 package com.example.welldrink.ui.viewModel;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -13,6 +15,7 @@ public class UserViewModel extends ViewModel {
     private MutableLiveData<Result> userMutableLiveData;
 
     public UserViewModel(IUserRepository userRepository){
+        Log.d("viewModel", "ViewModelConstructor");
         this.userRepository = userRepository;
     }
 

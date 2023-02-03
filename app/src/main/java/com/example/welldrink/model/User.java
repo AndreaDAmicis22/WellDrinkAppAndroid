@@ -1,5 +1,7 @@
 package com.example.welldrink.model;
 
+import com.google.firebase.database.Exclude;
+
 public class User {
 
     private String name;
@@ -28,6 +30,7 @@ public class User {
         this.name = name;
     }
 
+    @Exclude
     public String getId() {
         return id;
     }
