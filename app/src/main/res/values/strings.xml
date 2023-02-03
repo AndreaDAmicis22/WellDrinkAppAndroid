@@ -45,12 +45,11 @@
     <string name="fav_card_title_ingredient">Favorite Ingredient</string>
     <string name="profile_btnLogOut">Log out</string>
     <string name="login_txtTitle">Login</string>
-    <string name="login_btnSignUp">Go to Sign up</string>
+    <string name="login_btnSignUp">Sign up</string>
     <string name="login_btnLogin">Login</string>
     <string name="login_txtOr">OR</string>
     <string name="login_btnLoginGoogle">Login with Google</string>
     <string name="signup_txtTitle">Sign up</string>
     <string name="signup_txtUsername">Username</string>
     <string name="login_txtConfPsw">Confirm password</string>
-    <string name="signup_btnBackLogin">Back to Login</string>
 </resources>
