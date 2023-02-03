@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginFragment">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/signup_gdlBegin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/signup_gdlEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <ImageView
+        android:id="@+id/signup_imageView"
+        android:layout_width="168dp"
+        android:layout_height="168dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
+        app:layout_constraintStart_toStartOf="@+id/signup_gdlBegin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/drink_cocktail_svgrepo_com" />
+
+    <TextView
+        android:id="@+id/signup_txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/login_txtTitle"
+        android:textSize="24sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
+        app:layout_constraintStart_toStartOf="@+id/signup_gdlBegin"
+        app:layout_constraintTop_toBottomOf="@+id/signup_imageView" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/signup_txtEmailLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@id/signup_gdlEnd"
+        app:layout_constraintStart_toEndOf="@id/signup_gdlBegin"
+        app:layout_constraintTop_toBottomOf="@+id/signup_txtTitle"
+        app:startIconDrawable="@drawable/baseline_alternate_email_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_txtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/signup_pswLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
+        app:layout_constraintStart_toEndOf="@id/signup_gdlBegin"
+        app:layout_constraintTop_toBottomOf="@+id/signup_txtEmailLayout"
+        app:passwordToggleEnabled="true"
+        app:startIconDrawable="@drawable/baseline_lock_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_txtPsw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/login_btnSignUp"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_btnSignUp"
+        app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
+        app:layout_constraintStart_toStartOf="@+id/signup_gdlBegin"
+        app:layout_constraintTop_toBottomOf="@+id/login_txtOr" />
+
+    <Button
+        android:id="@+id/signup_btnSignup"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/login_btnLogin"
+        app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
+        app:layout_constraintStart_toStartOf="@+id/signup_gdlBegin"
+        app:layout_constraintTop_toBottomOf="@+id/signup_pswLayout" />
+
+    <TextView
+        android:id="@+id/login_txtOr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_txtOr"
+        app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
+        app:layout_constraintStart_toStartOf="@+id/signup_gdlBegin"
+        app:layout_constraintTop_toBottomOf="@+id/signup_btnSignup" />
+
+    <Button
+        android:id="@+id/login_btnLoginGoogle"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/login_btnLoginGoogle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
+        app:layout_constraintStart_toStartOf="@+id/signup_gdlBegin" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
