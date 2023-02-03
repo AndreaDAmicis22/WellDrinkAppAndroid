@@ -7,7 +7,7 @@
     tools:context=".ui.RegistrationActivity">
 
     <ImageView
-        android:id="@+id/signup_imageView2"
+        android:id="@+id/reg_img"
         android:layout_width="168dp"
         android:layout_height="168dp"
         android:layout_marginTop="32dp"
@@ -19,14 +19,24 @@
 
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/home_fragment"
+        android:id="@+id/reg_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/reg_change"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/reg_img"
         app:navGraph="@navigation/registration_graph" />
+
+    <Button
+        android:id="@+id/reg_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cambia activity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

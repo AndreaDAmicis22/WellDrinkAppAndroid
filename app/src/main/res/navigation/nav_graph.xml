@@ -41,4 +41,5 @@
             app:argType="string"
             android:defaultValue="Drink name" />
     </fragment>
+
 </navigation>
