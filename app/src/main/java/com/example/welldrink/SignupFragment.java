@@ -15,12 +15,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.welldrink.data.repository.user.IUserRepository;
-import com.example.welldrink.databinding.FragmentSignupBinding;
 import com.example.welldrink.model.Result;
 import com.example.welldrink.model.User;
 import com.example.welldrink.ui.viewModel.UserViewModel;
 import com.example.welldrink.ui.viewModel.UserViewModelFactory;
 import com.example.welldrink.util.ServiceLocator;
+import com.google.android.material.textfield.TextInputEditText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,10 +60,10 @@ public class SignupFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Button registration = view.findViewById(R.id.signup_btnSignup);
         registration.setOnClickListener(v -> {
-            String username = (String) ((TextView) view.findViewById(R.id.signup_txtUsername)).getText().toString();
-            String email = (String) ((TextView) view.findViewById(R.id.login_txtEmail)).getText().toString();
-            String password = (String) ((TextView) view.findViewById(R.id.login_txtPsw)).getText().toString();
-            String passwordConf = (String) ((TextView) view.findViewById(R.id.login_txtConfPsw)).getText().toString();
+            String username = ((TextView) view.findViewById(R.id.signup_txtUsername)).getText().toString();
+            String email = ((TextView) view.findViewById(R.id.signup_txtEmail)).getText().toString();
+            String password = ((TextView) view.findViewById(R.id.signup_txtPsw)).getText().toString();
+            String passwordConf = ((TextView) view.findViewById(R.id.signup_txtConfPsw)).getText().toString();
 
             if(checkData(username, email, password, passwordConf)){
                 Log.d("AUTH", "checkData done");
