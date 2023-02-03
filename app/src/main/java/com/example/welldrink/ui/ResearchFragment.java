@@ -1,5 +1,6 @@
 package com.example.welldrink.ui;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +24,7 @@ import java.util.List;
 
 public class ResearchFragment extends Fragment {
 
-    private static final String TAG = MainFragment.class.getSimpleName();
+    private static final String TAG = ResearchFragment.class.getSimpleName();
 
     private boolean onIngredient;
     private boolean onName;
@@ -53,37 +55,46 @@ public class ResearchFragment extends Fragment {
         Button name = view.findViewById(R.id.research_filter_btnName);
         Button taste = view.findViewById(R.id.research_filter_btnTaste);
         Button glass = view.findViewById(R.id.research_filter_btnGlass);
+        boolean darkMode = isDarkMode();
         ingredient.setOnClickListener(view1 -> {
             onIngredient = changeColor(onIngredient, ingredient);
             if (onIngredient) {
-                onName = resetColor(name);
-                onTaste = resetColor(taste);
-                onGlass = resetColor(glass);
+                resetOther(darkMode, name, taste, glass);
+                onName = false;
+                onTaste = false;
+                onGlass = false;
             }
+            onIngredient = !onIngredient;
         });
         name.setOnClickListener(view1 -> {
             onName = changeColor(onName, name);
             if (onName) {
-                onIngredient = resetColor(ingredient);
-                onTaste = resetColor(taste);
-                onGlass = resetColor(glass);
+                resetOther(darkMode, ingredient, taste, glass);
+                onIngredient = false;
+                onTaste = false;
+                onGlass = false;
             }
+            onName = !onName;
         });
         taste.setOnClickListener(view1 -> {
             onTaste = changeColor(onTaste, taste);
             if (onTaste) {
-                onIngredient = resetColor(ingredient);
-                onName = resetColor(name);
-                onGlass = resetColor(glass);
+                resetOther(darkMode, ingredient, name, glass);
+                onIngredient = false;
+                onName = false;
+                onGlass = false;
             }
+            onTaste = !onTaste;
         });
         glass.setOnClickListener(view1 -> {
             onGlass = changeColor(onGlass, glass);
             if (onGlass) {
-                onIngredient = resetColor(ingredient);
-                onName = resetColor(name);
-                onTaste = resetColor(taste);
+                resetOther(darkMode, ingredient, name, taste);
+                onIngredient = false;
+                onName = false;
+                onTaste = false;
             }
+            onGlass = !onGlass;
         });
         return view;
     }
@@ -114,9 +125,29 @@ public class ResearchFragment extends Fragment {
         return !previous;
     }
 
-    private boolean resetColor(Button button) {
-        button.setBackgroundColor(getResources().getColor(R.color.md_theme_dark_inverseOnSurface));
-        button.setTextColor(getResources().getColor(R.color.md_theme_dark_primary));
-        return false;
+    private void resetOther(boolean darkMode, Button b1, Button b2, Button b3) {
+        int bgDark = getResources().getColor(R.color.md_theme_dark_inverseOnSurface);
+        int txtDark = getResources().getColor(R.color.md_theme_dark_primary);
+        int bgLight = getResources().getColor(R.color.md_theme_light_inverseOnSurface);
+        int txtLight = getResources().getColor(R.color.md_theme_light_primary);
+        if (darkMode) {
+            resetColor(b1, bgDark, txtDark);
+            resetColor(b2, bgDark, txtDark);
+            resetColor(b3, bgDark, txtDark);
+        }
+        else {
+            resetColor(b1, bgLight, txtLight);
+            resetColor(b2, bgLight, txtLight);
+            resetColor(b3, bgLight, txtLight);
+        }
+    }
+
+    private void resetColor(Button button, int bg, int txt) {
+        button.setBackgroundColor(bg);
+        button.setTextColor(txt);
+    }
+
+    private boolean isDarkMode() {
+        return (getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
 }
