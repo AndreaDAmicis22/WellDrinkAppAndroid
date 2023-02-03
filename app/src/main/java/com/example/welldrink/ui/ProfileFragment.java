@@ -58,7 +58,6 @@ public class ProfileFragment extends Fragment {
         Button favoriteDrinkButton = view.findViewById(R.id.profile_grd_btnFavouriteDrink);
         Button favoriteIngredientButton = view.findViewById(R.id.profile_grd_btnFavouriteIngredient);
         Button tastedListButton = view.findViewById(R.id.profile_grd_btnTastedList);
-        Button visitedBarButton = view.findViewById(R.id.profile_grd_btnVisitedBar);
         Button top20Button = view.findViewById(R.id.profile_btnTop20);
 
         favoriteDrinkButton.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +67,7 @@ public class ProfileFragment extends Fragment {
                 for (int i = 0; i < 1000; i++){
                     array.add(new Drink(i, Integer.toString(1),null, null, null));
                 }
+                favoriteDrinkButton.setBackgroundColor(112);
                 ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
                 profileRecycleView.setAdapter(adapter);
             }
