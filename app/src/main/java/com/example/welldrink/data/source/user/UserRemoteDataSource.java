@@ -33,6 +33,7 @@ public class UserRemoteDataSource extends BaseUserRemoteDataSource{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     Log.d("AUTH", "saveUser user alrady in db");
+                    userResponseCallback.onSuccessFromRemoteDatabase(user);
                 }else{
                     Log.d("AUTH", "saveUser user was not in db");
                     databaseReference.child(DB_USER).child(user.getId()).setValue(user).addOnSuccessListener(a -> {

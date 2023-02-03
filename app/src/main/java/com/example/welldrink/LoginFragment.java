@@ -2,19 +2,31 @@ package com.example.welldrink;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.example.welldrink.data.repository.user.IUserRepository;
+import com.example.welldrink.model.Result;
+import com.example.welldrink.model.User;
+import com.example.welldrink.ui.viewModel.UserViewModel;
+import com.example.welldrink.ui.viewModel.UserViewModelFactory;
+import com.example.welldrink.util.ServiceLocator;
 
 public class LoginFragment extends Fragment {
 
-    public LoginFragment() {
+    private UserViewModel userViewModel;
 
-    }
+    public LoginFragment() {}
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -23,6 +35,10 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        IUserRepository userRepository = ServiceLocator.getInstance().getUserRepository();
+        userViewModel = new ViewModelProvider(
+                requireActivity(),
+                new UserViewModelFactory(userRepository)).get(UserViewModel.class);
     }
 
     @Override
@@ -35,4 +51,31 @@ public class LoginFragment extends Fragment {
         });
         return view;
     }
+
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Button loginButton = view.findViewById(R.id.login_btnSignup);
+        loginButton.setOnClickListener(v -> {
+            String email = ((TextView) view.findViewById(R.id.login_txtEmail)).getText().toString();
+            String password = ((TextView) view.findViewById(R.id.login_txtPsw)).getText().toString();
+            if(userViewModel.isAuthError()){
+                userViewModel.getUser(email, password);
+            }else{
+                userViewModel.getUserMutableLiveData(email, password, true).observe(
+                    getViewLifecycleOwner(), result -> {
+                        if(result.isSuccess()){
+                            Log.d("AUTH", "result.isSuccess()");
+                            User user = ((Result.Success<User>) result).getData();
+                            userViewModel.setAuthError(false);
+                            Log.d("AUTH", "Login with user: " + user.toString());
+                        }else{
+                            Log.d("AUTH", "ERROR login result.isSuccess()");
+                            userViewModel.setAuthError(true);
+                        }
+                    }
+                );
+            }
+        });
+    }
+
 }
