@@ -1,5 +1,6 @@
 package com.example.welldrink;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.example.welldrink.data.repository.user.IUserRepository;
 import com.example.welldrink.model.Result;
 import com.example.welldrink.model.User;
+import com.example.welldrink.ui.MainActivity;
 import com.example.welldrink.ui.viewModel.UserViewModel;
 import com.example.welldrink.ui.viewModel.UserViewModelFactory;
 import com.example.welldrink.util.ServiceLocator;
@@ -69,6 +71,7 @@ public class SignupFragment extends Fragment {
                         if(result.isSuccess()){
                             Log.d("AUTH", "result.isSuccess()");
                             User user = ((Result.Success<User>) result).getData();
+                            switchActivities();
                         }else{
                             Log.d("AUTH", "ERROR in registration");
                         }
@@ -76,6 +79,11 @@ public class SignupFragment extends Fragment {
                 );
             }
         });
+    }
+
+    private void switchActivities() {
+        Intent switchActivityIntent = new Intent(getContext(), MainActivity.class);
+        startActivity(switchActivityIntent);
     }
 
     private boolean checkData(String username, String mail, String password, String passwordConf){
