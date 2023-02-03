@@ -79,59 +79,14 @@
         </HorizontalScrollView>
     </ScrollView>
 
-    <ScrollView
-        android:id="@+id/research_scvResult"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/research_rscv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/research_gdlEnd"
         app:layout_constraintStart_toStartOf="@+id/research_gdlBegin"
-        app:layout_constraintTop_toBottomOf="@+id/research_scvFilter">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/research_cardview"
-                style="?attr/materialCardViewElevatedStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/drink_small_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/research_card_img"
-                        android:src="@drawable/ic_baseline_local_drink_128"
-                        tools:ignore="ImageContrastCheck" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/drink_small_txt"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/research_card1_txt"
-                            android:textAppearance="?attr/textAppearanceTitleMedium"
-                            android:textSize="24sp" />
-                    </LinearLayout>
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/research_scvFilter"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
