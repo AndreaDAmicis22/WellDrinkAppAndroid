@@ -60,10 +60,10 @@ public class SignupFragment extends Fragment {
         });
         Button registration = view.findViewById(R.id.signup_btnSignup);
         registration.setOnClickListener(v -> {
-            String username = ((TextView) view.findViewById(R.id.signup_txtUsername)).getText().toString();
-            String email = ((TextView) view.findViewById(R.id.signup_txtEmail)).getText().toString();
-            String password = ((TextView) view.findViewById(R.id.signup_txtPsw)).getText().toString();
-            String passwordConf = ((TextView) view.findViewById(R.id.signup_txtConfPsw)).getText().toString();
+            String username = ((TextView) view.findViewById(R.id.signup_txtUsername)).getText().toString().trim();
+            String email = ((TextView) view.findViewById(R.id.signup_txtEmail)).getText().toString().trim();
+            String password = ((TextView) view.findViewById(R.id.signup_txtPsw)).getText().toString().trim();
+            String passwordConf = ((TextView) view.findViewById(R.id.signup_txtConfPsw)).getText().toString().trim();
             if(checkData(username, email, password, passwordConf)){
                 if(!userViewModel.isAuthError()){
                     Log.d("AUTH", "checkData done");
