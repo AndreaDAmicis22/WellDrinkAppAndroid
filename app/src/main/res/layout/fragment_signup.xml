@@ -114,13 +114,32 @@
         app:layout_constraintStart_toStartOf="@+id/signup_gdlBegin"
         app:layout_constraintTop_toBottomOf="@+id/signup_txtConfpswLayout" />
 
+    <TextView
+        android:id="@+id/signup_txtOr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_txtOr"
+        app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
+        app:layout_constraintStart_toStartOf="@+id/signup_gdlBegin"
+        app:layout_constraintTop_toBottomOf="@+id/signup_btnSignup" />
+
     <Button
-        android:id="@+id/signup_btnBackLogin"
+        android:id="@+id/signup_btnLogin"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/signup_btnBackLogin"
+        app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
+        app:layout_constraintStart_toStartOf="@+id/signup_gdlBegin"
+        app:layout_constraintTop_toBottomOf="@+id/signup_txtOr" />
+
+    <Button
+        android:id="@+id/signup_btnGoogle"
         style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="@string/signup_btnBackLogin"
+        android:text="@string/login_btnLoginGoogle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
         app:layout_constraintStart_toStartOf="@+id/signup_gdlBegin" />

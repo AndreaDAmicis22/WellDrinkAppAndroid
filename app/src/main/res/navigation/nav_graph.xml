@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment_signup">
+    app:startDestination="@id/fragment_main">
     <fragment
         android:id="@+id/fragment_main"
         android:name="com.example.welldrink.ui.MainFragment"
@@ -42,10 +42,4 @@
             android:defaultValue="Drink name" />
     </fragment>
 
-    <fragment
-        android:id="@+id/fragment_signup"
-        android:name="com.example.welldrink.SignupFragment"
-        android:label="@string/nav_profile"
-        tools:layout="@layout/fragment_signup" >
-    </fragment>
 </navigation>

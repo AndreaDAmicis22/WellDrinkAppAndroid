@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,19 +21,13 @@ import com.example.welldrink.model.User;
 import com.example.welldrink.ui.viewModel.UserViewModel;
 import com.example.welldrink.ui.viewModel.UserViewModelFactory;
 import com.example.welldrink.util.ServiceLocator;
-import com.google.android.material.textfield.TextInputEditText;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SignupFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SignupFragment extends Fragment {
 
     private UserViewModel userViewModel;
 
     public SignupFragment() {
-        // Required empty public constructor
+
     }
 
     public static SignupFragment newInstance() { return new SignupFragment(); }
@@ -58,13 +53,16 @@ public class SignupFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Button button = view.findViewById(R.id.signup_btnLogin);
+        button.setOnClickListener(view1 -> {
+            Navigation.findNavController(requireView()).navigate(R.id.action_signupFragment_to_loginFragment);
+        });
         Button registration = view.findViewById(R.id.signup_btnSignup);
         registration.setOnClickListener(v -> {
             String username = ((TextView) view.findViewById(R.id.signup_txtUsername)).getText().toString();
             String email = ((TextView) view.findViewById(R.id.signup_txtEmail)).getText().toString();
             String password = ((TextView) view.findViewById(R.id.signup_txtPsw)).getText().toString();
             String passwordConf = ((TextView) view.findViewById(R.id.signup_txtConfPsw)).getText().toString();
-
             if(checkData(username, email, password, passwordConf)){
                 Log.d("AUTH", "checkData done");
 
@@ -76,13 +74,8 @@ public class SignupFragment extends Fragment {
                         }
                     }
                 );
-
             }
-
-
         });
-
-
     }
 
     private boolean checkData(String username, String mail, String password, String passwordConf){
