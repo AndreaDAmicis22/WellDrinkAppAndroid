@@ -18,11 +18,17 @@ public class UserAuthenticationRemoteDataSource extends BaseUserAuthenticationRe
             if(task.isSuccessful()){
                 Log.d("AUTH", "Signup-taskSuccessful");
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                userResponseCallback.onSuccessFromAuthentication(
-                        new User(firebaseUser.getDisplayName(), email, firebaseUser.getUid())
-                );
+                if(firebaseUser != null){
+                    userResponseCallback.onSuccessFromAuthentication(
+                            new User(firebaseUser.getDisplayName(), email, firebaseUser.getUid())
+                    );
+                }else{
+                    Log.d("AUTH", "FirebaseUser == null");
+                    Log.e("AUTH", task.getException().getMessage());
+                }
             }else{
                 Log.d("AUTH", "Signup-taskFailed");
+                Log.e("AUTH", task.getException().getMessage());
             }
         });
     }
