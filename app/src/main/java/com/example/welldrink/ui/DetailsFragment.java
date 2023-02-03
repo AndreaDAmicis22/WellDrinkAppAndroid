@@ -27,6 +27,7 @@ import java.util.List;
 
 public class DetailsFragment  extends Fragment {
 
+    private boolean onLike;
     public DetailsFragment() {
         // Required empty public constructor
     }
@@ -45,6 +46,10 @@ public class DetailsFragment  extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_details, container, false);
+        ImageButton btnLike = view.findViewById(R.id.details_btnLike);
+        btnLike.setOnClickListener(view1 -> {
+             onLike = likeOn(btnLike, onLike);
+        });
         return view;
     }
 
@@ -62,5 +67,18 @@ public class DetailsFragment  extends Fragment {
         DetailRecyclerViewAdapter adapter = new DetailRecyclerViewAdapter(array);
         detailsRecycleView.setAdapter(adapter);
 
+    }
+
+    private Boolean likeOn(ImageButton button, Boolean bool){
+        if(bool == false){
+            button.setPressed(true);
+            button.setActivated(true);
+            return true;
+        }
+        else {
+            button.setPressed(false);
+            button.setActivated(false);
+        }
+        return false;
     }
 }
