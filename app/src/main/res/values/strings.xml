@@ -49,4 +49,7 @@
     <string name="login_btnLogin">Login</string>
     <string name="login_txtOr">OR</string>
     <string name="login_btnLoginGoogle">Login with Google</string>
+    <string name="signup_txtTitle">Sign up</string>
+    <string name="signup_txtUsername">Username</string>
+    <string name="login_txtConfPsw">Confirm password</string>
 </resources>
