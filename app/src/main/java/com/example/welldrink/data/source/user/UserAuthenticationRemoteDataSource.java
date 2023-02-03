@@ -27,10 +27,32 @@ public class UserAuthenticationRemoteDataSource extends BaseUserAuthenticationRe
                 }else{
                     Log.d("AUTH", "FirebaseUser == null");
                     Log.e("AUTH", task.getException().getMessage());
+                    userResponseCallback.onFailureFromAuthentication(task.getException().getMessage());
                 }
             }else{
                 Log.d("AUTH", "Signup-taskFailed");
                 Log.e("AUTH", task.getException().getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void signIn(String email, String password) {
+        Log.d("AUTH", "dataSource SignIn with " + email + " " + password);
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                if(firebaseUser != null){
+                    userResponseCallback.onSuccessFromAuthentication(new User(
+                            firebaseUser.getDisplayName(), email, firebaseUser.getUid()
+                    ));
+                }else{
+                    Log.d("AUTH", "FirebaseUser == null");
+                    userResponseCallback.onFailureFromAuthentication(task.getException().getMessage());
+                }
+            }else{
+                Log.d("AUTH", "login task failed");
+                userResponseCallback.onFailureFromAuthentication(task.getException().getMessage());
             }
         });
     }

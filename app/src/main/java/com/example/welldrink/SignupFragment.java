@@ -26,9 +26,7 @@ public class SignupFragment extends Fragment {
 
     private UserViewModel userViewModel;
 
-    public SignupFragment() {
-
-    }
+    public SignupFragment() {}
 
     public static SignupFragment newInstance() { return new SignupFragment(); }
 
@@ -71,6 +69,8 @@ public class SignupFragment extends Fragment {
                         if(result.isSuccess()){
                             Log.d("AUTH", "result.isSuccess()");
                             User user = ((Result.Success<User>) result).getData();
+                        }else{
+                            Log.d("AUTH", "ERROR in registration");
                         }
                     }
                 );
