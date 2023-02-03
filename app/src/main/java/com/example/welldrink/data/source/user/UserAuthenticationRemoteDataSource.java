@@ -32,6 +32,7 @@ public class UserAuthenticationRemoteDataSource extends BaseUserAuthenticationRe
             }else{
                 Log.d("AUTH", "Signup-taskFailed");
                 Log.e("AUTH", task.getException().getMessage());
+                userResponseCallback.onFailureFromAuthentication(task.getException().getMessage());
             }
         });
     }

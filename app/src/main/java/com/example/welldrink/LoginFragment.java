@@ -61,10 +61,11 @@ public class LoginFragment extends Fragment {
             String email = ((TextView) view.findViewById(R.id.login_txtEmail)).getText().toString();
             String password = ((TextView) view.findViewById(R.id.login_txtPsw)).getText().toString();
             if(userViewModel.isAuthError()){
-                userViewModel.getUser(email, password);
+                userViewModel.getUser(email, password, true);
             }else{
                 userViewModel.getUserMutableLiveData(email, password, true).observe(
                     getViewLifecycleOwner(), result -> {
+                        Log.d("AUTH", "observer");
                         if(result.isSuccess()){
                             Log.d("AUTH", "result.isSuccess()");
                             User user = ((Result.Success<User>) result).getData();
