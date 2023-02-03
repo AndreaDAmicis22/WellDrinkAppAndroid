@@ -38,10 +38,8 @@ public class SignupFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("SignupFragment", "onCreate");
-        IUserRepository userRepository = ServiceLocator.getInstance().getUserRepository();
-        userViewModel = new ViewModelProvider(
-                requireActivity(),
-                new UserViewModelFactory(userRepository)).get(UserViewModel.class);
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        userViewModel.setAuthError(false);
         Log.d("SignupFragment", "onCreateEnd");
     }
 
