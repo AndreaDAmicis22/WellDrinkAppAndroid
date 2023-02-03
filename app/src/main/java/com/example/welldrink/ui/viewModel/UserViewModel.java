@@ -11,12 +11,12 @@ import com.example.welldrink.model.Result;
 public class UserViewModel extends ViewModel {
 
     private final IUserRepository userRepository;
-
     private MutableLiveData<Result> userMutableLiveData;
+    private boolean authError;
 
     public UserViewModel(IUserRepository userRepository){
-        Log.d("viewModel", "ViewModelConstructor");
         this.userRepository = userRepository;
+        this.authError = false;
     }
 
     public MutableLiveData<Result> getUserMutableLiveData(String email, String password, boolean isLogIn){
@@ -26,8 +26,19 @@ public class UserViewModel extends ViewModel {
         return userMutableLiveData;
     }
 
+    public void getUser(String email, String password){
+        setUserMutableLiveData(email, password, true);
+    }
+
     private void setUserMutableLiveData(String email, String password, boolean isLogIn){
         this.userMutableLiveData = this.userRepository.getUser(email, password, isLogIn);
     }
 
+    public boolean isAuthError(){
+        return this.authError;
+    }
+
+    public void setAuthError(boolean authError) {
+        this.authError = authError;
+    }
 }

@@ -12,4 +12,6 @@ public abstract class BaseUserAuthenticationRemoteDataSource {
 
     public abstract void signUp(String email, String password);
 
+    public abstract void signIn(String email, String password);
+
 }

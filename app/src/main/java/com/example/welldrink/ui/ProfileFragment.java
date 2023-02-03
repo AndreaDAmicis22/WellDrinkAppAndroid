@@ -55,13 +55,15 @@ public class ProfileFragment extends Fragment {
         Button tastedListButton = view.findViewById(R.id.profile_grd_btnTastedList);
         Button top20Button = view.findViewById(R.id.profile_btnTop20);
 
+        List<Drink> array = new ArrayList<>();
         favoriteDrinkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<Drink> array = new ArrayList<>();
+                array.clear();
                 for (int i = 0; i < 1000; i++){
                     array.add(new Drink(i, Integer.toString(1),null, null, null));
                 }
+                if (isFavoriteDrinkButton == true) array.clear();
                 isFavoriteDrinkButton = changeColor(favoriteDrinkButton, isFavoriteDrinkButton);
                 resetColor(tastedListButton, top20Button, favoriteIngredientButton);
                 isTastedListButton = isTop20Button = isFavoriteIngredientButton = false;
@@ -73,11 +75,11 @@ public class ProfileFragment extends Fragment {
         favoriteIngredientButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                List<Drink> array = new ArrayList<>();
+                array.clear();
                 for (int i = 0; i < 1000; i++){
                     array.add(new Drink(i, Integer.toString(2),null, null, null));
                 }
-
+                if (isFavoriteIngredientButton == true) array.clear();
                 isFavoriteIngredientButton = changeColor(favoriteIngredientButton, isFavoriteIngredientButton);
                 resetColor(top20Button, tastedListButton, favoriteDrinkButton);
                 isTop20Button = isTastedListButton = isFavoriteDrinkButton = false;
@@ -89,10 +91,11 @@ public class ProfileFragment extends Fragment {
         tastedListButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                List<Drink> array = new ArrayList<>();
+                array.clear();
                 for (int i = 0; i < 1000; i++){
                     array.add(new Drink(i, Integer.toString(3),null, null, null));
                 }
+                if (isTastedListButton == true) array.clear();
                 isTastedListButton = changeColor(tastedListButton, isTastedListButton);
                 resetColor(top20Button, favoriteIngredientButton, favoriteDrinkButton);
                 isTop20Button = isFavoriteIngredientButton = isFavoriteDrinkButton = false;
@@ -104,10 +107,11 @@ public class ProfileFragment extends Fragment {
         top20Button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                List<Drink> array = new ArrayList<>();
+                array.clear();
                 for (int i = 0; i < 1000; i++){
-                    array.add(new Drink(i, Integer.toString(5),null, null, null));
+                    array.add(new Drink(i, Integer.toString(4),null, null, null));
                 }
+                if (isTop20Button == true) array.clear();
                 isTop20Button = changeColor(top20Button, isTop20Button);
                 resetColor(tastedListButton, favoriteIngredientButton, favoriteDrinkButton);
                 isTastedListButton = isFavoriteIngredientButton = isFavoriteDrinkButton = false;
