@@ -56,45 +56,61 @@ public class ResearchFragment extends Fragment {
         Button taste = view.findViewById(R.id.research_filter_btnTaste);
         Button glass = view.findViewById(R.id.research_filter_btnGlass);
         boolean darkMode = isDarkMode();
+        int bgDark = getResources().getColor(R.color.md_theme_dark_inverseOnSurface);
+        int txtDark = getResources().getColor(R.color.md_theme_dark_primary);
+        int bgLight = getResources().getColor(R.color.md_theme_light_inverseOnSurface);
+        int txtLight = getResources().getColor(R.color.md_theme_light_primary);
         ingredient.setOnClickListener(view1 -> {
-            onIngredient = changeColor(onIngredient, ingredient);
-            if (onIngredient) {
-                resetOther(darkMode, name, taste, glass);
-                onName = false;
-                onTaste = false;
-                onGlass = false;
+            if (darkMode) {
+                onIngredient = changeColor(onIngredient, ingredient, bgDark, txtDark);
+                resetOthers(name, taste, glass, bgDark, txtDark);
             }
-            onIngredient = !onIngredient;
+            else {
+                onIngredient = changeColor(onIngredient, ingredient, bgLight, txtLight);
+                resetOthers(name, taste, glass, bgLight, txtLight);
+            }
+            onName = false;
+            onTaste = false;
+            onGlass = false;
         });
         name.setOnClickListener(view1 -> {
-            onName = changeColor(onName, name);
-            if (onName) {
-                resetOther(darkMode, ingredient, taste, glass);
-                onIngredient = false;
-                onTaste = false;
-                onGlass = false;
+            if (darkMode) {
+                onName = changeColor(onName, name, bgDark, txtDark);
+                resetOthers(ingredient, taste, glass, bgDark, txtDark);
             }
-            onName = !onName;
+            else {
+                onName = changeColor(onName, name, bgLight, txtLight);
+                resetOthers(ingredient, taste, glass, bgLight, txtLight);
+            }
+            onIngredient = false;
+            onTaste = false;
+            onGlass = false;
         });
         taste.setOnClickListener(view1 -> {
-            onTaste = changeColor(onTaste, taste);
-            if (onTaste) {
-                resetOther(darkMode, ingredient, name, glass);
-                onIngredient = false;
-                onName = false;
-                onGlass = false;
+            if (darkMode) {
+                onTaste = changeColor(onTaste, taste, bgDark, txtDark);
+                resetOthers(ingredient, name, glass, bgDark, txtDark);
             }
-            onTaste = !onTaste;
+            else {
+                onTaste = changeColor(onTaste, taste, bgLight, txtLight);
+                resetOthers(ingredient, name, glass, bgLight, txtLight);
+            }
+            onIngredient = false;
+            onName = false;
+            onGlass = false;
         });
         glass.setOnClickListener(view1 -> {
-            onGlass = changeColor(onGlass, glass);
-            if (onGlass) {
-                resetOther(darkMode, ingredient, name, taste);
-                onIngredient = false;
-                onName = false;
-                onTaste = false;
+            if (darkMode) {
+                onGlass = changeColor(onGlass, glass, bgDark, txtDark);
+                resetOthers(ingredient, taste, name, bgDark, txtDark);
             }
-            onGlass = !onGlass;
+            else {
+                onGlass = changeColor(onGlass, glass, bgLight, txtLight);
+                resetOthers(ingredient, taste, name, bgLight, txtLight);
+            }
+            onIngredient = false;
+            onTaste = false;
+            onName = false;
         });
         return view;
     }
@@ -113,33 +129,24 @@ public class ResearchFragment extends Fragment {
         researchRecycleView.setAdapter(adapter);
     }
 
-    private boolean changeColor(boolean previous, Button button) {
+    private boolean changeColor(boolean previous, Button button, int bg, int txt) {
         if (previous) {
-            button.setBackgroundColor(getResources().getColor(R.color.md_theme_dark_inverseOnSurface));
-            button.setTextColor(getResources().getColor(R.color.md_theme_dark_primary));
+            button.setBackgroundColor(bg);
+            button.setTextColor(txt);
         }
         else {
-            button.setBackgroundColor(getResources().getColor(R.color.md_theme_dark_onSurface));
-            button.setTextColor(getResources().getColor(R.color.md_theme_dark_surface));
+            button.setBackgroundColor(getResources().getColor(R.color.md_theme_light_error));
+            button.setTextColor(getResources().getColor(R.color.md_theme_dark_error));
+            //button.setBackgroundColor(getResources().getColor(R.color.md_theme_dark_onSurface));
+            //button.setTextColor(getResources().getColor(R.color.md_theme_dark_surface));
         }
         return !previous;
     }
 
-    private void resetOther(boolean darkMode, Button b1, Button b2, Button b3) {
-        int bgDark = getResources().getColor(R.color.md_theme_dark_inverseOnSurface);
-        int txtDark = getResources().getColor(R.color.md_theme_dark_primary);
-        int bgLight = getResources().getColor(R.color.md_theme_light_inverseOnSurface);
-        int txtLight = getResources().getColor(R.color.md_theme_light_primary);
-        if (darkMode) {
-            resetColor(b1, bgDark, txtDark);
-            resetColor(b2, bgDark, txtDark);
-            resetColor(b3, bgDark, txtDark);
-        }
-        else {
-            resetColor(b1, bgLight, txtLight);
-            resetColor(b2, bgLight, txtLight);
-            resetColor(b3, bgLight, txtLight);
-        }
+    private void resetOthers(Button b1, Button b2, Button b3, int bg, int txt) {
+        resetColor(b1, bg, txt);
+        resetColor(b2, bg, txt);
+        resetColor(b3, bg, txt);
     }
 
     private void resetColor(Button button, int bg, int txt) {
