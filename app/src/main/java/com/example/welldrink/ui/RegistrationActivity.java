@@ -14,14 +14,6 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        Button change = findViewById(R.id.reg_change);
-        change.setOnClickListener(view -> {
-            switchActivities();
-        });
     }
-
-    private void switchActivities() {
-        Intent switchActivityIntent = new Intent(this, MainActivity.class);
-        startActivity(switchActivityIntent);
-    }
+    
 }
