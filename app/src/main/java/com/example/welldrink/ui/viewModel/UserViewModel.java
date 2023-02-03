@@ -23,9 +23,6 @@ public class UserViewModel extends ViewModel {
         if(userMutableLiveData == null){
             setUserMutableLiveData(email, password, isLogIn);
         }
-//        else{
-//            getUser(email, password, isLogIn);
-//        }
         return userMutableLiveData;
     }
 
