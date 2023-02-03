@@ -1,5 +1,7 @@
 package com.example.welldrink;
 
+import static com.example.welldrink.util.Constants.MINIMUM_PASSWORD_LENGTH;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -64,19 +66,27 @@ public class SignupFragment extends Fragment {
             String password = ((TextView) view.findViewById(R.id.signup_txtPsw)).getText().toString();
             String passwordConf = ((TextView) view.findViewById(R.id.signup_txtConfPsw)).getText().toString();
             if(checkData(username, email, password, passwordConf)){
-                Log.d("AUTH", "checkData done");
-
-                userViewModel.getUserMutableLiveData(email, password, false).observe(
-                    getViewLifecycleOwner(), result -> {
-                        if(result.isSuccess()){
-                            Log.d("AUTH", "result.isSuccess()");
-                            User user = ((Result.Success<User>) result).getData();
-                            switchActivities();
-                        }else{
-                            Log.d("AUTH", "ERROR in registration");
-                        }
-                    }
-                );
+                if(!userViewModel.isAuthError()){
+                    Log.d("AUTH", "checkData done");
+                    userViewModel.getUserMutableLiveData(email, password, false).observe(
+                            getViewLifecycleOwner(), result -> {
+                                Log.d("AUTH", "observer");
+                                if(result.isSuccess()){
+                                    Log.d("AUTH", "result.isSuccess()");
+                                    User user = ((Result.Success<User>) result).getData();
+                                    userViewModel.setAuthError(false);
+                                    switchActivities();
+                                }else{
+                                    userViewModel.setAuthError(true);
+                                    Log.d("AUTH", "ERROR in registration");
+                                }
+                            }
+                    );
+                }else{
+                    userViewModel.getUser(email, password, false);
+                }
+            }else{
+                userViewModel.setAuthError(true);
             }
         });
     }
@@ -87,9 +97,15 @@ public class SignupFragment extends Fragment {
     }
 
     private boolean checkData(String username, String mail, String password, String passwordConf){
-        if(password.equals(passwordConf)){
+        if(password.equals(passwordConf) && isPasswordOk(password)){
             return true;
         }
+        return false;
+    }
+
+    private boolean isPasswordOk(String password){
+        if(!password.isEmpty() && password.length() >= MINIMUM_PASSWORD_LENGTH)
+            return true;
         return false;
     }
 }
