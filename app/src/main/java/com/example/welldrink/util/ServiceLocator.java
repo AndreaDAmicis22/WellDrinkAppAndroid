@@ -31,7 +31,6 @@ public class ServiceLocator {
 
     public IUserRepository getUserRepository(){
         BaseUserRemoteDataSource userRemoteDataSource = new UserRemoteDataSource();
-        Log.d("serv", "end");
         BaseUserAuthenticationRemoteDataSource userAuthenticationRemoteDataSource = new UserAuthenticationRemoteDataSource();
         return new UserRepository(userRemoteDataSource, userAuthenticationRemoteDataSource);
     }
