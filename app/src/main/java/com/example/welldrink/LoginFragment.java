@@ -23,6 +23,7 @@ import com.example.welldrink.ui.MainActivity;
 import com.example.welldrink.ui.viewModel.UserViewModel;
 import com.example.welldrink.ui.viewModel.UserViewModelFactory;
 import com.example.welldrink.util.ServiceLocator;
+import com.google.android.material.snackbar.Snackbar;
 
 public class LoginFragment extends Fragment {
 
@@ -76,11 +77,14 @@ public class LoginFragment extends Fragment {
                                 }else{
                                     Log.d("AUTH", "ERROR login result.isSuccess()");
                                     userViewModel.setAuthError(true);
+                                    Snackbar.make(requireActivity().findViewById(android.R.id.content),
+                                            ((Result.Error) result).getMessage(),
+                                            Snackbar.LENGTH_SHORT).show();
                                 }
                             }
                     );
                 }else{
-                    Log.d("AUTH", "CheckData false");
+                    Log.d("AUTH", "data empty");
                 }
             }
         });

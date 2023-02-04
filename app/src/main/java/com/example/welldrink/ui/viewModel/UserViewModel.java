@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.welldrink.data.repository.user.IUserRepository;
 import com.example.welldrink.model.Result;
+import com.example.welldrink.model.User;
 
 public class UserViewModel extends ViewModel {
 
@@ -28,6 +29,10 @@ public class UserViewModel extends ViewModel {
 
     public void getUser(String email, String password, boolean isLogin){
         setUserMutableLiveData(email, password, isLogin);
+    }
+
+    public User getLoggedUser(){
+        return this.userRepository.getLoggedUser();
     }
 
     private void setUserMutableLiveData(String email, String password, boolean isLogIn){

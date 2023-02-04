@@ -13,11 +13,11 @@ import com.example.welldrink.model.Favorite;
 
 import java.util.List;
 
-public class MainFavoriteRecyclerAdapter extends RecyclerView.Adapter<MainFavoriteRecyclerAdapter.FavoriteViewHolder> {
+public class MainFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MainFavoriteRecyclerViewAdapter.FavoriteViewHolder> {
 
     private final List<Favorite> favs;
 
-    public MainFavoriteRecyclerAdapter(List<Favorite> favs) {
+    public MainFavoriteRecyclerViewAdapter(List<Favorite> favs) {
         this.favs = favs;
     }
 

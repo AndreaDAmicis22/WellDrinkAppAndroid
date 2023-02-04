@@ -36,10 +36,6 @@
         android:name="com.example.welldrink.ui.DetailsFragment"
         android:label="@string/nav_main"
         tools:layout="@layout/fragment_details">
-        <argument
-            android:name="name"
-            app:argType="string"
-            android:defaultValue="Drink name" />
     </fragment>
 
 </navigation>

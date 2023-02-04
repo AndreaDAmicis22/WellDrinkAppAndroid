@@ -11,6 +11,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SearchView;
 
 import com.example.welldrink.R;
 import com.example.welldrink.databinding.ActivityMainBinding;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
         BottomNavigationView bottomNav = findViewById(R.id.home_navbar);
         NavigationUI.setupWithNavController(bottomNav, navController);
+        SearchView searchView = findViewById(R.id.home_inpSearch);
+        searchView.setOnClickListener(v -> searchView.setIconified(false));
     }
 
 }

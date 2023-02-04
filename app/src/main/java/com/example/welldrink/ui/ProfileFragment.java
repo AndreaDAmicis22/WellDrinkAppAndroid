@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,27 +16,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.welldrink.R;
 import com.example.welldrink.adapter.ProfileRecyclerViewAdapter;
+import com.example.welldrink.data.repository.user.IUserRepository;
 import com.example.welldrink.model.Drink;
+import com.example.welldrink.model.User;
+import com.example.welldrink.ui.viewModel.UserViewModel;
+import com.example.welldrink.ui.viewModel.UserViewModelFactory;
+import com.example.welldrink.util.ServiceLocator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
-    private Boolean isFavoriteDrinkButton;
-    private Boolean isFavoriteIngredientButton;
-    private Boolean isTastedListButton;
-    private Boolean isTop20Button;
+    private boolean isTopDrink;
+    private boolean isTopIngredient;
+    private boolean isFavoriteDrink;
+    private boolean isFavoriteIngredient;
+    private UserViewModel userViewModel;
+    private User user;
 
     private static final String TAG = ProfileFragment.class.getSimpleName();
 
     public ProfileFragment() {
-        isFavoriteDrinkButton = false;
-        isFavoriteIngredientButton = false;
-        isTastedListButton = false;
-        isTop20Button = false;
+        isTopDrink = false;
+        isTopIngredient = false;
+        isFavoriteDrink = false;
+        isFavoriteIngredient = false;
     }
 
     public static ProfileFragment newInstance() {
@@ -44,123 +54,98 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        IUserRepository userRepository = ServiceLocator.getInstance().getUserRepository();
+        userViewModel = new ViewModelProvider(
+                requireActivity(),
+                new UserViewModelFactory(userRepository)).get(UserViewModel.class);
+        user = userViewModel.getLoggedUser();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        int backgroundColorDark = getResources().getColor(R.color.md_theme_dark_inverseOnSurface);
-        int textColorDark = getResources().getColor(R.color.md_theme_dark_primary);
-        int backgroundColorLight = getResources().getColor(R.color.md_theme_light_inverseOnSurface);
-        int textColorLight = getResources().getColor(R.color.md_theme_light_primary);
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         RecyclerView profileRecycleView = view.findViewById(R.id.profile_rcv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
         profileRecycleView.setLayoutManager(linearLayoutManager);
-        Button favoriteDrinkButton = view.findViewById(R.id.profile_grd_btnFavoriteDrink);
-        Button favoriteIngredientButton = view.findViewById(R.id.profile_grd_btnFavoriteIngredient);
-        Button tastedListButton = view.findViewById(R.id.profile_grd_btnTastedList);
-        Button top20Button = view.findViewById(R.id.profile_btnTop20);
-
+        Button topDrink = view.findViewById(R.id.profile_grd_btnTopDrink);
+        Button topIngredient = view.findViewById(R.id.profile_grd_btnTopIngredient);
+        Button favoriteDrink = view.findViewById(R.id.profile_grd_btnFavoriteDrink);
+        Button favoriteIngredient = view.findViewById(R.id.profile_btnFavoriteIngredient);
+        TextView profileName = view.findViewById(R.id.profile_txtNameProfile);
+        profileName.setText(user.getEmail());
         List<Drink> array = new ArrayList<>();
-        Boolean darkMode = isDarkMode();
-        favoriteDrinkButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                array.clear();
-                for (int i = 0; i < 1000; i++){
-                    array.add(new Drink(i, Integer.toString(1),null, null, null));
-                }
-                if (isFavoriteDrinkButton)
-                    array.clear();
-                if(darkMode) {
-                    isFavoriteDrinkButton = changeColor(favoriteDrinkButton, isFavoriteDrinkButton, backgroundColorDark , textColorDark);
-                    resetColor(tastedListButton, top20Button, favoriteIngredientButton, backgroundColorDark, textColorDark);
-                } else {
-                    isFavoriteDrinkButton = changeColor(favoriteDrinkButton, isFavoriteDrinkButton, backgroundColorLight, textColorLight);
-                    resetColor(tastedListButton, top20Button, favoriteIngredientButton,  backgroundColorLight, textColorLight);
-                }
-                isTastedListButton = isTop20Button = isFavoriteIngredientButton = false;
-                ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
-                profileRecycleView.setAdapter(adapter);
-            }
+
+        topDrink.setOnClickListener(el -> {
+            isTopDrink = manageRecycleView(array, isTopDrink, topDrink, topIngredient, favoriteDrink, favoriteIngredient, 1);
+            isTopIngredient = isFavoriteDrink = isFavoriteIngredient = false;
+            ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array, drink -> {
+                Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_fragment_details);
+                isTopDrink = false;
+            });
+            profileRecycleView.setAdapter(adapter);
         });
 
-        favoriteIngredientButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                array.clear();
-                for (int i = 0; i < 1000; i++){
-                    array.add(new Drink(i, Integer.toString(2),null, null, null));
-                }
-                if (isFavoriteIngredientButton)
-                    array.clear();
-                if(darkMode){
-                    isFavoriteIngredientButton = changeColor(favoriteIngredientButton, isFavoriteIngredientButton, backgroundColorDark , textColorDark);
-                    resetColor(top20Button, tastedListButton, favoriteDrinkButton, backgroundColorDark , textColorDark);
-                }else{
-                    isFavoriteIngredientButton = changeColor(favoriteIngredientButton, isFavoriteIngredientButton, backgroundColorLight, textColorLight);
-                    resetColor(top20Button, tastedListButton, favoriteDrinkButton, backgroundColorLight, textColorLight);
-                }
-                isTop20Button = isTastedListButton = isFavoriteDrinkButton = false;
-                ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
-                profileRecycleView.setAdapter(adapter);
-            }
+        topIngredient.setOnClickListener(el -> {
+            isTopIngredient = manageRecycleView(array,  isTopIngredient, topIngredient, topDrink, favoriteDrink, favoriteIngredient, 2);
+            isTopDrink = isFavoriteDrink = isFavoriteIngredient = false;
+            ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array, drink -> {
+                Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_fragment_details);
+                isTopIngredient = false;
+            });
+            profileRecycleView.setAdapter(adapter);
         });
 
-        tastedListButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                array.clear();
-                for (int i = 0; i < 1000; i++){
-                    array.add(new Drink(i, Integer.toString(3),null, null, null));
-                }
-                if (isTastedListButton)
-                    array.clear();
-                if(darkMode){
-                    isTastedListButton = changeColor(tastedListButton, isTastedListButton, backgroundColorDark , textColorDark);
-                    resetColor(top20Button, favoriteIngredientButton, favoriteDrinkButton, backgroundColorDark , textColorDark);
-                }else{
-                    isTastedListButton = changeColor(tastedListButton, isTastedListButton, backgroundColorLight, textColorLight);
-                    resetColor(top20Button, favoriteIngredientButton, favoriteDrinkButton, backgroundColorLight, textColorLight);
-                }
-                isTop20Button = isFavoriteIngredientButton = isFavoriteDrinkButton = false;
-                ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
-                profileRecycleView.setAdapter(adapter);
-            }
+        favoriteDrink.setOnClickListener(el -> {
+            isFavoriteDrink = manageRecycleView(array,  isFavoriteDrink, favoriteDrink, topDrink, topIngredient, favoriteIngredient, 3);
+            isTopDrink = isTopIngredient = isFavoriteIngredient = false;
+            ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array, drink -> {
+                Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_fragment_details);
+                isFavoriteDrink = false;
+            });
+            profileRecycleView.setAdapter(adapter);
         });
 
-        top20Button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                array.clear();
-                for (int i = 0; i < 1000; i++){
-                    array.add(new Drink(i, Integer.toString(4),null, null, null));
-                }
-                if (isTop20Button)
-                    array.clear();
-                if(darkMode){
-                    isTop20Button = changeColor(top20Button, isTop20Button, backgroundColorDark , textColorDark);
-                    resetColor(tastedListButton, favoriteIngredientButton, favoriteDrinkButton, backgroundColorDark , textColorDark);
-                }else{
-                    isTop20Button = changeColor(top20Button, isTop20Button, backgroundColorLight, textColorLight);
-                    resetColor(tastedListButton, favoriteIngredientButton, favoriteDrinkButton, backgroundColorLight, textColorLight);
-                }
-                isTastedListButton = isFavoriteIngredientButton = isFavoriteDrinkButton = false;
-                ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
-                profileRecycleView.setAdapter(adapter);
-            }
+        favoriteIngredient.setOnClickListener(el -> {
+            isFavoriteIngredient = manageRecycleView(array,  isFavoriteIngredient, favoriteIngredient, topDrink, topIngredient, favoriteDrink, 4);
+            isTopDrink = isTopIngredient = isFavoriteDrink = false;
+            ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array, drink -> {
+                Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_fragment_details);
+                isFavoriteIngredient = false;
+            });
+            profileRecycleView.setAdapter(adapter);
         });
+
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 
-    private Boolean changeColor(Button button, Boolean bool, int backgroundColor, int textColor){
-        if(bool == false){
+    private boolean manageRecycleView(List<Drink> array, boolean val, Button button1, Button button2, Button button3, Button button4, int j){
+        int backgroundColorDark = getResources().getColor(R.color.md_theme_dark_inverseOnSurface);
+        int textColorDark = getResources().getColor(R.color.md_theme_dark_primary);
+        int backgroundColorLight = getResources().getColor(R.color.md_theme_light_inverseOnSurface);
+        int textColorLight = getResources().getColor(R.color.md_theme_light_primary);
+        boolean darkMode = isDarkMode();
+        array.clear();
+        for (int i = 0; i < 1000; i++){
+            array.add(new Drink(i, Integer.toString(j),null, null, null));
+        }
+        if (val)
+            array.clear();
+        if(darkMode){
+            val = changeColor(button1, val, backgroundColorDark , textColorDark);
+            resetColor(button2, button3, button4, backgroundColorDark , textColorDark);
+        }else{
+            val = changeColor(button1, val, backgroundColorLight, textColorLight);
+            resetColor(button2, button3, button4, backgroundColorLight, textColorLight);
+        }
+        return val;
+    }
+    private boolean changeColor(Button button, boolean bool, int backgroundColor, int textColor){
+        if(!bool){
             button.setBackgroundColor(getResources().getColor(R.color.md_theme_light_primary));
             button.setTextColor(getResources().getColor(R.color.md_theme_light_onPrimary));
             return true;

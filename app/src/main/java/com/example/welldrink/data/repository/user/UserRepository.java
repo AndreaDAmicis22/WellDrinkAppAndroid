@@ -46,6 +46,11 @@ public class UserRepository implements IUserRepository, UserResponseCallback{
     }
 
     @Override
+    public User getLoggedUser() {
+        return userAuthenticationRemoteDataSource.getLoggedUser();
+    }
+
+    @Override
     public void onSuccessFromAuthentication(User user) {
         if(user != null){
             userRemoteDataSource.saveUser(user);
