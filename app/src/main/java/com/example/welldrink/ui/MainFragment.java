@@ -2,7 +2,9 @@ package com.example.welldrink.ui;
 
 import com.example.welldrink.R;
 import com.example.welldrink.adapter.MainFavoriteRecyclerViewAdapter;
+import com.example.welldrink.data.repository.drink.IDrinkRepository;
 import com.example.welldrink.model.Favorite;
+import com.example.welldrink.util.ServiceLocator;
 import com.squareup.picasso.Picasso;
 
 
@@ -33,6 +35,8 @@ public class MainFragment extends Fragment {
 
     private static final String TAG = MainFragment.class.getSimpleName();
 
+    private IDrinkRepository drinkRepository;
+
     private final String[] names;
     private String imgLink;
 
@@ -48,6 +52,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.drinkRepository = ServiceLocator.getInstance().getDrinkRepository();
     }
 
     @Override
@@ -80,6 +85,7 @@ public class MainFragment extends Fragment {
             } while (names[pos].equals(actualName));
             name.setText(names[pos]);
             category.setText(names[pos].toLowerCase());
+            this.drinkRepository.getDrinksByName("Gin");
         });
 
         return view;
