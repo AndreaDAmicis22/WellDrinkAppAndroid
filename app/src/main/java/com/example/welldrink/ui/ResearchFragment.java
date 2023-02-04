@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import android.widget.Button;
 import com.example.welldrink.R;
 import com.example.welldrink.adapter.ProfileRecyclerViewAdapter;
 import com.example.welldrink.model.Drink;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +52,7 @@ public class ResearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_research, container, false);
         Button ingredient = view.findViewById(R.id.research_filter_btnIngredient);
         Button name = view.findViewById(R.id.research_filter_btnName);
-        Button taste = view.findViewById(R.id.research_filter_btnTaste);
+        Button taste = view.findViewById(R.id.research_filter_btnCategory);
         Button glass = view.findViewById(R.id.research_filter_btnGlass);
         boolean darkMode = isDarkMode();
         int bgDark = getResources().getColor(R.color.md_theme_dark_inverseOnSurface);

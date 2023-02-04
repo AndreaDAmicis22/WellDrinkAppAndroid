@@ -6,37 +6,43 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.welldrink.R;
 import com.example.welldrink.adapter.ProfileRecyclerViewAdapter;
 import com.example.welldrink.model.Drink;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.welldrink.model.User;
+import com.example.welldrink.ui.viewModel.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
-    private boolean isFavoriteDrinkButton;
-    private boolean isFavoriteIngredientButton;
-    private boolean isTastedListButton;
-    private boolean isTop20Button;
+    private boolean isTopDrink;
+    private boolean isTopIngredient;
+    private boolean isFavoriteDrink;
+    private boolean isFavoriteIngredient;
+    private final UserViewModel userViewModel;
+    private final User user;
 
     private static final String TAG = ProfileFragment.class.getSimpleName();
 
     public ProfileFragment() {
-        isFavoriteDrinkButton = false;
-        isFavoriteIngredientButton = false;
-        isTastedListButton = false;
-        isTop20Button = false;
+        isTopDrink = false;
+        isTopIngredient = false;
+        isFavoriteDrink = false;
+        isFavoriteIngredient = false;
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        user = userViewModel.getLoggedUser();
     }
 
     public static ProfileFragment newInstance() {
@@ -54,45 +60,50 @@ public class ProfileFragment extends Fragment {
         RecyclerView profileRecycleView = view.findViewById(R.id.profile_rcv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
         profileRecycleView.setLayoutManager(linearLayoutManager);
-        Button favoriteDrinkButton = view.findViewById(R.id.profile_grd_btnFavoriteDrink);
-        Button favoriteIngredientButton = view.findViewById(R.id.profile_grd_btnFavoriteIngredient);
-        Button tastedListButton = view.findViewById(R.id.profile_grd_btnTastedList);
-        Button top20Button = view.findViewById(R.id.profile_btnTop20);
-
+        Button topDrink = view.findViewById(R.id.profile_grd_btnTopDrink);
+        Button topIngredient = view.findViewById(R.id.profile_grd_btnTopIngredient);
+        Button favoriteDrink = view.findViewById(R.id.profile_grd_btnFavoriteDrink);
+        Button favoriteIngredient = view.findViewById(R.id.profile_btnFavoriteIngredient);
+        TextView profileName = view.findViewById(R.id.profile_txtNameProfile);
+        profileName.setText(user.getName());
         List<Drink> array = new ArrayList<>();
 
-        favoriteDrinkButton.setOnClickListener(view14 -> {
-            isFavoriteDrinkButton = manageRecycleView(array, isFavoriteDrinkButton, favoriteDrinkButton, tastedListButton, top20Button, favoriteIngredientButton, 1);
-            isTastedListButton = isTop20Button = isFavoriteIngredientButton = false;
-            ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array, drink ->
-                    Snackbar.make(view14, drink.getName(), Snackbar.LENGTH_SHORT).show());
-            profileRecycleView.setAdapter(adapter);
-        });
-
-        favoriteIngredientButton.setOnClickListener(view13 -> {
-            isFavoriteIngredientButton = manageRecycleView(array,  isFavoriteIngredientButton, favoriteIngredientButton, tastedListButton, top20Button, favoriteDrinkButton, 2);
-            isTastedListButton = isTop20Button = isFavoriteDrinkButton = false;
+        topDrink.setOnClickListener(el -> {
+            isTopDrink = manageRecycleView(array, isTopDrink, topDrink, topIngredient, favoriteDrink, favoriteIngredient, 1);
+            isTopIngredient = isFavoriteDrink = isFavoriteIngredient = false;
             ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array, drink -> {
-                Snackbar.make(view13, drink.getName(), Snackbar.LENGTH_SHORT).show();
+                Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_fragment_details);
+                isTopDrink = false;
             });
             profileRecycleView.setAdapter(adapter);
         });
 
-        tastedListButton.setOnClickListener(view12 -> {
-            isTastedListButton = manageRecycleView(array,  isTastedListButton, tastedListButton, favoriteIngredientButton, top20Button, favoriteDrinkButton, 3);
-            isFavoriteIngredientButton = isTop20Button = isFavoriteDrinkButton = false;
+        topIngredient.setOnClickListener(el -> {
+            isTopIngredient = manageRecycleView(array,  isTopIngredient, topIngredient, topDrink, favoriteDrink, favoriteIngredient, 2);
+            isTopDrink = isFavoriteDrink = isFavoriteIngredient = false;
             ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array, drink -> {
-                    Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_fragment_details);
-                    isTastedListButton = false;
+                Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_fragment_details);
+                isTopIngredient = false;
             });
             profileRecycleView.setAdapter(adapter);
         });
 
-        top20Button.setOnClickListener(view1 -> {
-            isTop20Button = manageRecycleView(array,  isTop20Button, top20Button, favoriteIngredientButton, tastedListButton, favoriteDrinkButton, 4);
-            isFavoriteIngredientButton = isTastedListButton = isFavoriteDrinkButton = false;
+        favoriteDrink.setOnClickListener(el -> {
+            isFavoriteDrink = manageRecycleView(array,  isFavoriteDrink, favoriteDrink, topDrink, topIngredient, favoriteIngredient, 3);
+            isTopDrink = isTopIngredient = isFavoriteIngredient = false;
             ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array, drink -> {
-                //Snackbar.make(view13, drink.getName(), Snackbar.LENGTH_SHORT).show();
+                Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_fragment_details);
+                isFavoriteDrink = false;
+            });
+            profileRecycleView.setAdapter(adapter);
+        });
+
+        favoriteIngredient.setOnClickListener(el -> {
+            isFavoriteIngredient = manageRecycleView(array,  isFavoriteIngredient, favoriteIngredient, topDrink, topIngredient, favoriteDrink, 4);
+            isTopDrink = isTopIngredient = isFavoriteDrink = false;
+            ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array, drink -> {
+                Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_fragment_details);
+                isFavoriteIngredient = false;
             });
             profileRecycleView.setAdapter(adapter);
         });

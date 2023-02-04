@@ -42,8 +42,14 @@ public class DetailsFragment  extends Fragment {
     }
 
 
-    public static DetailsFragment newInstance() {
-        return new DetailsFragment();
+    public static DetailsFragment newInstance(String name, String instructions, ArrayList<Ingredient> ingredients, String image) {
+        DetailsFragment detailsFragment = new DetailsFragment();
+        Bundle args = new Bundle();
+        args.putString("name", name);
+        args.putString("instructions", instructions);
+        args.putString("image", image);
+        detailsFragment.setArguments(args);
+        return detailsFragment;
     }
 
     @Override

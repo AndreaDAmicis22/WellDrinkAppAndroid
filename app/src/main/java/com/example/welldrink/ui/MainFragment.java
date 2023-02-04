@@ -1,7 +1,7 @@
 package com.example.welldrink.ui;
 
 import com.example.welldrink.R;
-import com.example.welldrink.adapter.MainFavoriteRecyclerAdapter;
+import com.example.welldrink.adapter.MainFavoriteRecyclerViewAdapter;
 import com.example.welldrink.model.Favorite;
 
 
@@ -15,7 +15,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,7 +86,7 @@ public class MainFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        MainFavoriteRecyclerAdapter adapter = new MainFavoriteRecyclerAdapter(favs);
+        MainFavoriteRecyclerViewAdapter adapter = new MainFavoriteRecyclerViewAdapter(favs);
         recyclerView.setAdapter(adapter);
     }
 
