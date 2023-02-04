@@ -24,8 +24,8 @@
 
             <ImageView
                 android:id="@+id/drink_small_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
                 android:contentDescription="@string/research_card_img"
                 android:src="@drawable/ic_baseline_local_drink_128" />
 
@@ -48,17 +48,16 @@
 
                 <Button
                     android:id="@+id/drink_btnLike"
-                    style="?attr/materialIconButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="24dp"
+                    style="?attr/materialIconButtonFilledStyle"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/ic_baseline_thumb_up_off_alt_24"
                     android:contentDescription="@string/home_btnProfile"
-                    app:icon="@drawable/ic_baseline_thumb_up_off_alt_24"
-                    app:iconSize="24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="DuplicateSpeakableTextCheck" />
+                    tools:ignore="TouchTargetSizeCheck" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

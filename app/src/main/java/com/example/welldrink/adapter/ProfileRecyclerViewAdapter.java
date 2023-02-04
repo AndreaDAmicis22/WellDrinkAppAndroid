@@ -1,27 +1,38 @@
 package com.example.welldrink.adapter;
 
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.welldrink.model.Drink;
 import com.example.welldrink.R;
+import com.example.welldrink.ui.ProfileFragment;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecyclerViewAdapter.ProfileDrinkViewHolder>{
+public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecyclerViewAdapter.ProfileDrinkViewHolder> {
+
+    private static final String TAG = ProfileRecyclerViewAdapter.class.getSimpleName();
 
     public interface OnItemClickListener {
         void onDrinkClick(Drink drink);
     }
+
     private List<Drink> drinkList;
     private OnItemClickListener onItemClickListener;
-    public ProfileRecyclerViewAdapter(List<Drink> drinkList, OnItemClickListener onItemClickListener){
+
+    public ProfileRecyclerViewAdapter(List<Drink> drinkList, OnItemClickListener onItemClickListener) {
         this.drinkList = drinkList;
         this.onItemClickListener = onItemClickListener;
     }
@@ -40,39 +51,41 @@ public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecy
 
     @Override
     public int getItemCount() {
-        if (drinkList != null){
+        if (drinkList != null) {
             return drinkList.size();
         }
         return 0;
     }
 
-    public class ProfileDrinkViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ProfileDrinkViewHolder extends RecyclerView.ViewHolder {
         private final TextView drinkName;
-        private final Button likeBUtton;
-        //private final ImageView drinkImage;
+        private boolean clicked;
 
         public ProfileDrinkViewHolder(@NonNull View itemView) {
             super(itemView);
+            clicked = false;
             drinkName = itemView.findViewById(R.id.drink_small_txt);
-            //drinkImage = itemView.findViewById(R.id.drink_small_img);
-            likeBUtton = itemView.findViewById(R.id.drink_btnLike);
-            itemView.setOnClickListener(this);
-            likeBUtton.setOnClickListener(this);
-        }
-
-        public void bind(Drink drink){
-            drinkName.setText(drink.getName());
-            //drinkImage.setImageURI();
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            if(view.getId() == R.id.drink_btnLike) {
-                //cambia icona e aggiungi drink alla lista dei piaciuti
-            } else{
+            ImageView drinkImage = itemView.findViewById(R.id.drink_small_img);
+            CardView card = itemView.findViewById(R.id.drink_small_card);
+            Picasso.get().load("https://www.thecocktaildb.com//images//media//drink//2x8thr1504816928.jpg").into(drinkImage);
+            Button likeButton = itemView.findViewById(R.id.drink_btnLike);
+            card.setOnClickListener(el -> {
                 onItemClickListener.onDrinkClick(drinkList.get(getAdapterPosition()));
-            }
+            });
+            likeButton.setOnClickListener(el -> {
+                Drawable filled = itemView.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_alt_24, itemView.getContext().getTheme());
+                Drawable unfilled = itemView.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_off_alt_24, itemView.getContext().getTheme());
+                if (clicked) {
+                    likeButton.setBackground(unfilled);
+                } else {
+                    likeButton.setBackground(filled);
+                }
+                clicked = !clicked;
+            });
+        }
+
+        public void bind(Drink drink) {
+            drinkName.setText(drink.getName());
         }
     }
 }

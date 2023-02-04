@@ -67,6 +67,7 @@ public class ProfileFragment extends Fragment {
         RecyclerView profileRecycleView = view.findViewById(R.id.profile_rcv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
         profileRecycleView.setLayoutManager(linearLayoutManager);
+        Button logout = view.findViewById(R.id.profile_btnLogOut);
         Button topDrink = view.findViewById(R.id.profile_grd_btnTopDrink);
         Button topIngredient = view.findViewById(R.id.profile_grd_btnTopIngredient);
         Button favoriteDrink = view.findViewById(R.id.profile_grd_btnFavoriteDrink);
@@ -74,7 +75,9 @@ public class ProfileFragment extends Fragment {
         TextView profileName = view.findViewById(R.id.profile_txtNameProfile);
         profileName.setText(user.getEmail());
         List<Drink> array = new ArrayList<>();
-
+        logout.setOnClickListener(el -> {
+            Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_registrationActivity);
+        });
         topDrink.setOnClickListener(el -> {
             isTopDrink = manageRecycleView(array, isTopDrink, topDrink, topIngredient, favoriteDrink, favoriteIngredient, 1);
             isTopIngredient = isFavoriteDrink = isFavoriteIngredient = false;

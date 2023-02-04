@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_fragment_profile_to_fragment_details"
             app:destination="@id/fragment_details" />
+        <action
+            android:id="@+id/action_fragment_profile_to_registrationActivity"
+            app:destination="@id/registrationActivity" />
     </fragment>
     <fragment
         android:id="@+id/fragment_details"
@@ -37,5 +40,10 @@
         android:label="@string/nav_main"
         tools:layout="@layout/fragment_details">
     </fragment>
+    <activity
+        android:id="@+id/registrationActivity"
+        android:name="com.example.welldrink.ui.RegistrationActivity"
+        android:label="activity_registration"
+        tools:layout="@layout/activity_registration" />
 
 </navigation>
