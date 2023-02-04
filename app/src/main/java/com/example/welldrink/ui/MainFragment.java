@@ -3,6 +3,7 @@ package com.example.welldrink.ui;
 import com.example.welldrink.R;
 import com.example.welldrink.adapter.MainFavoriteRecyclerViewAdapter;
 import com.example.welldrink.model.Favorite;
+import com.squareup.picasso.Picasso;
 
 
 import android.os.Bundle;
@@ -15,12 +16,15 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -30,9 +34,11 @@ public class MainFragment extends Fragment {
     private static final String TAG = MainFragment.class.getSimpleName();
 
     private final String[] names;
+    private String imgLink;
 
     public MainFragment() {
         names = new String[]{"Name 1", "Name 2", "Name 3", "Name 4", "Name 5"};
+        imgLink = "https://www.thecocktaildb.com//images//media//drink//2x8thr1504816928.jpg";
     }
 
     public static MainFragment newInstance() {
@@ -50,11 +56,21 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         Button button = view.findViewById(R.id.home_random_btn);
         TextView name = view.findViewById(R.id.home_random_txtTitle);
-        TextView desc = view.findViewById(R.id.home_random_txtValue);
+        TextView category = view.findViewById(R.id.home_random_txtCategory);
+        TextView glass = view.findViewById(R.id.home_random_txtGlass);
+        TextView alcol = view.findViewById(R.id.home_random_txtAlcol);
+        ImageView image = view.findViewById(R.id.home_random_img);
+        Picasso.get().load(imgLink).into(image);
         CardView card = view.findViewById(R.id.home_random_card);
         Random rand = new Random();
         card.setOnClickListener(view1 -> {
-            Navigation.findNavController(requireView()).navigate(R.id.action_fragment_main_to_fragment_details);
+            Bundle bundle = new Bundle();
+            bundle.putString("name", (String) name.getText());
+            bundle.putString("category", (String) category.getText());
+            bundle.putString("glass", (String) glass.getText());
+            bundle.putString("alcol", (String) alcol.getText());
+            bundle.putString("img", imgLink);
+            Navigation.findNavController(requireView()).navigate(R.id.action_fragment_main_to_fragment_details, bundle);
         });
         button.setOnClickListener(view1 -> {
             String actualName = (String) name.getText();
@@ -63,14 +79,8 @@ public class MainFragment extends Fragment {
                 pos = rand.nextInt(names.length);
             } while (names[pos].equals(actualName));
             name.setText(names[pos]);
-            desc.setText(names[pos].toLowerCase());
+            category.setText(names[pos].toLowerCase());
         });
-
-//        FirebaseDatabase database = FirebaseDatabase.getInstance(DB_REALTIME);
-//        DatabaseReference myRef = database.getReference("message");
-//
-//        myRef.setValue("Hello, World!");
-//        Log.d("TEST", myRef.toString());
 
         return view;
     }

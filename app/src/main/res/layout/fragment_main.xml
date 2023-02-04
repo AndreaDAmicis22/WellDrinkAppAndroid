@@ -51,10 +51,10 @@
 
                 <ImageView
                     android:id="@+id/home_random_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
                     android:contentDescription="@string/home_random_img"
-                    android:src="@drawable/ic_baseline_local_drink_128"
+                    android:src="@drawable/ic_baseline_language_128"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -89,16 +89,29 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/home_random_txtValue"
+                    android:id="@+id/home_random_txtCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/home_random_txtValue"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/home_random_txtCategory"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="?android:attr/textColorSecondary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/home_random_txtTitle"
                     app:layout_constraintVertical_bias="0.50" />
+
+                <TextView
+                    android:id="@+id/home_random_txtGlass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_random_txtGlass" />
+
+                <TextView
+                    android:id="@+id/home_random_txtAlcol"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_random_txtAlcol" />
 
             </LinearLayout>
 

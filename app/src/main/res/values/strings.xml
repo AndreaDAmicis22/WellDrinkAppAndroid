@@ -59,4 +59,8 @@
     <string name="signup_btnSignup">Signup</string>
     <string name="research_filter_btnCategory">Category</string>
     <string name="nav_details">Details</string>
+    <string name="home_random_txtCategory">Category</string>
+    <string name="home_random_txtGlass">Glass</string>
+    <string name="home_random_txtAlcol">Alcohol</string>
+    <string name="details_info_txtTitle">More informations</string>
 </resources>
