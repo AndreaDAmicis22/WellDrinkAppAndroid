@@ -1,5 +1,6 @@
 package com.example.welldrink.ui;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -47,6 +48,10 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        int backgroundColorDark = getResources().getColor(R.color.md_theme_dark_inverseOnSurface);
+        int textColorDark = getResources().getColor(R.color.md_theme_dark_primary);
+        int backgroundColorLight = getResources().getColor(R.color.md_theme_light_inverseOnSurface);
+        int textColorLight = getResources().getColor(R.color.md_theme_light_primary);
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         RecyclerView profileRecycleView = view.findViewById(R.id.profile_rcv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
@@ -57,7 +62,7 @@ public class ProfileFragment extends Fragment {
         Button top20Button = view.findViewById(R.id.profile_btnTop20);
 
         List<Drink> array = new ArrayList<>();
-        int mode = view.getContext().getResources().getConfiguration().uiMode; // 44 21
+        Boolean darkMode = isDarkMode();
         favoriteDrinkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,13 +70,14 @@ public class ProfileFragment extends Fragment {
                 for (int i = 0; i < 1000; i++){
                     array.add(new Drink(i, Integer.toString(1),null, null, null));
                 }
-                if (isFavoriteDrinkButton == true) array.clear();
-                if(mode == 44) {
-                    isFavoriteDrinkButton = changeColorDark(favoriteDrinkButton, isFavoriteDrinkButton);
-                    resetColorDark(tastedListButton, top20Button, favoriteIngredientButton);
+                if (isFavoriteDrinkButton)
+                    array.clear();
+                if(darkMode) {
+                    isFavoriteDrinkButton = changeColor(favoriteDrinkButton, isFavoriteDrinkButton, backgroundColorDark , textColorDark);
+                    resetColor(tastedListButton, top20Button, favoriteIngredientButton, backgroundColorDark, textColorDark);
                 } else {
-                    isFavoriteDrinkButton = changeColorLight(favoriteDrinkButton, isFavoriteDrinkButton);
-                    resetColorLight(tastedListButton, top20Button, favoriteIngredientButton);
+                    isFavoriteDrinkButton = changeColor(favoriteDrinkButton, isFavoriteDrinkButton, backgroundColorLight, textColorLight);
+                    resetColor(tastedListButton, top20Button, favoriteIngredientButton,  backgroundColorLight, textColorLight);
                 }
                 isTastedListButton = isTop20Button = isFavoriteIngredientButton = false;
                 ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
@@ -86,13 +92,14 @@ public class ProfileFragment extends Fragment {
                 for (int i = 0; i < 1000; i++){
                     array.add(new Drink(i, Integer.toString(2),null, null, null));
                 }
-                if (isFavoriteIngredientButton == true) array.clear();
-                if(mode == 44){
-                    isFavoriteIngredientButton = changeColorDark(favoriteIngredientButton, isFavoriteIngredientButton);
-                    resetColorDark(top20Button, tastedListButton, favoriteDrinkButton);
+                if (isFavoriteIngredientButton)
+                    array.clear();
+                if(darkMode){
+                    isFavoriteIngredientButton = changeColor(favoriteIngredientButton, isFavoriteIngredientButton, backgroundColorDark , textColorDark);
+                    resetColor(top20Button, tastedListButton, favoriteDrinkButton, backgroundColorDark , textColorDark);
                 }else{
-                    isFavoriteIngredientButton = changeColorLight(favoriteIngredientButton, isFavoriteIngredientButton);
-                    resetColorLight(top20Button, tastedListButton, favoriteDrinkButton);
+                    isFavoriteIngredientButton = changeColor(favoriteIngredientButton, isFavoriteIngredientButton, backgroundColorLight, textColorLight);
+                    resetColor(top20Button, tastedListButton, favoriteDrinkButton, backgroundColorLight, textColorLight);
                 }
                 isTop20Button = isTastedListButton = isFavoriteDrinkButton = false;
                 ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
@@ -107,13 +114,14 @@ public class ProfileFragment extends Fragment {
                 for (int i = 0; i < 1000; i++){
                     array.add(new Drink(i, Integer.toString(3),null, null, null));
                 }
-                if (isTastedListButton == true) array.clear();
-                if(mode == 44){
-                    isTastedListButton = changeColorDark(tastedListButton, isTastedListButton);
-                    resetColorDark(top20Button, favoriteIngredientButton, favoriteDrinkButton);
+                if (isTastedListButton)
+                    array.clear();
+                if(darkMode){
+                    isTastedListButton = changeColor(tastedListButton, isTastedListButton, backgroundColorDark , textColorDark);
+                    resetColor(top20Button, favoriteIngredientButton, favoriteDrinkButton, backgroundColorDark , textColorDark);
                 }else{
-                    isTastedListButton = changeColorLight(tastedListButton, isTastedListButton);
-                    resetColorLight(top20Button, favoriteIngredientButton, favoriteDrinkButton);
+                    isTastedListButton = changeColor(tastedListButton, isTastedListButton, backgroundColorLight, textColorLight);
+                    resetColor(top20Button, favoriteIngredientButton, favoriteDrinkButton, backgroundColorLight, textColorLight);
                 }
                 isTop20Button = isFavoriteIngredientButton = isFavoriteDrinkButton = false;
                 ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
@@ -128,13 +136,14 @@ public class ProfileFragment extends Fragment {
                 for (int i = 0; i < 1000; i++){
                     array.add(new Drink(i, Integer.toString(4),null, null, null));
                 }
-                if (isTop20Button == true) array.clear();
-                if(mode == 44){
-                    isTop20Button = changeColorDark(top20Button, isTop20Button);
-                    resetColorDark(tastedListButton, favoriteIngredientButton, favoriteDrinkButton);
+                if (isTop20Button)
+                    array.clear();
+                if(darkMode){
+                    isTop20Button = changeColor(top20Button, isTop20Button, backgroundColorDark , textColorDark);
+                    resetColor(tastedListButton, favoriteIngredientButton, favoriteDrinkButton, backgroundColorDark , textColorDark);
                 }else{
-                    isTop20Button = changeColorLight(top20Button, isTop20Button);
-                    resetColorLight(tastedListButton, favoriteIngredientButton, favoriteDrinkButton);
+                    isTop20Button = changeColor(top20Button, isTop20Button, backgroundColorLight, textColorLight);
+                    resetColor(tastedListButton, favoriteIngredientButton, favoriteDrinkButton, backgroundColorLight, textColorLight);
                 }
                 isTastedListButton = isFavoriteIngredientButton = isFavoriteDrinkButton = false;
                 ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
@@ -150,47 +159,30 @@ public class ProfileFragment extends Fragment {
 
     }
 
-    private Boolean changeColorDark(Button button, Boolean bool){
+    private Boolean changeColor(Button button, Boolean bool, int backgroundColor, int textColor){
         if(bool == false){
-            button.setBackgroundColor(getResources().getColor(R.color.md_theme_dark_onSurface));
-            button.setTextColor(getResources().getColor(R.color.md_theme_dark_surface));
+            button.setBackgroundColor(getResources().getColor(R.color.md_theme_light_primary));
+            button.setTextColor(getResources().getColor(R.color.md_theme_light_onPrimary));
             return true;
         }
         else {
-            button.setBackgroundColor(getResources().getColor(R.color.md_theme_dark_inverseOnSurface));
-            button.setTextColor(getResources().getColor(R.color.md_theme_dark_primary));
+            button.setBackgroundColor(backgroundColor);
+            button.setTextColor(textColor);
         }
         return false;
     }
 
-    private Boolean changeColorLight(Button button, Boolean bool){
-        if(bool == false){
-            button.setBackgroundColor(getResources().getColor(R.color.md_theme_light_onSurface));
-            button.setTextColor(getResources().getColor(R.color.md_theme_light_surface));
-            return true;
-        }
-        else {
-            button.setBackgroundColor(getResources().getColor(R.color.md_theme_light_inverseOnSurface));
-            button.setTextColor(getResources().getColor(R.color.md_theme_light_primary));
-        }
-        return false;
+    private void resetColor(Button button1, Button button2, Button button3, int backgroundColor, int textColor){
+        button1.setBackgroundColor(backgroundColor);
+        button2.setBackgroundColor(backgroundColor);
+        button3.setBackgroundColor(backgroundColor);
+        button1.setTextColor(textColor);
+        button2.setTextColor(textColor);
+        button3.setTextColor(textColor);
     }
 
-    private void resetColorDark(Button button1, Button button2, Button button3){
-        button1.setBackgroundColor(getResources().getColor(R.color.md_theme_dark_inverseOnSurface));
-        button2.setBackgroundColor(getResources().getColor(R.color.md_theme_dark_inverseOnSurface));
-        button3.setBackgroundColor(getResources().getColor(R.color.md_theme_dark_inverseOnSurface));
-        button1.setTextColor(getResources().getColor(R.color.md_theme_dark_primary));
-        button2.setTextColor(getResources().getColor(R.color.md_theme_dark_primary));
-        button3.setTextColor(getResources().getColor(R.color.md_theme_dark_primary));
+    private boolean isDarkMode() {
+        return (getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
 
-    private void resetColorLight(Button button1, Button button2, Button button3){
-        button1.setBackgroundColor(getResources().getColor(R.color.md_theme_light_inverseOnSurface));
-        button2.setBackgroundColor(getResources().getColor(R.color.md_theme_light_inverseOnSurface));
-        button3.setBackgroundColor(getResources().getColor(R.color.md_theme_light_inverseOnSurface));
-        button1.setTextColor(getResources().getColor(R.color.md_theme_light_primary));
-        button2.setTextColor(getResources().getColor(R.color.md_theme_light_primary));
-        button3.setTextColor(getResources().getColor(R.color.md_theme_light_primary));
-    }
 }
