@@ -78,9 +78,8 @@ public class SignupFragment extends Fragment {
                                 }else{
                                     userViewModel.setAuthError(true);
                                     Log.d("AUTH", "ERROR in registration");
-                                    Result.Error a = ((Result.Error) result);
                                     Snackbar.make(requireActivity().findViewById(android.R.id.content),
-                                            a.getMessage(),
+                                            ((Result.Error) result).getMessage(),
                                             Snackbar.LENGTH_SHORT).show();
                                 }
                             }
@@ -113,7 +112,9 @@ public class SignupFragment extends Fragment {
             return "Empty password";
         } else if (!password.equals(passwordConf)) {
             return "Password not matching confermation";
-        } else if (email.isEmpty()){
+        } else if (password.length() < MINIMUM_PASSWORD_LENGTH) {
+            return "Password must be at least " + MINIMUM_PASSWORD_LENGTH + " characters";
+        }else if (email.isEmpty()){
             return "Empty mail";
         }else if (username.isEmpty()){
             return "Empty username";
