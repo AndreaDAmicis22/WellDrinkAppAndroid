@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,12 @@ import android.widget.TextView;
 
 import com.example.welldrink.R;
 import com.example.welldrink.adapter.ProfileRecyclerViewAdapter;
+import com.example.welldrink.data.repository.user.IUserRepository;
 import com.example.welldrink.model.Drink;
 import com.example.welldrink.model.User;
 import com.example.welldrink.ui.viewModel.UserViewModel;
+import com.example.welldrink.ui.viewModel.UserViewModelFactory;
+import com.example.welldrink.util.ServiceLocator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +35,8 @@ public class ProfileFragment extends Fragment {
     private boolean isTopIngredient;
     private boolean isFavoriteDrink;
     private boolean isFavoriteIngredient;
-    private final UserViewModel userViewModel;
-    private final User user;
+    private UserViewModel userViewModel;
+    private User user;
 
     private static final String TAG = ProfileFragment.class.getSimpleName();
 
@@ -41,8 +45,6 @@ public class ProfileFragment extends Fragment {
         isTopIngredient = false;
         isFavoriteDrink = false;
         isFavoriteIngredient = false;
-        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        user = userViewModel.getLoggedUser();
     }
 
     public static ProfileFragment newInstance() {
@@ -52,6 +54,11 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        IUserRepository userRepository = ServiceLocator.getInstance().getUserRepository();
+        userViewModel = new ViewModelProvider(
+                requireActivity(),
+                new UserViewModelFactory(userRepository)).get(UserViewModel.class);
+        user = userViewModel.getLoggedUser();
     }
 
     @Override
@@ -65,7 +72,7 @@ public class ProfileFragment extends Fragment {
         Button favoriteDrink = view.findViewById(R.id.profile_grd_btnFavoriteDrink);
         Button favoriteIngredient = view.findViewById(R.id.profile_btnFavoriteIngredient);
         TextView profileName = view.findViewById(R.id.profile_txtNameProfile);
-        profileName.setText(user.getName());
+        profileName.setText(user.getEmail());
         List<Drink> array = new ArrayList<>();
 
         topDrink.setOnClickListener(el -> {
