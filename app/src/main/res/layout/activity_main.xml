@@ -20,35 +20,16 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="16dp" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/home_lytTop"
+    <SearchView
+        android:id="@+id/home_inpSearch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@id/home_gdlEnd"
-        app:layout_constraintStart_toStartOf="@id/home_gdlBegin"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/research_inpSearch"
-            style="?attr/textInputFilledStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/ic_baseline_search_24">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/home_inpSearch"
-                tools:ignore="TextContrastCheck" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:hint="@string/home_inpSearch"
+        android:queryHint="@string/home_inpSearch"
+        app:layout_constraintEnd_toStartOf="@+id/home_gdlEnd"
+        app:layout_constraintStart_toStartOf="@+id/home_gdlBegin"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/home_fragment"
@@ -59,7 +40,7 @@
         app:layout_constraintBottom_toTopOf="@+id/home_navbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_lytTop"
+        app:layout_constraintTop_toBottomOf="@+id/home_inpSearch"
         app:navGraph="@navigation/nav_graph" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

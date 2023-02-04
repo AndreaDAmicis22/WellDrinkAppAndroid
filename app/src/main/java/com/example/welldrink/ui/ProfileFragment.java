@@ -154,7 +154,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private boolean changeColor(Button button, boolean bool, int backgroundColor, int textColor){
-        if(bool == false){
+        if(!bool){
             button.setBackgroundColor(getResources().getColor(R.color.md_theme_light_primary));
             button.setTextColor(getResources().getColor(R.color.md_theme_light_onPrimary));
             return true;
