@@ -3,7 +3,7 @@ package com.example.welldrink.util;
 public class Constants {
 
 
-    public static final String API_URL = "http://welldrinkdev.altervista.org/";
+    public static final String API_URL = "https://welldrinkdev.altervista.org/";
 
     public static final String API_BYNAME = "getByName";
     public static final String API_BYNAMEPARAMETER = "name";
