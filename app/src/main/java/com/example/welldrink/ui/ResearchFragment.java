@@ -18,6 +18,7 @@ import android.widget.Button;
 import com.example.welldrink.R;
 import com.example.welldrink.adapter.ProfileRecyclerViewAdapter;
 import com.example.welldrink.model.Drink;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,7 +126,10 @@ public class ResearchFragment extends Fragment {
         RecyclerView researchRecycleView = view.findViewById(R.id.research_rscv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
         researchRecycleView.setLayoutManager(linearLayoutManager);
-        ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array);
+        ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array, new ProfileRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onDrinkClick(Drink drink) {}
+        });
         researchRecycleView.setAdapter(adapter);
     }
 
