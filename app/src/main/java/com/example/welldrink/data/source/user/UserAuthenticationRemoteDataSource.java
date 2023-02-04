@@ -26,12 +26,12 @@ public class UserAuthenticationRemoteDataSource extends BaseUserAuthenticationRe
                     );
                 }else{
                     Log.d("AUTH", "FirebaseUser == null");
-                    Log.e("AUTH", task.getException().getMessage());
+                    Log.d("AUTH", task.getException().getMessage());
                     userResponseCallback.onFailureFromAuthentication(task.getException().getMessage());
                 }
             }else{
                 Log.d("AUTH", "Signup-taskFailed");
-                Log.e("AUTH", task.getException().getMessage());
+                Log.d("AUTH", task.getException().getMessage());
                 userResponseCallback.onFailureFromAuthentication(task.getException().getMessage());
             }
         });

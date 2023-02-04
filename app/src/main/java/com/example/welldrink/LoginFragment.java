@@ -58,28 +58,39 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Button loginButton = view.findViewById(R.id.login_btnSignup);
         loginButton.setOnClickListener(v -> {
-            String email = ((TextView) view.findViewById(R.id.login_txtEmail)).getText().toString();
-            String password = ((TextView) view.findViewById(R.id.login_txtPsw)).getText().toString();
+            String email = ((TextView) view.findViewById(R.id.login_txtEmail)).getText().toString().trim();
+            String password = ((TextView) view.findViewById(R.id.login_txtPsw)).getText().toString().trim();
             if(userViewModel.isAuthError()){
                 userViewModel.getUser(email, password, true);
             }else{
-                userViewModel.getUserMutableLiveData(email, password, true).observe(
-                    getViewLifecycleOwner(), result -> {
-                        Log.d("AUTH", "observer");
-                        if(result.isSuccess()){
-                            Log.d("AUTH", "result.isSuccess()");
-                            User user = ((Result.Success<User>) result).getData();
-                            userViewModel.setAuthError(false);
-                            Log.d("AUTH", "Login with user: " + user.toString());
-                            switchActivities();
-                        }else{
-                            Log.d("AUTH", "ERROR login result.isSuccess()");
-                            userViewModel.setAuthError(true);
-                        }
-                    }
-                );
+                if(checkData(email, password)){
+                    userViewModel.getUserMutableLiveData(email, password, true).observe(
+                            getViewLifecycleOwner(), result -> {
+                                Log.d("AUTH", "observer");
+                                if(result.isSuccess()){
+                                    Log.d("AUTH", "result.isSuccess()");
+                                    User user = ((Result.Success<User>) result).getData();
+                                    userViewModel.setAuthError(false);
+                                    Log.d("AUTH", "Login with user: " + user.toString());
+                                    switchActivities();
+                                }else{
+                                    Log.d("AUTH", "ERROR login result.isSuccess()");
+                                    userViewModel.setAuthError(true);
+                                }
+                            }
+                    );
+                }else{
+                    Log.d("AUTH", "CheckData false");
+                }
             }
         });
+    }
+
+    private boolean checkData(String email, String password){
+        if(email.isEmpty() || password.isEmpty()){
+            return false;
+        }
+        return true;
     }
 
     private void switchActivities() {
