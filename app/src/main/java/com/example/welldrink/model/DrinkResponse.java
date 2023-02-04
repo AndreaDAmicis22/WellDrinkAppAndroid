@@ -2,12 +2,15 @@ package com.example.welldrink.model;
 
 import androidx.annotation.NonNull;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class DrinkResponse {
 
     private boolean isLoading;
 
+    @SerializedName("drinks")
     private List<Drink> drinkList;
 
     public DrinkResponse() {}

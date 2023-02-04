@@ -1,5 +1,7 @@
 package com.example.welldrink.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Drink {
@@ -8,6 +10,7 @@ public class Drink {
     private String name;
     private String instructions;
     private List<Ingredient> ingredientList;
+    @SerializedName("image")
     private String imageUrl;
 
     public Drink(long id, String name, String instructions, List<Ingredient> ingredientList, String imageUrl){

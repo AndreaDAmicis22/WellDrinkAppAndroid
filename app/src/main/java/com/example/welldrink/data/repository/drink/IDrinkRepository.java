@@ -1,7 +1,11 @@
 package com.example.welldrink.data.repository.drink;
 
+import androidx.lifecycle.MutableLiveData;
+
+import com.example.welldrink.model.Result;
+
 public interface IDrinkRepository {
 
-    void getDrinksByName(String name);
+    MutableLiveData<Result> getDrinksByName(String name);
 
 }

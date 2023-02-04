@@ -28,6 +28,7 @@ public class DrinkRemoteDataSource extends BaseDrinkRemoteDataSource{
             public void onResponse(Call<DrinkApiResponse> call, Response<DrinkApiResponse> response) {
                 if(response.body() != null && response.isSuccessful()){
                     Log.d("API", response.body().toString());
+                    drinkCallback.onSuccessFromRemote(response.body());
                 }else{
                     Log.d("API", String.valueOf(response.isSuccessful()));
                     Log.d("API", "else ");
