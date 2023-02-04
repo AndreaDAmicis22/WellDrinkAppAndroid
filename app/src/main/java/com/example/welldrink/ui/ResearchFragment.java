@@ -135,10 +135,8 @@ public class ResearchFragment extends Fragment {
             button.setTextColor(txt);
         }
         else {
-            button.setBackgroundColor(getResources().getColor(R.color.md_theme_light_error));
-            button.setTextColor(getResources().getColor(R.color.md_theme_dark_error));
-            //button.setBackgroundColor(getResources().getColor(R.color.md_theme_dark_onSurface));
-            //button.setTextColor(getResources().getColor(R.color.md_theme_dark_surface));
+            button.setBackgroundColor(getResources().getColor(R.color.md_theme_light_primary));
+            button.setTextColor(getResources().getColor(R.color.md_theme_light_onPrimary));
         }
         return !previous;
     }
