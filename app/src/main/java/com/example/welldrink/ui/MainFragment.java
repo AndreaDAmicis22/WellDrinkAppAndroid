@@ -1,5 +1,6 @@
 package com.example.welldrink.ui;
 
+import static com.example.welldrink.util.Constants.PLACEHOLDER_ALCOL;
 import static com.example.welldrink.util.Constants.PLACEHOLDER_CATEGORY;
 import static com.example.welldrink.util.Constants.PLACEHOLDER_GLASS;
 import static com.example.welldrink.util.Constants.PLACEHOLDER_LINK;
@@ -31,6 +32,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +78,7 @@ public class MainFragment extends Fragment {
         TextView name = view.findViewById(R.id.home_random_txtTitle);
         TextView category = view.findViewById(R.id.home_random_txtCategory);
         TextView glass = view.findViewById(R.id.home_random_txtGlass);
+        TextView alcol = view.findViewById(R.id.home_random_txtAlcol);
         ImageView image = view.findViewById(R.id.home_random_img);
         ImageView imageBg = view.findViewById(R.id.home_random_imgBg);
         CardView card = view.findViewById(R.id.home_random_card);
@@ -84,7 +87,11 @@ public class MainFragment extends Fragment {
         card.setOnClickListener(el -> {
             Bundle bundle = new Bundle();
             bundle.putString("name", (String) name.getText());
-            Navigation.findNavController(requireView()).navigate(R.id.action_fragment_main_to_fragment_details, bundle);
+            if(!name.getText().equals(PLACEHOLDER_NAME)){
+                drinkViewModel.getDrinkDetail((String) name.getText());
+                Navigation.findNavController(requireView()).navigate(R.id.action_fragment_main_to_fragment_details, bundle);
+                Log.d("API", "CLICK!");
+            }
         });
         drinkViewModel.getDrinksRandomLiveData().observe(getViewLifecycleOwner(), res -> {
             if (res.isSuccess()) {
@@ -95,11 +102,13 @@ public class MainFragment extends Fragment {
                 imgReq.into(image);
                 imgReq.transform(new BlurTransformation(getContext(), 25, 2)).into(imageBg);
                 glass.setText(drink.getGlass());
+                alcol.setText(drink.getAlcolType());
                 Picasso.get().load(drink.getImageUrl()).into(image);
             } else {
                 name.setText(PLACEHOLDER_NAME);
                 category.setText(PLACEHOLDER_CATEGORY);
                 glass.setText(PLACEHOLDER_GLASS);
+                alcol.setText(PLACEHOLDER_ALCOL);
                 Picasso.get().load(PLACEHOLDER_LINK).into(image);
             }
         });

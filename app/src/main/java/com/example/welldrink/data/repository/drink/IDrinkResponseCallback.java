@@ -10,4 +10,6 @@ public interface IDrinkResponseCallback {
 
     void onSuccessFromRemoteRandom(DrinkApiResponse drinkApiREsponse);
 
+    void onSuccessFromRemoteDetails(DrinkApiResponse drinkApiResponse);
+
 }

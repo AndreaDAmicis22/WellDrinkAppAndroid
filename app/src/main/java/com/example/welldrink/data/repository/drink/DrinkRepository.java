@@ -17,6 +17,8 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
 
     private MutableLiveData<Result> randomDrinkLiveData;
 
+    private MutableLiveData<Result> detailDrinkLiveData;
+
     private final BaseDrinkRemoteDataSource drinkRemoteDataSource;
 
     public DrinkRepository(BaseDrinkRemoteDataSource drinkRemoteDataSource){
@@ -24,11 +26,11 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
         this.drinkRemoteDataSource.setDrinkCallback(this);
         this.randomDrinkLiveData = new MutableLiveData<>();
         this.drinkMutableLiveData = new MutableLiveData<>();
+        this.detailDrinkLiveData = new MutableLiveData<>();
     }
 
     @Override
     public MutableLiveData<Result> getDrinksByName(String name) {
-        Log.d("API", "DrinkRepository->getDrinksByName");
         this.drinkRemoteDataSource.fetchDrinkByName(name);
         return this.drinkMutableLiveData;
     }
@@ -39,21 +41,32 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     }
 
     @Override
+    public MutableLiveData<Result> getDrinkDetails(String name) {
+        this.drinkRemoteDataSource.fetchDrinkDetail(name);
+        return this.detailDrinkLiveData;
+    }
+
+    @Override
     public void onSuccessFromRemote(DrinkApiResponse drinkApiResponse) {
         Result result = new Result.Success<List<Drink>>(drinkApiResponse.getDrinkList());
-        drinkMutableLiveData.postValue(result);
-        Log.d("API", "posted drink list");
+        this.drinkMutableLiveData.postValue(result);
     }
 
     @Override
     public void onFailureFromRemote(String message) {
         Result result = new Result.Error(message);
-        drinkMutableLiveData.postValue(result);
+        this.drinkMutableLiveData.postValue(result);
     }
 
     @Override
     public void onSuccessFromRemoteRandom(DrinkApiResponse drinkApiREsponse) {
         Result res = new Result.Success<>(drinkApiREsponse.getDrinkList().get(0));
-        randomDrinkLiveData.postValue(res);
+        this.randomDrinkLiveData.postValue(res);
+    }
+
+    @Override
+    public void onSuccessFromRemoteDetails(DrinkApiResponse drinkApiResponse) {
+        Result res = new Result.Success<>(drinkApiResponse.getDrinkList().get(0));
+        this.detailDrinkLiveData.postValue(res);
     }
 }

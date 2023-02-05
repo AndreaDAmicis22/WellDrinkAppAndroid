@@ -9,6 +9,7 @@ public class Drink {
     private long id;
     private String name;
     private String instructions;
+    @SerializedName("ingredients")
     private List<Ingredient> ingredientList;
     @SerializedName("image")
     private String imageUrl;
