@@ -1,7 +1,6 @@
 package com.example.welldrink.adapter;
 
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,20 +10,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.welldrink.model.Drink;
 import com.example.welldrink.R;
-import com.example.welldrink.ui.ProfileFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecyclerViewAdapter.ProfileDrinkViewHolder> {
+public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<DrinkSmallInfoRecyclerViewAdapter.ProfileDrinkViewHolder> {
 
     private int selectedPos = RecyclerView.NO_POSITION;
-    private static final String TAG = ProfileRecyclerViewAdapter.class.getSimpleName();
+    private static final String TAG = DrinkSmallInfoRecyclerViewAdapter.class.getSimpleName();
 
     public interface OnItemClickListener {
         void onDrinkClick(Drink drink);
@@ -33,7 +30,7 @@ public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecy
     private List<Drink> drinkList;
     private OnItemClickListener onItemClickListener;
 
-    public ProfileRecyclerViewAdapter(List<Drink> drinkList, OnItemClickListener onItemClickListener) {
+    public DrinkSmallInfoRecyclerViewAdapter(List<Drink> drinkList, OnItemClickListener onItemClickListener) {
         this.drinkList = drinkList;
         this.onItemClickListener = onItemClickListener;
     }
@@ -68,7 +65,7 @@ public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecy
             drinkName = itemView.findViewById(R.id.drink_small_txt);
             ImageView drinkImage = itemView.findViewById(R.id.drink_small_img);
             CardView card = itemView.findViewById(R.id.drink_small_card);
-            Picasso.get().load("https://www.thecocktaildb.com//images//media//drink//2x8thr1504816928.jpg").into(drinkImage);
+            Picasso.get().load("https://www.thecocktaildb.com/images/media/drink/apex461643588115.jpg").into(drinkImage);
             Button likeButton = itemView.findViewById(R.id.drink_btnLike);
             card.setOnClickListener(el -> {
                 onItemClickListener.onDrinkClick(drinkList.get(getAdapterPosition()));

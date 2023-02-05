@@ -71,7 +71,7 @@ public class MainFragment extends Fragment {
         TextView category = view.findViewById(R.id.home_random_txtCategory);
         ImageView image = view.findViewById(R.id.home_random_img);
         CardView card = view.findViewById(R.id.home_random_card);
-        card.setOnClickListener(view1 -> {
+        card.setOnClickListener(el -> {
             Bundle bundle = new Bundle();
             bundle.putString("name", (String) name.getText());
             Navigation.findNavController(requireView()).navigate(R.id.action_fragment_main_to_fragment_details, bundle);
@@ -84,7 +84,7 @@ public class MainFragment extends Fragment {
                 Picasso.get().load(drink.getImageUrl()).into(image);
             }
         });
-        button.setOnClickListener(view1 -> {
+        button.setOnClickListener(el -> {
             drinkViewModel.getDrinksRandom();
         });
         return view;
