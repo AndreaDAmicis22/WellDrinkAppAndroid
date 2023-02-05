@@ -6,18 +6,24 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SearchView;
 
 import com.example.welldrink.R;
 import com.example.welldrink.adapter.DrinkSmallInfoRecyclerViewAdapter;
 import com.example.welldrink.model.Drink;
+import com.example.welldrink.model.Result;
+import com.example.welldrink.ui.viewModel.DrinkViewModel;
+import com.example.welldrink.ui.viewModel.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,20 +37,25 @@ public class ResearchFragment extends Fragment {
     private boolean onTaste;
     private boolean onGlass;
 
+    private DrinkViewModel drinkViewModel;
+    private List<Drink> drinkList;
+
     public ResearchFragment() {
         onIngredient = false;
         onName = false;
         onTaste = false;
         onGlass = false;
+        drinkList = new ArrayList<Drink>();
     }
 
-    public static ResearchFragment newInstance(String param1, String param2) {
+    public static ResearchFragment newInstance() {
         return new ResearchFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        drinkViewModel = new ViewModelProvider(requireActivity()).get(DrinkViewModel.class);
     }
 
     @Override
@@ -112,28 +123,47 @@ public class ResearchFragment extends Fragment {
             onTaste = false;
             onName = false;
         });
+
+        drinkViewModel.getDrinksByNameLiveData("---").observe(getViewLifecycleOwner(), res -> {
+            if(res.isSuccess()){
+                Log.d("RES", "Observer");
+                List<Drink> drinks = ((Result.Success<List<Drink>>) res).getData();
+                Log.d("RES", drinks.toString());
+                this.drinkList = drinks;
+                RecyclerView researchRecycleView = view.findViewById(R.id.research_rscv);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
+                researchRecycleView.setLayoutManager(linearLayoutManager);
+                DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(drinkList, drink -> {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", (String) drink.getName());
+                    Navigation.findNavController(requireView()).navigate(R.id.action_fragment_research_to_fragment_details, bundle);
+                });
+                researchRecycleView.setAdapter(adapter);
+            }
+        });
+        SearchView searchView = getActivity().findViewById(R.id.home_inpSearch);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d("RES", query);
+                drinkViewModel.getDrinksByName(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+
+
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        List<Drink> array = new ArrayList<>();
-        for (int i = 0; i < 1000; i++){
-            array.add(new Drink(i, Integer.toString(5),null, null, null, null, null, null));
-        }
-        RecyclerView researchRecycleView = view.findViewById(R.id.research_rscv);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
-        researchRecycleView.setLayoutManager(linearLayoutManager);
-        String imgLink = "https://www.thecocktaildb.com//images//media//drink//2x8thr1504816928.jpg";
-        DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(array, drink -> {
-            Bundle bundle = new Bundle();
-            bundle.putString("name", (String) drink.getName());
-            bundle.putString("img", imgLink);
-            Navigation.findNavController(requireView()).navigate(R.id.action_fragment_research_to_fragment_details, bundle);
-        });
-        researchRecycleView.setAdapter(adapter);
-        researchRecycleView.setAdapter(adapter);
     }
 
     private boolean changeColor(boolean previous, Button button, int bg, int txt) {

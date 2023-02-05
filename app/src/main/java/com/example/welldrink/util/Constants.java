@@ -20,6 +20,7 @@ public class Constants {
     public static final String DB_USER = "users";
 
 
+    public static final String AMAZON_LINK = "https://www.amazon.it/s?k=";
 
 
 }

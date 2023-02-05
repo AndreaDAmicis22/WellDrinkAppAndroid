@@ -12,4 +12,6 @@ public interface IDrinkRepository {
 
     MutableLiveData<Result> getDrinkDetails(String name);
 
+    MutableLiveData<Result> getMutableLiveData();
+
 }

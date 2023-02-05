@@ -57,15 +57,16 @@ public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<Drin
 
     public class ProfileDrinkViewHolder extends RecyclerView.ViewHolder {
         private final TextView drinkName;
+        private final ImageView drinkImage;
+
         private boolean clicked;
 
         public ProfileDrinkViewHolder(@NonNull View itemView) {
             super(itemView);
             clicked = false;
             drinkName = itemView.findViewById(R.id.drink_small_txt);
-            ImageView drinkImage = itemView.findViewById(R.id.drink_small_img);
+            drinkImage = itemView.findViewById(R.id.drink_small_img);
             CardView card = itemView.findViewById(R.id.drink_small_card);
-            Picasso.get().load("https://www.thecocktaildb.com/images/media/drink/apex461643588115.jpg").into(drinkImage);
             Button likeButton = itemView.findViewById(R.id.drink_btnLike);
             card.setOnClickListener(el -> {
                 onItemClickListener.onDrinkClick(drinkList.get(getAdapterPosition()));
@@ -84,6 +85,7 @@ public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<Drin
 
         public void bind(Drink drink) {
             drinkName.setText(drink.getName());
+            Picasso.get().load(drink.getImageUrl()).into(drinkImage);
         }
     }
 }
