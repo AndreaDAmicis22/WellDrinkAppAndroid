@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.welldrink.data.repository.user.IUserRepository;
 import com.example.welldrink.model.Result;
 import com.example.welldrink.model.User;
+import com.example.welldrink.ui.FirstStartActivity;
 import com.example.welldrink.ui.MainActivity;
 import com.example.welldrink.ui.viewModel.UserViewModel;
 import com.example.welldrink.ui.viewModel.UserViewModelFactory;
@@ -98,7 +99,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void switchActivities() {
-        Intent switchActivityIntent = new Intent(getContext(), MainActivity.class);
+        Intent switchActivityIntent = new Intent(getContext(), FirstStartActivity.class);
         startActivity(switchActivityIntent);
     }
 
