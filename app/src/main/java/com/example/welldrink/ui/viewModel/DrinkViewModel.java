@@ -30,6 +30,18 @@ public class DrinkViewModel extends ViewModel {
         this.setDrinkMutableLiveDataByName(name);
     }
 
+    public void getDrinksByIngredient(String ingredientName){
+        this.setDrinkMutableLiveDataByIngredient(ingredientName);
+    }
+
+    public void getDrinksByGlass(String glass){
+        this.setDrinkMutableLiveDataByGlass(glass);
+    }
+
+    public void getDrinksByCategory(String category){
+        this.setDetailsLiveDataByCategory(category);
+    }
+
     public MutableLiveData<Result> getDrinksRandomLiveData(){
         if(this.randomDrinkLiveData == null)
             setDrinkMutableLiveDataWithRandom();
@@ -60,6 +72,18 @@ public class DrinkViewModel extends ViewModel {
 
     private void setDetailsLiveData(String name){
         this.detailsLiveData = this.drinkRepository.getDrinkDetails(name);
+    }
+
+    private void setDrinkMutableLiveDataByIngredient(String ingredient){
+        this.drinkMutableLiveData = this.drinkRepository.getDrinksByIngredient(ingredient);
+    }
+
+    private void setDrinkMutableLiveDataByGlass(String glassName){
+        this.drinkMutableLiveData = this.drinkRepository.getDrinksByGlass(glassName);
+    }
+
+    private void setDetailsLiveDataByCategory(String category){
+        this.drinkMutableLiveData = this.drinkRepository.getDrinksByCategory(category);
     }
 
 }

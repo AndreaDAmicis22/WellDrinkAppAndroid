@@ -35,6 +35,24 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
         return this.drinkMutableLiveData;
     }
 
+    @Override
+    public MutableLiveData<Result> getDrinksByIngredient(String ingredientName) {
+        this.drinkRemoteDataSource.fetchDrinkByIngredient(ingredientName);
+        return this.drinkMutableLiveData;
+    }
+
+    @Override
+    public MutableLiveData<Result> getDrinksByGlass(String glassName) {
+        this.drinkRemoteDataSource.fetchDrinkByGlass(glassName);
+        return this.drinkMutableLiveData;
+    }
+
+    @Override
+    public MutableLiveData<Result> getDrinksByCategory(String category) {
+        this.drinkRemoteDataSource.fetchDrinkByCategory(category);
+        return this.drinkMutableLiveData;
+    }
+
     public MutableLiveData<Result> getRandomDrink(){
         drinkRemoteDataSource.fetchRandomDrink();
         return this.randomDrinkLiveData;

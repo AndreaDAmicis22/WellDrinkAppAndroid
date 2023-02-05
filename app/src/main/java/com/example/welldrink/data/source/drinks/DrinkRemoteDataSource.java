@@ -22,27 +22,7 @@ public class DrinkRemoteDataSource extends BaseDrinkRemoteDataSource{
     @Override
     public void fetchDrinkByName(String name) {
         Call<DrinkApiResponse> drinkApiResponseCall = this.drinkAPIService.getDrinksByName(name);
-
-        drinkApiResponseCall.enqueue(new Callback<DrinkApiResponse>() {
-            @Override
-            public void onResponse(Call<DrinkApiResponse> call, Response<DrinkApiResponse> response) {
-                if(response.body() != null && response.isSuccessful()){
-                    Log.d("API", response.body().toString());
-                    drinkCallback.onSuccessFromRemote(response.body());
-                }else{
-                    Log.d("API", String.valueOf(response.isSuccessful()));
-                    Log.d("API", "else ");
-                    drinkCallback.onFailureFromRemote("Error in API call");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DrinkApiResponse> call, Throwable t) {
-                Log.d("API", t.getMessage());
-                Log.d("API", "onFailure");
-                drinkCallback.onFailureFromRemote(t.getMessage());
-            }
-        });
+        this.handleCall(drinkApiResponseCall);
     }
 
     @Override
@@ -103,4 +83,47 @@ public class DrinkRemoteDataSource extends BaseDrinkRemoteDataSource{
             }
         });
     }
+
+    @Override
+    public void fetchDrinkByIngredient(String ingredientName) {
+        Call<DrinkApiResponse> drinkApiResponseCall = this.drinkAPIService.getDrinkByIngredient(ingredientName);
+        this.handleCall(drinkApiResponseCall);
+    }
+
+    @Override
+    public void fetchDrinkByGlass(String glassName) {
+        Call<DrinkApiResponse> drinkApiResponseCall = this.drinkAPIService.getDrinksByGlass(glassName);
+        this.handleCall(drinkApiResponseCall);
+    }
+
+    @Override
+    public void fetchDrinkByCategory(String category) {
+        Call<DrinkApiResponse> drinkApiResponseCall = this.drinkAPIService.getDrinkByCategory(category);
+        this.handleCall(drinkApiResponseCall);
+    }
+
+    private void handleCall(Call<DrinkApiResponse> drinkApiResponseCall){
+        drinkApiResponseCall.enqueue(new Callback<DrinkApiResponse>() {
+            @Override
+            public void onResponse(Call<DrinkApiResponse> call, Response<DrinkApiResponse> response) {
+                if(response.body() != null && response.isSuccessful()){
+                    Log.d("API", response.body().toString());
+                    drinkCallback.onSuccessFromRemote(response.body());
+                }else{
+                    Log.d("API", String.valueOf(response.isSuccessful()));
+                    Log.d("API", "else ");
+                    drinkCallback.onFailureFromRemote("Error in API call");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DrinkApiResponse> call, Throwable t) {
+                Log.d("API", t.getMessage());
+                Log.d("API", "onFailure");
+                drinkCallback.onFailureFromRemote(t.getMessage());
+            }
+        });
+    }
+
+
 }

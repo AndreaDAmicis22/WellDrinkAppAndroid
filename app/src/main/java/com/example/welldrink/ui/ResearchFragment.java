@@ -42,7 +42,7 @@ public class ResearchFragment extends Fragment {
 
     public ResearchFragment() {
         onIngredient = false;
-        onName = false;
+        onName = true;
         onTaste = false;
         onGlass = false;
         drinkList = new ArrayList<Drink>();
@@ -146,7 +146,7 @@ public class ResearchFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Log.d("RES", query);
-                drinkViewModel.getDrinksByName(query);
+                makeFetchCall(query);
                 return false;
             }
 
@@ -192,4 +192,18 @@ public class ResearchFragment extends Fragment {
     private boolean isDarkMode() {
         return (getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
+
+    private void makeFetchCall(String query){
+        if(onName)
+            drinkViewModel.getDrinksByName(query);
+        if(onIngredient)
+            drinkViewModel.getDrinksByIngredient(query);
+        if(onGlass)
+            drinkViewModel.getDrinksByGlass(query);
+        if(onTaste){
+            drinkViewModel.getDrinksByCategory(query);
+            Log.d("RES", "onTaste");//change into onCategory?
+        }
+    }
+
 }

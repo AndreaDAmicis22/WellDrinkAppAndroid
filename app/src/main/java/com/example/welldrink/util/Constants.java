@@ -14,6 +14,14 @@ public class Constants {
     public static final String API_RANDOMDRINK = "getRandom";
     public static final String API_DETAILS = "getDetails";
     public static final String API_DETAILSPARAMETER = "name";
+    public static final String API_BYINGREDIENT = "getByIngredient";
+    public static final String API_BYINGREDIENTPARAMETER = "ingredient";
+    public static final String API_GETBYGLASS = "getByGlass";
+    public static final String API_GETBYGLASSPARAMETER = "glass";
+    public static final String API_GETBYCATEGORY = "getByCategory";
+    public static final String API_GETBYCATEGORYPARAMETER = "category";
+
+
     public static final int MINIMUM_PASSWORD_LENGTH = 6;
 
     public static final String DB_REALTIME = "https://welldrink-680e6-default-rtdb.europe-west1.firebasedatabase.app/";

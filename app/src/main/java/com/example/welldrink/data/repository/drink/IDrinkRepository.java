@@ -8,6 +8,13 @@ public interface IDrinkRepository {
 
     MutableLiveData<Result> getDrinksByName(String name);
 
+    MutableLiveData<Result> getDrinksByIngredient(String ingredientName);
+
+    MutableLiveData<Result> getDrinksByGlass(String glassName);
+
+    MutableLiveData<Result> getDrinksByCategory(String category);
+
+
     MutableLiveData<Result> getRandomDrink();
 
     MutableLiveData<Result> getDrinkDetails(String name);

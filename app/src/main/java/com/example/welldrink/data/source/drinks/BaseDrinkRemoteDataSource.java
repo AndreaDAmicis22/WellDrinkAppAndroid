@@ -18,4 +18,10 @@ public abstract class BaseDrinkRemoteDataSource {
 
     public abstract void fetchDrinkDetail(String name);
 
+    public abstract void fetchDrinkByIngredient(String ingredientName);
+
+    public abstract void fetchDrinkByGlass(String glassName);
+
+    public abstract void fetchDrinkByCategory(String category);
+
 }
