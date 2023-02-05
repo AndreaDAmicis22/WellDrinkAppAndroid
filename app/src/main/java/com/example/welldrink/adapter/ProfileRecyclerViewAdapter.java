@@ -23,6 +23,7 @@ import java.util.List;
 
 public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecyclerViewAdapter.ProfileDrinkViewHolder> {
 
+    private int selectedPos = RecyclerView.NO_POSITION;
     private static final String TAG = ProfileRecyclerViewAdapter.class.getSimpleName();
 
     public interface OnItemClickListener {

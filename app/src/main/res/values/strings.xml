@@ -63,4 +63,8 @@
     <string name="home_random_txtGlass">Glass</string>
     <string name="home_random_txtAlcol">Alcohol</string>
     <string name="details_info_txtTitle">More informations</string>
+    <string name="close_app_title">Confirm exit</string>
+    <string name="close_app_desc">Are you sure you want to exit?</string>
+    <string name="close_app_conf">Yes</string>
+    <string name="close_app_unconf">No</string>
 </resources>
