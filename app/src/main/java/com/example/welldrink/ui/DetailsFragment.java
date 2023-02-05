@@ -1,5 +1,6 @@
 package com.example.welldrink.ui;
 
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.BlendMode;
 import android.graphics.Color;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -40,9 +42,12 @@ import com.example.welldrink.model.Result;
 import com.example.welldrink.ui.viewModel.DrinkViewModel;
 import com.example.welldrink.ui.viewModel.UserViewModel;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class DetailsFragment extends Fragment {
 
@@ -73,6 +78,7 @@ public class DetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_details, container, false);
         ImageView image = view.findViewById(R.id.details_img);
+        ImageView imageBg = view.findViewById(R.id.details_imgBg);
         TextView name = view.findViewById(R.id.details_txtTitle);
         TextView category = view.findViewById(R.id.details_info_txtCategory);
         TextView glass = view.findViewById(R.id.details_info_txtGlass);
@@ -86,7 +92,9 @@ public class DetailsFragment extends Fragment {
                             Log.d("API", "result.isSuccess");
                             drink = ((Result.Success<Drink>) result).getData();
                             Log.d("API", drink.toString());
-                            Picasso.get().load(drink.getImageUrl()).into(image);
+                            RequestCreator imgReq = Picasso.get().load(drink.getImageUrl());
+                            imgReq.into(image);
+                            imgReq.transform(new BlurTransformation(getContext(), 25, 2)).into(imageBg);
                             name.setText(drink.getName());
                             category.setText(drink.getCategory());
                             glass.setText(drink.getGlass());
