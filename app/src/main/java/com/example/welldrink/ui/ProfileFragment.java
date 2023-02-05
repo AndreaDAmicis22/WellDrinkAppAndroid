@@ -134,7 +134,7 @@ public class ProfileFragment extends Fragment {
         boolean darkMode = isDarkMode();
         array.clear();
         for (int i = 0; i < 1000; i++){
-            array.add(new Drink(i, Integer.toString(j),null, null, null));
+            array.add(new Drink(i, Integer.toString(j),null, null, null, null, null, null));
         }
         if (val)
             array.clear();

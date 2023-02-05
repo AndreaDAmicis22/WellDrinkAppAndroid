@@ -15,11 +15,15 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
 
     private MutableLiveData<Result> drinkMutableLiveData;
 
+    private MutableLiveData<Result> randomDrinkLiveData;
+
     private final BaseDrinkRemoteDataSource drinkRemoteDataSource;
 
     public DrinkRepository(BaseDrinkRemoteDataSource drinkRemoteDataSource){
         this.drinkRemoteDataSource = drinkRemoteDataSource;
         this.drinkRemoteDataSource.setDrinkCallback(this);
+        this.randomDrinkLiveData = new MutableLiveData<>();
+        this.drinkMutableLiveData = new MutableLiveData<>();
     }
 
     @Override
@@ -29,10 +33,27 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
         return this.drinkMutableLiveData;
     }
 
+    public MutableLiveData<Result> getRandomDrink(){
+        drinkRemoteDataSource.fetchRandomDrink();
+        return this.randomDrinkLiveData;
+    }
+
     @Override
     public void onSuccessFromRemote(DrinkApiResponse drinkApiResponse) {
         Result result = new Result.Success<List<Drink>>(drinkApiResponse.getDrinkList());
         drinkMutableLiveData.postValue(result);
         Log.d("API", "posted drink list");
+    }
+
+    @Override
+    public void onFailureFromRemote(String message) {
+        Result result = new Result.Error(message);
+        drinkMutableLiveData.postValue(result);
+    }
+
+    @Override
+    public void onSuccessFromRemoteRandom(DrinkApiResponse drinkApiREsponse) {
+        Result res = new Result.Success<>(drinkApiREsponse.getDrinkList().get(0));
+        randomDrinkLiveData.postValue(res);
     }
 }

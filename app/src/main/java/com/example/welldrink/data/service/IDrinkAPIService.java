@@ -2,6 +2,7 @@ package com.example.welldrink.data.service;
 
 import static com.example.welldrink.util.Constants.API_BYNAME;
 import static com.example.welldrink.util.Constants.API_BYNAMEPARAMETER;
+import static com.example.welldrink.util.Constants.API_RANDOMDRINK;
 
 import com.example.welldrink.model.DrinkApiResponse;
 
@@ -14,5 +15,8 @@ public interface IDrinkAPIService {
     Call<DrinkApiResponse> getDrinksByName(
         @Query(API_BYNAMEPARAMETER) String name
     );
+
+    @GET(API_RANDOMDRINK)
+    Call<DrinkApiResponse> getDrinkRandom();
 
 }

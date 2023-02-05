@@ -12,13 +12,22 @@ public class Drink {
     private List<Ingredient> ingredientList;
     @SerializedName("image")
     private String imageUrl;
+    @SerializedName("glassName")
+    private String glass;
+    private String alcolType;
+    @SerializedName("categoryName")
+    private String category;
 
-    public Drink(long id, String name, String instructions, List<Ingredient> ingredientList, String imageUrl){
+    public Drink(long id, String name, String instructions, List<Ingredient> ingredientList,
+                 String imageUrl, String glass, String alcolType, String category) {
         this.id = id;
         this.name = name;
         this.instructions = instructions;
         this.ingredientList = ingredientList;
         this.imageUrl = imageUrl;
+        this.glass = glass;
+        this.alcolType = alcolType;
+        this.category = category;
     }
 
     public long getId() {
@@ -57,6 +66,30 @@ public class Drink {
         this.ingredientList = ingredientList;
     }
 
+    public String getAlcolType() {
+        return alcolType;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getGlass() {
+        return glass;
+    }
+
+    public void setAlcolType(String alcolType) {
+        this.alcolType = alcolType;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setGlass(String glass) {
+        this.glass = glass;
+    }
+
     public void setInstructions(String instructions) {
         this.instructions = instructions;
     }
@@ -69,6 +102,9 @@ public class Drink {
                 ", instructions='" + instructions + '\'' +
                 ", ingredientList=" + ingredientList +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", glass='" + glass + '\'' +
+                ", alcolType='" + alcolType + '\'' +
+                ", category='" + category + '\'' +
                 '}';
     }
 }

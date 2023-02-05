@@ -6,4 +6,8 @@ public interface IDrinkResponseCallback {
 
     void onSuccessFromRemote(DrinkApiResponse drinkApiResponse);
 
+    void onFailureFromRemote(String message);
+
+    void onSuccessFromRemoteRandom(DrinkApiResponse drinkApiREsponse);
+
 }

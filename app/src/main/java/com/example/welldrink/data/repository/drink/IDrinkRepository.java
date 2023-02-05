@@ -8,4 +8,6 @@ public interface IDrinkRepository {
 
     MutableLiveData<Result> getDrinksByName(String name);
 
+    MutableLiveData<Result> getRandomDrink();
+
 }

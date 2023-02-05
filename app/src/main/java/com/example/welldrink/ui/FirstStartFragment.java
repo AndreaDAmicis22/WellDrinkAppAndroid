@@ -55,7 +55,7 @@ public class FirstStartFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         List<Drink> array = new ArrayList<>();
         for (int i = 0; i < 1000; i++){
-            array.add(new Drink(i, Integer.toString(5),null, null, null));
+            array.add(new Drink(i, Integer.toString(5),null, null, null, null, null, null));
         }
         RecyclerView researchRecycleView = view.findViewById(R.id.first_start_rscv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
