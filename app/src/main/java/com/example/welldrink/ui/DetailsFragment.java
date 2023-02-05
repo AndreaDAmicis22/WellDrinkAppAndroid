@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,7 +33,11 @@ import android.widget.TextView;
 
 import com.example.welldrink.R;
 import com.example.welldrink.adapter.DetailRecyclerViewAdapter;
+import com.example.welldrink.model.Drink;
 import com.example.welldrink.model.Ingredient;
+import com.example.welldrink.model.Result;
+import com.example.welldrink.ui.viewModel.DrinkViewModel;
+import com.example.welldrink.ui.viewModel.UserViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -42,6 +47,8 @@ public class DetailsFragment extends Fragment {
 
     private static final String TAG = DetailsFragment.class.getSimpleName();
     private boolean onLike;
+
+    private DrinkViewModel drinkViewModel;
 
     public DetailsFragment() {
 
@@ -54,6 +61,7 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        drinkViewModel = new ViewModelProvider(requireActivity()).get(DrinkViewModel.class);
     }
 
     @Override
@@ -65,10 +73,25 @@ public class DetailsFragment extends Fragment {
         TextView category = view.findViewById(R.id.details_info_txtCategory);
         TextView glass = view.findViewById(R.id.details_info_txtGlass);
         TextView alcol = view.findViewById(R.id.details_info_txtAlcol);
+        TextView recipe = view.findViewById(R.id.details_prep_txtBody);
         Bundle args = getArguments();
         if (args != null) {
-            name.setText(args.getString("name"));
-            //Picasso.get().load(args.getString("img")).into(image);
+            drinkViewModel.getDrinkDetailsLiveData(args.getString("name")).observe(
+                    requireActivity(), result -> {
+                        if(result.isSuccess()){
+                            Log.d("API", "result.isSuccess");
+                            Drink drink = ((Result.Success<Drink>) result).getData();
+                            Picasso.get().load(drink.getImageUrl()).into(image);
+                            name.setText(drink.getName());
+                            category.setText(drink.getCategory());
+                            glass.setText(drink.getGlass());
+                            alcol.setText(drink.getAlcolType());
+                            recipe.setText(drink.getInstructions());
+                        }else{
+                            Log.d("API", "result.isSuccess failed");
+                        }
+                    }
+            );
         }
         Button btnLike = view.findViewById(R.id.details_btnLike);
         btnLike.setOnClickListener(view1 -> {

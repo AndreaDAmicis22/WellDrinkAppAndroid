@@ -32,6 +32,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +83,11 @@ public class MainFragment extends Fragment {
         card.setOnClickListener(el -> {
             Bundle bundle = new Bundle();
             bundle.putString("name", (String) name.getText());
-            Navigation.findNavController(requireView()).navigate(R.id.action_fragment_main_to_fragment_details, bundle);
+            if(!name.getText().equals(PLACEHOLDER_NAME)){
+                drinkViewModel.getDrinkDetail((String) name.getText());
+                Navigation.findNavController(requireView()).navigate(R.id.action_fragment_main_to_fragment_details, bundle);
+                Log.d("API", "CLICK!");
+            }
         });
         drinkViewModel.getDrinksRandomLiveData().observe(getViewLifecycleOwner(), res -> {
             if (res.isSuccess()) {
