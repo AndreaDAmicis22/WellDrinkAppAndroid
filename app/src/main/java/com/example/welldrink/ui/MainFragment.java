@@ -3,18 +3,18 @@ package com.example.welldrink.ui;
 import com.example.welldrink.R;
 import com.example.welldrink.adapter.MainFavoriteRecyclerViewAdapter;
 import com.example.welldrink.data.repository.drink.IDrinkRepository;
-import com.example.welldrink.data.repository.user.IUserRepository;
 import com.example.welldrink.model.Drink;
 import com.example.welldrink.model.Favorite;
 import com.example.welldrink.model.Result;
 import com.example.welldrink.ui.viewModel.DrinkViewModel;
 import com.example.welldrink.ui.viewModel.DrinkViewModelFactory;
-import com.example.welldrink.ui.viewModel.UserViewModel;
-import com.example.welldrink.ui.viewModel.UserViewModelFactory;
 import com.example.welldrink.util.ServiceLocator;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
+import com.squareup.picasso.Transformation;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,7 +26,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,10 +33,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
+import jp.wasabeef.picasso.transformations.BlurTransformation;
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class MainFragment extends Fragment {
 
@@ -70,6 +70,7 @@ public class MainFragment extends Fragment {
         TextView name = view.findViewById(R.id.home_random_txtTitle);
         TextView category = view.findViewById(R.id.home_random_txtCategory);
         ImageView image = view.findViewById(R.id.home_random_img);
+        ImageView imageBg = view.findViewById(R.id.home_random_imgBg);
         CardView card = view.findViewById(R.id.home_random_card);
         card.setOnClickListener(view1 -> {
             Bundle bundle = new Bundle();
@@ -77,11 +78,13 @@ public class MainFragment extends Fragment {
             Navigation.findNavController(requireView()).navigate(R.id.action_fragment_main_to_fragment_details, bundle);
         });
         drinkViewModel.getDrinksRandomLiveData().observe(getViewLifecycleOwner(), res -> {
-            if(res.isSuccess()){
+            if (res.isSuccess()) {
                 Drink drink = ((Result.Success<Drink>) res).getData();
                 name.setText(drink.getName());
                 category.setText(drink.getCategory());
-                Picasso.get().load(drink.getImageUrl()).into(image);
+                RequestCreator imgReq = Picasso.get().load(drink.getImageUrl());
+                imgReq.into(image);
+                imgReq.transform(new BlurTransformation(getContext(),25, 2)).into(imageBg);
             }
         });
         button.setOnClickListener(view1 -> {
