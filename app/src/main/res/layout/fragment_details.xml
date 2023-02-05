@@ -41,7 +41,7 @@
                 android:layout_height="160dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/details_img"
-                android:src="@drawable/ic_baseline_local_drink_128"
+                android:src="@drawable/ic_baseline_question_mark_128"
                 tools:ignore="ImageContrastCheck" />
 
             <androidx.constraintlayout.widget.ConstraintLayout

@@ -27,7 +27,7 @@
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:contentDescription="@string/research_card_img"
-                android:src="@drawable/ic_baseline_local_drink_128" />
+                android:src="@drawable/ic_baseline_question_mark_128" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/research_card1_txt"
+                    android:text="@string/research_card_txt"
                     android:textAppearance="?attr/textAppearanceTitleMedium"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"

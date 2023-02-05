@@ -54,7 +54,7 @@
                     android:layout_width="160dp"
                     android:layout_height="160dp"
                     android:contentDescription="@string/home_random_img"
-                    android:src="@drawable/ic_baseline_language_128"
+                    android:src="@drawable/ic_baseline_question_mark_128"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

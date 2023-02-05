@@ -45,12 +45,8 @@ public class MainFragment extends Fragment {
 
     private DrinkViewModel drinkViewModel;
 
-    private final String[] names;
-    private String imgLink;
-
     public MainFragment() {
-        names = new String[]{"Name 1", "Name 2", "Name 3", "Name 4", "Name 5"};
-        imgLink = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.fiatprofessional.com%2Fit%2Fmopar%2F404-page-not-found&psig=AOvVaw1lzSm2_An2FWplNvL0EC_G&ust=1675681839025000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCLDsprif_vwCFQAAAAAdAAAAABAb";
+
     }
 
     public static MainFragment newInstance() {
@@ -73,38 +69,24 @@ public class MainFragment extends Fragment {
         Button button = view.findViewById(R.id.home_random_btn);
         TextView name = view.findViewById(R.id.home_random_txtTitle);
         TextView category = view.findViewById(R.id.home_random_txtCategory);
-        TextView glass = view.findViewById(R.id.home_random_txtGlass);
-        TextView alcol = view.findViewById(R.id.home_random_txtAlcol);
         ImageView image = view.findViewById(R.id.home_random_img);
         CardView card = view.findViewById(R.id.home_random_card);
-        Random rand = new Random();
         card.setOnClickListener(view1 -> {
             Bundle bundle = new Bundle();
             bundle.putString("name", (String) name.getText());
-            bundle.putString("category", (String) category.getText());
-            bundle.putString("glass", (String) glass.getText());
-            bundle.putString("alcol", (String) alcol.getText());
-            bundle.putString("img", imgLink);
             Navigation.findNavController(requireView()).navigate(R.id.action_fragment_main_to_fragment_details, bundle);
         });
-        //test
         drinkViewModel.getDrinksRandomLiveData().observe(getViewLifecycleOwner(), res -> {
             if(res.isSuccess()){
                 Drink drink = ((Result.Success<Drink>) res).getData();
                 name.setText(drink.getName());
                 category.setText(drink.getCategory());
                 Picasso.get().load(drink.getImageUrl()).into(image);
-            }else{
-                name.setText("Drink not found");
-                category.setText("Category not found");
-                Picasso.get().load(imgLink).into(image);
             }
         });
-
         button.setOnClickListener(view1 -> {
             drinkViewModel.getDrinksRandom();
         });
-
         return view;
     }
 

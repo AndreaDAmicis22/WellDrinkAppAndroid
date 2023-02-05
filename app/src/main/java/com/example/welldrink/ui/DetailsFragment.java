@@ -68,10 +68,7 @@ public class DetailsFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             name.setText(args.getString("name"));
-            category.setText(args.getString("category"));
-            glass.setText(args.getString("glass"));
-            alcol.setText(args.getString("alcol"));
-            Picasso.get().load(args.getString("img")).into(image);
+            //Picasso.get().load(args.getString("img")).into(image);
         }
         Button btnLike = view.findViewById(R.id.details_btnLike);
         btnLike.setOnClickListener(view1 -> {

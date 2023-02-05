@@ -1,10 +1,9 @@
 <resources>
     <string name="app_name">WellDrink</string>
     <string name="home_inpSearch">Search</string>
-    <string name="home_favouriteIngredient">Favourite ingredient</string>
-    <string name="home_favoriteIngredientValue">Soda</string>
-    <string name="home_random_txtTitle">Cuba Libre</string>
-    <string name="home_random_txtValue">Drink cubano</string>
+    <string name="home_favouriteIngredient">Favourite</string>
+    <string name="home_favoriteIngredientValue">Name</string>
+    <string name="home_random_txtTitle">Drink name</string>
     <string name="first_txtSubtitle">Choose your favourite</string>
     <string name="first_card_img">Ingredient</string>
     <string name="first_card1_txt">Tequila</string>
@@ -27,15 +26,15 @@
     <string name="home_random_img">Image</string>
     <string name="profile_txtNameProfile">Nome utente</string>
     <string name="profile_img">Profile picture</string>
-    <string name="research_card1_txt">Vodka Redbull</string>
+    <string name="research_card_txt">Drink name</string>
     <string name="research_card_img">Drink image</string>
     <string name="details_txtVolume">40%</string>
-    <string name="details_titleDrink">Mojito</string>
-    <string name="details_card1_txtName">Rum</string>
-    <string name="details_card1_txtQty">10 oz</string>
+    <string name="details_titleDrink">Drink name</string>
+    <string name="details_card1_txtName">Ingredient</string>
+    <string name="details_card1_txtQty">Qty</string>
     <string name="details_card_btn">Buy</string>
     <string name="details_prep_textTitle">Recipe</string>
-    <string name="details_prep_txtBody">Put in the glass</string>
+    <string name="details_prep_txtBody">Information</string>
     <string name="details_img">Drink image</string>
     <string name="nav_main">Home</string>
     <string name="nav_profile">Profile</string>
