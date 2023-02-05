@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.welldrink.R;
-import com.example.welldrink.adapter.ProfileRecyclerViewAdapter;
+import com.example.welldrink.adapter.DrinkSmallInfoRecyclerViewAdapter;
 import com.example.welldrink.model.Drink;
 
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class ResearchFragment extends Fragment {
         int txtDark = getResources().getColor(R.color.md_theme_dark_primary);
         int bgLight = getResources().getColor(R.color.md_theme_light_inverseOnSurface);
         int txtLight = getResources().getColor(R.color.md_theme_light_primary);
-        ingredient.setOnClickListener(view1 -> {
+        ingredient.setOnClickListener(el -> {
             if (darkMode) {
                 onIngredient = changeColor(onIngredient, ingredient, bgDark, txtDark);
                 resetOthers(name, taste, glass, bgDark, txtDark);
@@ -72,7 +73,7 @@ public class ResearchFragment extends Fragment {
             onTaste = false;
             onGlass = false;
         });
-        name.setOnClickListener(view1 -> {
+        name.setOnClickListener(el -> {
             if (darkMode) {
                 onName = changeColor(onName, name, bgDark, txtDark);
                 resetOthers(ingredient, taste, glass, bgDark, txtDark);
@@ -85,7 +86,7 @@ public class ResearchFragment extends Fragment {
             onTaste = false;
             onGlass = false;
         });
-        taste.setOnClickListener(view1 -> {
+        taste.setOnClickListener(el -> {
             if (darkMode) {
                 onTaste = changeColor(onTaste, taste, bgDark, txtDark);
                 resetOthers(ingredient, name, glass, bgDark, txtDark);
@@ -98,7 +99,7 @@ public class ResearchFragment extends Fragment {
             onName = false;
             onGlass = false;
         });
-        glass.setOnClickListener(view1 -> {
+        glass.setOnClickListener(el -> {
             if (darkMode) {
                 onGlass = changeColor(onGlass, glass, bgDark, txtDark);
                 resetOthers(ingredient, taste, name, bgDark, txtDark);
@@ -124,10 +125,14 @@ public class ResearchFragment extends Fragment {
         RecyclerView researchRecycleView = view.findViewById(R.id.research_rscv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
         researchRecycleView.setLayoutManager(linearLayoutManager);
-        ProfileRecyclerViewAdapter adapter = new ProfileRecyclerViewAdapter(array, new ProfileRecyclerViewAdapter.OnItemClickListener() {
-            @Override
-            public void onDrinkClick(Drink drink) {}
+        String imgLink = "https://www.thecocktaildb.com//images//media//drink//2x8thr1504816928.jpg";
+        DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(array, drink -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("name", (String) drink.getName());
+            bundle.putString("img", imgLink);
+            Navigation.findNavController(requireView()).navigate(R.id.action_fragment_research_to_fragment_details, bundle);
         });
+        researchRecycleView.setAdapter(adapter);
         researchRecycleView.setAdapter(adapter);
     }
 

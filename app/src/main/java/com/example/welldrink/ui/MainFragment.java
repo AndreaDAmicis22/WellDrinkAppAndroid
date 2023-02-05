@@ -72,7 +72,7 @@ public class MainFragment extends Fragment {
         ImageView image = view.findViewById(R.id.home_random_img);
         ImageView imageBg = view.findViewById(R.id.home_random_imgBg);
         CardView card = view.findViewById(R.id.home_random_card);
-        card.setOnClickListener(view1 -> {
+        card.setOnClickListener(el -> {
             Bundle bundle = new Bundle();
             bundle.putString("name", (String) name.getText());
             Navigation.findNavController(requireView()).navigate(R.id.action_fragment_main_to_fragment_details, bundle);
@@ -87,7 +87,7 @@ public class MainFragment extends Fragment {
                 imgReq.transform(new BlurTransformation(getContext(),25, 2)).into(imageBg);
             }
         });
-        button.setOnClickListener(view1 -> {
+        button.setOnClickListener(el -> {
             drinkViewModel.getDrinksRandom();
         });
         return view;
