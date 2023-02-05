@@ -35,11 +35,11 @@
 
                 <TextView
                     android:id="@+id/drink_small_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:gravity="center"
                     android:text="@string/research_card_txt"
-                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    android:textAppearance="?attr/textAppearanceBodySmall"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/drink_btnLike"
