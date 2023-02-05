@@ -87,6 +87,7 @@ public class MainFragment extends Fragment {
             bundle.putString("img", imgLink);
             Navigation.findNavController(requireView()).navigate(R.id.action_fragment_main_to_fragment_details, bundle);
         });
+        //test
         drinkViewModel.getDrinksRandomLiveData().observe(getViewLifecycleOwner(), res -> {
             if(res.isSuccess()){
                 Drink drink = ((Result.Success<Drink>) res).getData();
