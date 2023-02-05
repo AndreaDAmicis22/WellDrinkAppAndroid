@@ -13,6 +13,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
@@ -21,6 +23,7 @@ import com.example.welldrink.R;
 import com.example.welldrink.databinding.ActivityMainBinding;
 import com.google.android.gms.dynamic.SupportFragmentWrapper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -48,17 +51,23 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private int getCheckedItem(BottomNavigationView navigationView) {
+        Menu menu = navigationView.getMenu();
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem item = menu.getItem(i);
+            if (item.isChecked()) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     @Override
     public void onBackPressed() {
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.home_fragment);
-        if (fragment instanceof MainFragment) {
-            Log.d(TAG, "details");
-        }
-        Log.d(TAG, String.valueOf(fragment));
-        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.close_app_title)
-                .setMessage(R.string.close_app_desc).setPositiveButton(R.string.close_app_conf, (dialog, which) -> finish())
-                .setNegativeButton(R.string.close_app_unconf, null).show();
+        if (getCheckedItem(findViewById(R.id.home_navbar)) != 3)
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.close_app_title)
+                    .setMessage(R.string.close_app_desc).setPositiveButton(R.string.close_app_conf, (dialog, which) -> finish())
+                    .setNegativeButton(R.string.close_app_unconf, null).show();
     }
 
 }
