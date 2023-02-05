@@ -52,7 +52,7 @@
                 <ImageView
                     android:id="@+id/home_random_imgBg"
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="240dp"
                     android:contentDescription="@string/home_random_img"
                     android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -63,8 +63,8 @@
 
                 <ImageView
                     android:id="@+id/home_random_img"
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
+                    android:layout_width="240dp"
+                    android:layout_height="240dp"
                     android:contentDescription="@string/home_random_img"
                     android:src="@drawable/ic_baseline_question_mark_128"
                     app:layout_constraintBottom_toBottomOf="parent"
