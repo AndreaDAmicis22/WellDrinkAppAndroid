@@ -49,10 +49,13 @@ public class DetailsFragment extends Fragment {
     private static final String TAG = DetailsFragment.class.getSimpleName();
     private boolean onLike;
 
+    private Drink drink;
+
+    private RecyclerView detailsRecycleView;
     private DrinkViewModel drinkViewModel;
 
     public DetailsFragment() {
-
+        drink = new Drink();
     }
 
     public static DetailsFragment newInstance() {
@@ -81,13 +84,15 @@ public class DetailsFragment extends Fragment {
                     requireActivity(), result -> {
                         if(result.isSuccess()){
                             Log.d("API", "result.isSuccess");
-                            Drink drink = ((Result.Success<Drink>) result).getData();
+                            drink = ((Result.Success<Drink>) result).getData();
                             Picasso.get().load(drink.getImageUrl()).into(image);
                             name.setText(drink.getName());
                             category.setText(drink.getCategory());
                             glass.setText(drink.getGlass());
                             alcol.setText(drink.getAlcolType());
                             recipe.setText(drink.getInstructions());
+                            DetailRecyclerViewAdapter adapter = new DetailRecyclerViewAdapter(drink.getIngredientList());
+                            detailsRecycleView.setAdapter(adapter);
                         }else{
                             Log.d("API", "result.isSuccess failed");
                         }
@@ -105,11 +110,11 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        List<Ingredient> array = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            array.add(new Ingredient(0, "lemon", false, 1542, null, "10oz"));
-        }
-        RecyclerView detailsRecycleView = view.findViewById(R.id.details_recView);
+        List<Ingredient> array = drink.getIngredientList();
+//        for (int i = 0; i < 5; i++) {
+//            array.add(new Ingredient(0, "lemon", false, 1542, null, "10oz"));
+//        }
+        detailsRecycleView = view.findViewById(R.id.details_recView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
         detailsRecycleView.setLayoutManager(linearLayoutManager);
         DetailRecyclerViewAdapter adapter = new DetailRecyclerViewAdapter(array);

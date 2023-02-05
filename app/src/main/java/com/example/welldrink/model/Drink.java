@@ -2,6 +2,7 @@ package com.example.welldrink.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Drink {
@@ -29,6 +30,10 @@ public class Drink {
         this.glass = glass;
         this.alcolType = alcolType;
         this.category = category;
+    }
+
+    public Drink(){
+        this.ingredientList = new ArrayList<Ingredient>();
     }
 
     public long getId() {

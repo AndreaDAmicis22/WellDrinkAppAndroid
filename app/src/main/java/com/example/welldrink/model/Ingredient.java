@@ -1,8 +1,11 @@
 package com.example.welldrink.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Ingredient {
 
     private long id;
+    @SerializedName("ingredient")
     private String name;
     private boolean alcohol;
     private int ABV;
