@@ -36,6 +36,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class MainFragment extends Fragment {
     private DrinkViewModel drinkViewModel;
 
     public MainFragment() {
+
     }
 
     public static MainFragment newInstance() {
@@ -77,6 +79,8 @@ public class MainFragment extends Fragment {
         ImageView image = view.findViewById(R.id.home_random_img);
         ImageView imageBg = view.findViewById(R.id.home_random_imgBg);
         CardView card = view.findViewById(R.id.home_random_card);
+        SearchView search = getActivity().findViewById(R.id.home_inpSearch);
+        search.onActionViewCollapsed();
         card.setOnClickListener(el -> {
             Bundle bundle = new Bundle();
             bundle.putString("name", (String) name.getText());
@@ -89,10 +93,10 @@ public class MainFragment extends Fragment {
                 category.setText(drink.getCategory());
                 RequestCreator imgReq = Picasso.get().load(drink.getImageUrl());
                 imgReq.into(image);
-                imgReq.transform(new BlurTransformation(getContext(),25, 2)).into(imageBg);
+                imgReq.transform(new BlurTransformation(getContext(), 25, 2)).into(imageBg);
                 glass.setText(drink.getGlass());
                 Picasso.get().load(drink.getImageUrl()).into(image);
-            }else{
+            } else {
                 name.setText(PLACEHOLDER_NAME);
                 category.setText(PLACEHOLDER_CATEGORY);
                 glass.setText(PLACEHOLDER_GLASS);

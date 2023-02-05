@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.welldrink.R;
@@ -70,6 +71,8 @@ public class ProfileFragment extends Fragment {
         Button favoriteDrink = view.findViewById(R.id.profile_grd_btnFavoriteDrink);
         Button favoriteIngredient = view.findViewById(R.id.profile_btnFavoriteIngredient);
         TextView profileName = view.findViewById(R.id.profile_txtNameProfile);
+        SearchView search = getActivity().findViewById(R.id.home_inpSearch);
+        search.onActionViewCollapsed();
         profileName.setText(user.getEmail());
         List<Drink> array = new ArrayList<>();
         String imgLink = "https://www.thecocktaildb.com//images//media//drink//2x8thr1504816928.jpg";
