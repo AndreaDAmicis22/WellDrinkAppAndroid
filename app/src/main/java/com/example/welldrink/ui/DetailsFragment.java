@@ -85,6 +85,7 @@ public class DetailsFragment extends Fragment {
                         if(result.isSuccess()){
                             Log.d("API", "result.isSuccess");
                             drink = ((Result.Success<Drink>) result).getData();
+                            Log.d("API", drink.toString());
                             Picasso.get().load(drink.getImageUrl()).into(image);
                             name.setText(drink.getName());
                             category.setText(drink.getCategory());
@@ -92,7 +93,9 @@ public class DetailsFragment extends Fragment {
                             alcol.setText(drink.getAlcolType());
                             recipe.setText(drink.getInstructions());
                             DetailRecyclerViewAdapter adapter = new DetailRecyclerViewAdapter(drink.getIngredientList());
+                            Log.d("API", "ARRIVO QUI");
                             detailsRecycleView.setAdapter(adapter);
+                            Log.d("API", "NON ARRIVO QUI");
                         }else{
                             Log.d("API", "result.isSuccess failed");
                         }
