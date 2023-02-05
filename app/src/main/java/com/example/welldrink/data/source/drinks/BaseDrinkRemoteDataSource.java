@@ -16,4 +16,6 @@ public abstract class BaseDrinkRemoteDataSource {
 
     public abstract void fetchRandomDrink();
 
+    public abstract void fetchDrinkDetail(String name);
+
 }

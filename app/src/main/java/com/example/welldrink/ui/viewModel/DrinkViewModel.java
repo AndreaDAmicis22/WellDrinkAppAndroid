@@ -14,6 +14,8 @@ public class DrinkViewModel extends ViewModel {
 
     private MutableLiveData<Result> randomDrinkLiveData;
 
+    private MutableLiveData<Result> detailsLiveData;
+
     public DrinkViewModel(IDrinkRepository drinkRepository){
         this.drinkRepository = drinkRepository;
     }
@@ -38,12 +40,26 @@ public class DrinkViewModel extends ViewModel {
         this.setDrinkMutableLiveDataWithRandom();
     }
 
+    public MutableLiveData<Result> getDrinkDetailsLiveData(String name){
+        if(this.detailsLiveData == null)
+            setDetailsLiveData(name);
+        return this.detailsLiveData;
+    }
+
+    public void getDrinkDetail(String name){
+        this.setDetailsLiveData(name);
+    }
+
     private void setDrinkMutableLiveDataByName(String name){
         this.drinkMutableLiveData = this.drinkRepository.getDrinksByName(name);
     }
 
     private void setDrinkMutableLiveDataWithRandom(){
         this.randomDrinkLiveData = this.drinkRepository.getRandomDrink();
+    }
+
+    private void setDetailsLiveData(String name){
+        this.detailsLiveData = this.drinkRepository.getDrinkDetails(name);
     }
 
 }

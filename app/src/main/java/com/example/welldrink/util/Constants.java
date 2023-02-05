@@ -6,11 +6,14 @@ public class Constants {
     public static final String PLACEHOLDER_NAME = "Name not found";
     public static final String PLACEHOLDER_GLASS = "Glass not found";
     public static final String PLACEHOLDER_CATEGORY = "Category not found";
+    public static final String PLACEHOLDER_ALCOL = "Aclol not found";
 
     public static final String API_URL = "https://welldrinkdev.altervista.org/";
     public static final String API_BYNAME = "getByName";
     public static final String API_BYNAMEPARAMETER = "name";
     public static final String API_RANDOMDRINK = "getRandom";
+    public static final String API_DETAILS = "getDetails";
+    public static final String API_DETAILSPARAMETER = "name";
     public static final int MINIMUM_PASSWORD_LENGTH = 6;
 
     public static final String DB_REALTIME = "https://welldrink-680e6-default-rtdb.europe-west1.firebasedatabase.app/";
