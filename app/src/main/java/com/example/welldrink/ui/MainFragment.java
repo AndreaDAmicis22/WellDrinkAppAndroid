@@ -1,5 +1,10 @@
 package com.example.welldrink.ui;
 
+import static com.example.welldrink.util.Constants.PLACEHOLDER_CATEGORY;
+import static com.example.welldrink.util.Constants.PLACEHOLDER_GLASS;
+import static com.example.welldrink.util.Constants.PLACEHOLDER_LINK;
+import static com.example.welldrink.util.Constants.PLACEHOLDER_NAME;
+
 import com.example.welldrink.R;
 import com.example.welldrink.adapter.MainFavoriteRecyclerViewAdapter;
 import com.example.welldrink.data.repository.drink.IDrinkRepository;
@@ -46,7 +51,6 @@ public class MainFragment extends Fragment {
     private DrinkViewModel drinkViewModel;
 
     public MainFragment() {
-
     }
 
     public static MainFragment newInstance() {
@@ -69,6 +73,7 @@ public class MainFragment extends Fragment {
         Button button = view.findViewById(R.id.home_random_btn);
         TextView name = view.findViewById(R.id.home_random_txtTitle);
         TextView category = view.findViewById(R.id.home_random_txtCategory);
+        TextView glass = view.findViewById(R.id.home_random_txtGlass);
         ImageView image = view.findViewById(R.id.home_random_img);
         ImageView imageBg = view.findViewById(R.id.home_random_imgBg);
         CardView card = view.findViewById(R.id.home_random_card);
@@ -85,6 +90,13 @@ public class MainFragment extends Fragment {
                 RequestCreator imgReq = Picasso.get().load(drink.getImageUrl());
                 imgReq.into(image);
                 imgReq.transform(new BlurTransformation(getContext(),25, 2)).into(imageBg);
+                glass.setText(drink.getGlass());
+                Picasso.get().load(drink.getImageUrl()).into(image);
+            }else{
+                name.setText(PLACEHOLDER_NAME);
+                category.setText(PLACEHOLDER_CATEGORY);
+                glass.setText(PLACEHOLDER_GLASS);
+                Picasso.get().load(PLACEHOLDER_LINK).into(image);
             }
         });
         button.setOnClickListener(el -> {
