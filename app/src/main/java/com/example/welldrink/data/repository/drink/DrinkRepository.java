@@ -9,6 +9,7 @@ import com.example.welldrink.model.Drink;
 import com.example.welldrink.model.DrinkApiResponse;
 import com.example.welldrink.model.Result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback {
@@ -87,9 +88,16 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
         return this.drinkMutableLiveData;
     }
 
+    public void clearDrinkMutableLiveData(){
+        if(this.drinkMutableLiveData != null)
+            this.drinkMutableLiveData.setValue(new Result.Success<List<Drink>>(new ArrayList<Drink>()));
+    }
+
+
     @Override
     public void onSuccessFromRemote(DrinkApiResponse drinkApiResponse) {
         Result result = new Result.Success<List<Drink>>(drinkApiResponse.getDrinkList());
+        Log.d("API", "onSuccessFromRemote");
         this.drinkMutableLiveData.postValue(result);
     }
 

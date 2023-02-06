@@ -54,6 +54,7 @@ public class ResearchFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         drinkViewModel = new ViewModelProvider(requireActivity()).get(DrinkViewModel.class);
+        drinkViewModel.clearDrinkMutableLiveData();
     }
 
     @Override
@@ -77,7 +78,7 @@ public class ResearchFragment extends Fragment {
                     selected = handleClick(getResources(), selected, filters, button, bgLight, txtLight);
             });
         }
-        drinkViewModel.getDrinksByNameLiveData("---").observe(getViewLifecycleOwner(), res -> {
+        drinkViewModel.getDrinkMutableLiveData().observe(getViewLifecycleOwner(), res -> {
             if(res.isSuccess()){
                 Log.d("RES", "Observer");
                 List<Drink> drinks = ((Result.Success<List<Drink>>) res).getData();
