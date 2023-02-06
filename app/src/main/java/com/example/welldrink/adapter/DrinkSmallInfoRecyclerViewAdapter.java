@@ -88,6 +88,7 @@ public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<Drin
                     likeButton.setBackground(unfilled);
                 } else {
                     likeButton.setBackground(filled);
+                    drinkViewModel.setDrinkFavorite((String) drinkName.getText());
                 }
                 clicked = !clicked;
             });

@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.welldrink.data.source.drinks.BaseDrinkRemoteDataSource;
+import com.example.welldrink.data.source.drinks.BaseFavoriteDrinksDataSource;
 import com.example.welldrink.model.Drink;
 import com.example.welldrink.model.DrinkApiResponse;
 import com.example.welldrink.model.Result;
@@ -21,10 +22,14 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     private MutableLiveData<Result> detailDrinkLiveData;
 
     private final BaseDrinkRemoteDataSource drinkRemoteDataSource;
+    private final BaseFavoriteDrinksDataSource baseFavoriteDrinksDataSource;
 
-    public DrinkRepository(BaseDrinkRemoteDataSource drinkRemoteDataSource){
+    public DrinkRepository(BaseDrinkRemoteDataSource drinkRemoteDataSource,
+                           BaseFavoriteDrinksDataSource baseFavoriteDrinksDataSource){
         this.drinkRemoteDataSource = drinkRemoteDataSource;
         this.drinkRemoteDataSource.setDrinkCallback(this);
+        this.baseFavoriteDrinksDataSource = baseFavoriteDrinksDataSource;
+        this.baseFavoriteDrinksDataSource.setDrinkResponseCallback(this);
         this.randomDrinkLiveData = new MutableLiveData<>();
         this.drinkMutableLiveData = new MutableLiveData<>();
         this.detailDrinkLiveData = new MutableLiveData<>();
@@ -88,11 +93,20 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
         return this.drinkMutableLiveData;
     }
 
+    @Override
+    public void setDrinkFavorite(String name) {
+        this.baseFavoriteDrinksDataSource.setDrinkFavorite(name);
+    }
+
+    @Override
+    public void getFavoriteDrinks() {
+        this.baseFavoriteDrinksDataSource.fetchDrinkFavorite();
+    }
+
     public void clearDrinkMutableLiveData(){
         if(this.drinkMutableLiveData != null)
             this.drinkMutableLiveData.setValue(new Result.Success<List<Drink>>(new ArrayList<Drink>()));
     }
-
 
     @Override
     public void onSuccessFromRemote(DrinkApiResponse drinkApiResponse) {

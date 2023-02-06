@@ -103,6 +103,14 @@ public class DrinkViewModel extends ViewModel {
         return this.drinkMutableLiveData;
     }
 
+    public void setDrinkFavorite(String name){
+        this.drinkRepository.setDrinkFavorite(name);
+    }
+
+    public void getFavoriteDrinks(){
+        this.drinkRepository.getFavoriteDrinks();
+    }
+
     private void setDrinkMutableLiveDataByName(String name){
         this.drinkMutableLiveData = this.drinkRepository.getDrinksByName(name);
     }

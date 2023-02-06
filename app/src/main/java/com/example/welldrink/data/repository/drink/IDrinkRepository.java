@@ -2,6 +2,7 @@ package com.example.welldrink.data.repository.drink;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.welldrink.model.Drink;
 import com.example.welldrink.model.Result;
 
 public interface IDrinkRepository {
@@ -25,6 +26,10 @@ public interface IDrinkRepository {
     MutableLiveData<Result> getMutableLiveData();
 
     MutableLiveData<Result> getIngredientsByName(String name);
+
+    void setDrinkFavorite(String name);
+
+    void getFavoriteDrinks();
 
     void clearDrinkMutableLiveData();
 }
