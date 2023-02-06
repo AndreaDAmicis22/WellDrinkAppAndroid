@@ -19,6 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.welldrink.R;
 import com.example.welldrink.databinding.ActivityMainBinding;
@@ -69,6 +71,17 @@ public class MainActivity extends AppCompatActivity {
             new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.close_app_title)
                     .setMessage(R.string.close_app_desc).setPositiveButton(R.string.close_app_conf, (dialog, which) -> finish())
                     .setNegativeButton(R.string.close_app_unconf, null).show();
+        else {
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.home_fragment);
+            String returnTo = (String) (fragment.getView().findViewById(R.id.details_view1)).getContentDescription();
+            Log.d(TAG, returnTo);
+            if(returnTo.equals(MainFragment.class.getSimpleName()))
+                findViewById(R.id.fragment_main).performClick();
+            else if(returnTo.equals(ResearchFragment.class.getSimpleName()))
+                findViewById(R.id.fragment_research).performClick();
+            else if(returnTo.equals(ProfileFragment.class.getSimpleName()))
+                findViewById(R.id.fragment_profile).performClick();
+        }
     }
 
 }

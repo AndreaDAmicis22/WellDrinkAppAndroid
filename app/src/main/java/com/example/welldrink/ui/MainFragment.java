@@ -87,6 +87,7 @@ public class MainFragment extends Fragment {
         card.setOnClickListener(el -> {
             Bundle bundle = new Bundle();
             bundle.putString("name", (String) name.getText());
+            bundle.putString("from", MainFragment.class.getSimpleName());
             if(!name.getText().equals(PLACEHOLDER_NAME)){
                 drinkViewModel.getDrinkDetail((String) name.getText());
                 Navigation.findNavController(requireView()).navigate(R.id.action_fragment_main_to_fragment_details, bundle);

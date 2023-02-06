@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.welldrink.R;
 import com.example.welldrink.adapter.DetailRecyclerViewAdapter;
@@ -89,6 +91,8 @@ public class DetailsFragment extends Fragment {
         detailsRecycleView.setLayoutManager(linearLayoutManager);
         Bundle args = getArguments();
         if (args != null) {
+            View from = view.findViewById(R.id.details_view1);
+            from.setContentDescription(args.getString("from"));
             drinkViewModel.getDrinkDetailsLiveData(args.getString("name")).observe(
                     requireActivity(), result -> {
                         if(result.isSuccess()){
@@ -119,7 +123,6 @@ public class DetailsFragment extends Fragment {
         });
         return view;
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
