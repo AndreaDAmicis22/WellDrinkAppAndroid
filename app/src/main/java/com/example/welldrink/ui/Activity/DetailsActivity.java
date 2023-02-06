@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.transition.CircularPropagation;
 import android.util.Log;
@@ -94,6 +95,15 @@ public class DetailsActivity extends AppCompatActivity {
         Button btnLike = findViewById(R.id.details_btnLike);
         btnLike.setOnClickListener(view1 -> {
             onLike = likeOn(btnLike, onLike);
+        });
+        Button btnShare = findViewById(R.id.details_btnShare);
+        btnShare.setOnClickListener(el -> {
+            String text = "Drink: "+drink.getName()+"\n"+"Category: "+drink.getCategory()+"\n"+"Glass: "+drink.getGlass()+"\n"+"Alcol: "+drink.getAlcolType()+"\n"+"Recipe: "+drink.getInstructions();
+            Intent sharing = new Intent(Intent.ACTION_SEND);
+            sharing.setType("text/plain");
+            sharing.putExtra(Intent.EXTRA_SUBJECT, "Here is your drink!");
+            sharing.putExtra(Intent.EXTRA_TEXT, text);
+            startActivity(Intent.createChooser(sharing, "Share"));
         });
     }
 
