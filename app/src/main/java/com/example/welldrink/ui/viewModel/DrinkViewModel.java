@@ -9,6 +9,9 @@ import com.example.welldrink.data.repository.drink.IDrinkRepository;
 import com.example.welldrink.model.Drink;
 import com.example.welldrink.model.Result;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DrinkViewModel extends ViewModel {
 
     private final IDrinkRepository drinkRepository;
@@ -21,6 +24,12 @@ public class DrinkViewModel extends ViewModel {
 
     public DrinkViewModel(IDrinkRepository drinkRepository){
         this.drinkRepository = drinkRepository;
+    }
+
+    public MutableLiveData<Result> getDrinkMutableLiveData(){
+        if(this.drinkMutableLiveData == null)
+            this.drinkMutableLiveData = drinkRepository.getMutableLiveData();
+        return this.drinkMutableLiveData;
     }
 
     public MutableLiveData<Result> getDrinksByNameLiveData(String name){
@@ -71,6 +80,29 @@ public class DrinkViewModel extends ViewModel {
             this.detailsLiveData.setValue(new Result.Success<Drink>(new Drink()));
     }
 
+    public void clearDrinkMutableLiveData(){
+        Log.d("RES", "ARRIVO QUI");
+        if(this.drinkMutableLiveData != null){
+            this.drinkMutableLiveData.setValue(new Result.Success<Drink>(new Drink()));
+            this.drinkRepository.clearDrinkMutableLiveData();
+            this.drinkMutableLiveData = this.drinkRepository.getMutableLiveData();
+//            Log.d("RES", "-------CLEAR----------");
+//            Log.d("RES", ((Result.Success) this.drinkMutableLiveData.getValue()).getData().toString());
+//            Log.d("RES", ((Result.Success) this.drinkRepository.getMutableLiveData().getValue()).getData().toString());
+
+        }
+    }
+
+    public MutableLiveData<Result> getTopDrinksLiveData(){
+        this.setDrinkMutableLiveDataTopDrinks();
+        return this.drinkMutableLiveData;
+    }
+
+    public MutableLiveData<Result> getTopIngredientsLiveData(){
+        this.setDrinkMutableLiveDataTopIngredients();
+        return this.drinkMutableLiveData;
+    }
+
     private void setDrinkMutableLiveDataByName(String name){
         this.drinkMutableLiveData = this.drinkRepository.getDrinksByName(name);
     }
@@ -93,6 +125,14 @@ public class DrinkViewModel extends ViewModel {
 
     private void setDetailsLiveDataByCategory(String category){
         this.drinkMutableLiveData = this.drinkRepository.getDrinksByCategory(category);
+    }
+
+    private void setDrinkMutableLiveDataTopDrinks(){
+        this.drinkMutableLiveData = this.drinkRepository.getTopDrinks();
+    }
+
+    private void setDrinkMutableLiveDataTopIngredients(){
+        this.drinkMutableLiveData = this.drinkRepository.getTopIngredients();
     }
 
 }

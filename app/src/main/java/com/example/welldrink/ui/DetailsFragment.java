@@ -99,7 +99,7 @@ public class DetailsFragment extends Fragment {
                         if(result.isSuccess()){
                             Log.d("API", "result.isSuccess");
                             drink = ((Result.Success<Drink>) result).getData();
-                            //Log.d("API", drink.toString());
+                            Log.d("API", drink.toString());
                             RequestCreator imgReq = Picasso.get().load(drink.getImageUrl());
                             imgReq.into(image);
                             Log.d(TAG, String.valueOf(imageBg));

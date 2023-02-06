@@ -26,4 +26,5 @@ public interface IDrinkRepository {
 
     MutableLiveData<Result> getIngredientsByName(String name);
 
+    void clearDrinkMutableLiveData();
 }

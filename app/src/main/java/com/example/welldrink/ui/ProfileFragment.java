@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,12 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.welldrink.R;
+import com.example.welldrink.adapter.DrinkSmallInfoRecyclerViewAdapter;
 import com.example.welldrink.data.repository.user.IUserRepository;
+import com.example.welldrink.model.Drink;
+import com.example.welldrink.model.Result;
 import com.example.welldrink.model.User;
+import com.example.welldrink.ui.viewModel.DrinkViewModel;
 import com.example.welldrink.ui.viewModel.UserViewModel;
 import com.example.welldrink.ui.viewModel.UserViewModelFactory;
 import com.example.welldrink.util.ServiceLocator;
@@ -30,6 +35,7 @@ import java.util.List;
 
 public class ProfileFragment extends Fragment {
     private UserViewModel userViewModel;
+    private DrinkViewModel drinkViewModel;
     private User user;
     private final List<Button> buttonsList;
     private int selected;
@@ -54,6 +60,8 @@ public class ProfileFragment extends Fragment {
                 requireActivity(),
                 new UserViewModelFactory(userRepository)).get(UserViewModel.class);
         user = userViewModel.getLoggedUser();
+        drinkViewModel = new ViewModelProvider(requireActivity()).get(DrinkViewModel.class);
+        drinkViewModel.clearDrinkMutableLiveData();
     }
 
     @Override
@@ -82,10 +90,48 @@ public class ProfileFragment extends Fragment {
                     selected = handleClick(getResources(), selected, buttonsList, button, bgDark, txtDark);
                 else
                     selected = handleClick(getResources(), selected, buttonsList, button, bgLight, txtLight);
+                this.handleCall(selected);
             });
         }
+
+        drinkViewModel.getDrinkMutableLiveData().observe(getViewLifecycleOwner(), result -> {
+            Log.d("RES", "PROFILE OBSERVER");
+            if(result.isSuccess()){
+                List<Drink> drinkList = ((Result.Success<List<Drink>>) result).getData();
+                Log.d("RES", "ProfileFragment: " + drinkList.toString());
+                RecyclerView researchRecycleView = view.findViewById(R.id.profile_rcv);
+                researchRecycleView.setLayoutManager(linearLayoutManager);
+                DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(drinkList, drink -> {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", drink.getName());
+                    bundle.putString("from", ResearchFragment.class.getSimpleName());
+                    Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_fragment_details, bundle);
+                }, drinkViewModel);
+                researchRecycleView.setAdapter(adapter);
+            }else{
+                Log.d("RES", "ERROR Result.isSuccessfull");
+            }
+        });
+
         logout.setOnClickListener(el -> Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_registrationActivity));
         return view;
+    }
+
+    private void handleCall(int selected){
+        switch(selected){
+            case -1:
+                Log.d("RES", "CALL -1");
+                this.drinkViewModel.clearDrinkMutableLiveData();
+                break;
+            case 0:
+                this.drinkViewModel.getTopDrinksLiveData();
+                break;
+            case 1:
+                this.drinkViewModel.getTopIngredientsLiveData();
+                break;
+            default:
+                Log.d("RES", "Click on -> " + selected);
+        }
     }
 
 }
