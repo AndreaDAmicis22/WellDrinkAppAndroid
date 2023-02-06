@@ -1,18 +1,36 @@
 package com.example.welldrink.ui.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.transition.CircularPropagation;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.welldrink.R;
+import com.example.welldrink.adapter.DetailRecyclerViewAdapter;
+import com.example.welldrink.data.repository.drink.IDrinkRepository;
+import com.example.welldrink.data.repository.user.IUserRepository;
 import com.example.welldrink.model.Drink;
+import com.example.welldrink.model.Result;
 import com.example.welldrink.ui.viewModel.DrinkViewModel;
+import com.example.welldrink.ui.viewModel.DrinkViewModelFactory;
+import com.example.welldrink.ui.viewModel.UserViewModel;
+import com.example.welldrink.ui.viewModel.UserViewModelFactory;
+import com.example.welldrink.util.ServiceLocator;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
+
+import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -28,7 +46,10 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         drink = new Drink();
-        //drinkViewModel = new ViewModelProvider(this).get(DrinkViewModel.class);
+        IDrinkRepository drinkRepository = ServiceLocator.getInstance().getDrinkRepository();
+        drinkViewModel = new ViewModelProvider(
+                this,
+                new DrinkViewModelFactory(drinkRepository)).get(DrinkViewModel.class);
         ImageView image = findViewById(R.id.details_img);
         ImageView imageBg = findViewById(R.id.details_imgBg);
         TextView name = findViewById(R.id.details_txtTitle);
@@ -39,17 +60,21 @@ public class DetailsActivity extends AppCompatActivity {
         RecyclerView detailsRecycleView = createRecyclerView();
         Bundle args = getIntent().getExtras();
         if (args != null) {
-            /*drinkViewModel.getDrinkDetailsLiveData(args.getString("name")).observe(
+            drinkViewModel.getDrinkDetailsLiveData(args.getString("name")).observe(
                     this, result -> {
                         Log.d("API", "-Observer-");
                         if(result.isSuccess()){
+                            CircularProgressIndicator loading = findViewById(R.id.details_progress);
+                            loading.setVisibility(View.GONE);
+                            ScrollView scrollView = findViewById(R.id.details_scroll);
+                            scrollView.setVisibility(View.VISIBLE);
                             Log.d("API", "result.isSuccess");
                             drink = ((Result.Success<Drink>) result).getData();
                             Log.d("API", drink.toString());
                             RequestCreator imgReq = Picasso.get().load(drink.getImageUrl());
                             imgReq.into(image);
                             Log.d(TAG, String.valueOf(imageBg));
-                            //imgReq.transform(new BlurTransformation(requireContext(), 25, 2)).into(imageBg);
+                            imgReq.transform(new BlurTransformation(this, 25, 1)).into(imageBg);
                             //Log.d("API", "terza volta non arriva qui?");
                             name.setText(drink.getName());
                             category.setText(drink.getCategory());
@@ -64,7 +89,7 @@ public class DetailsActivity extends AppCompatActivity {
                             Log.d("API", "result.isSuccess failed");
                         }
                     }
-            );*/
+            );
         }
         Button btnLike = findViewById(R.id.details_btnLike);
         btnLike.setOnClickListener(view1 -> {
