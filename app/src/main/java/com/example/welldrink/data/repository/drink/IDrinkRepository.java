@@ -25,11 +25,16 @@ public interface IDrinkRepository {
 
     MutableLiveData<Result> getMutableLiveData();
 
+    MutableLiveData<Result> getFavoriteDrinksLiveData();
+
     MutableLiveData<Result> getIngredientsByName(String name);
+
+    void getDrinkByNameFavorite(String name);
 
     void setDrinkFavorite(String name);
 
     void getFavoriteDrinks();
 
     void clearDrinkMutableLiveData();
+
 }

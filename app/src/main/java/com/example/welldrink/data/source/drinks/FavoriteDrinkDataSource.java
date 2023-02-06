@@ -14,6 +14,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
 public class FavoriteDrinkDataSource extends BaseFavoriteDrinksDataSource{
 
     private final DatabaseReference databaseReference;
@@ -33,6 +38,7 @@ public class FavoriteDrinkDataSource extends BaseFavoriteDrinksDataSource{
                 .child(String.valueOf(name.hashCode()))
                 .setValue(name).addOnSuccessListener(a -> {
                     Log.d("FIRE", "Messo a favorite");
+                    //call back che aggiunge il dirnk alla mutablelivedata dei favorites
                 }).addOnFailureListener(err -> {
                     Log.d("FIRE", "ERRORE in favorite");
                 });
@@ -44,6 +50,11 @@ public class FavoriteDrinkDataSource extends BaseFavoriteDrinksDataSource{
             if(task.isSuccessful()){
                 Log.d("FIRE", "task.isSuccessful()");
                 Log.d("FIRE", task.getResult().getValue().toString());
+                Map<String, String> favorites = (HashMap<String, String>) task.getResult().getValue();
+//                for(String s : favorites.values()){
+//                    Log.d("FIRE", s);
+//                }
+                drinkResponseCallback.onSuccessFromFetchFavorite(new ArrayList<>(favorites.values()));
             }else{
                 Log.d("FIRE", "ERROR task.isSuccessful()");
             }

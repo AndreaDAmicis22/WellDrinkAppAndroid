@@ -22,6 +22,8 @@ public class DrinkViewModel extends ViewModel {
 
     private MutableLiveData<Result> detailsLiveData;
 
+    private MutableLiveData<Result> favoritesLiveData; // non sono sicuro forse cambiare in un non livedata
+
     public DrinkViewModel(IDrinkRepository drinkRepository){
         this.drinkRepository = drinkRepository;
     }
@@ -109,6 +111,10 @@ public class DrinkViewModel extends ViewModel {
 
     public void getFavoriteDrinks(){
         this.drinkRepository.getFavoriteDrinks();
+    }
+
+    public MutableLiveData<Result> getFavoritesLiveData(){
+        return this.drinkRepository.getFavoriteDrinksLiveData();
     }
 
     private void setDrinkMutableLiveDataByName(String name){

@@ -94,6 +94,22 @@ public class ProfileFragment extends Fragment {
             });
         }
 
+        drinkViewModel.getFavoritesLiveData().observe(getViewLifecycleOwner(), result -> {
+            Log.d("RES", "OBSERVER FAV");
+            if(result.isSuccess() && selected == 2){
+                List<Drink> drinkList = ((Result.Success<List<Drink>>) result).getData();
+                Log.d("RES", "ProfileFragment: " + drinkList.toString());
+                RecyclerView researchRecycleView = view.findViewById(R.id.profile_rcv);
+                researchRecycleView.setLayoutManager(linearLayoutManager);
+                DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(drinkList, drink -> {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", drink.getName());
+                    Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_detailsActivity, bundle);
+                }, drinkViewModel);
+                researchRecycleView.setAdapter(adapter);
+            }
+        });
+
         drinkViewModel.getDrinkMutableLiveData().observe(getViewLifecycleOwner(), result -> {
             Log.d("RES", "PROFILE OBSERVER");
             if(result.isSuccess()){

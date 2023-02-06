@@ -2,6 +2,7 @@ package com.example.welldrink.data.repository.drink;
 
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.welldrink.data.source.drinks.BaseDrinkRemoteDataSource;
@@ -21,6 +22,8 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
 
     private MutableLiveData<Result> detailDrinkLiveData;
 
+    private MutableLiveData<Result> favoriteDrinksLiveData;
+
     private final BaseDrinkRemoteDataSource drinkRemoteDataSource;
     private final BaseFavoriteDrinksDataSource baseFavoriteDrinksDataSource;
 
@@ -33,6 +36,7 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
         this.randomDrinkLiveData = new MutableLiveData<>();
         this.drinkMutableLiveData = new MutableLiveData<>();
         this.detailDrinkLiveData = new MutableLiveData<>();
+        this.favoriteDrinksLiveData = new MutableLiveData<>();
     }
 
     @Override
@@ -93,6 +97,15 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
         return this.drinkMutableLiveData;
     }
 
+    public MutableLiveData<Result> getFavoriteDrinksLiveData(){
+        return this.favoriteDrinksLiveData;
+    }
+
+    @Override
+    public void getDrinkByNameFavorite(String name) {
+
+    }
+
     @Override
     public void setDrinkFavorite(String name) {
         this.baseFavoriteDrinksDataSource.setDrinkFavorite(name);
@@ -131,5 +144,37 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     public void onSuccessFromRemoteDetails(DrinkApiResponse drinkApiResponse) {
         Result res = new Result.Success<>(drinkApiResponse.getDrinkList().get(0));
         this.detailDrinkLiveData.postValue(res);
+    }
+
+    @Override
+    public void onSuccessFromFetchFavorite(List<String> favoriteList) {
+        for(String s : favoriteList){
+            Log.d("RES", "success -> " + s);
+            //fetch of all drinks by name
+            this.drinkRemoteDataSource.fetchFavoritesByName(s);
+        }
+    }
+
+    @Override
+    public void onSuccesFromFetchFavoriteRemote(DrinkApiResponse drinkApiResponse) {
+        if(this.favoriteDrinksLiveData.getValue() != null){
+            List<Drink> favorites = ((Result.Success<List<Drink>>) this.favoriteDrinksLiveData.getValue()).getData();
+            Drink newDrink = drinkApiResponse.getDrinkList().get(0);
+            boolean isInside = false;
+            for(Drink d : favorites){
+                Log.d("RES", "onSuccesFromFetchFavoriteRemote -> " + d.getName());
+                if(d.getName().equals(newDrink.getName()))
+                    isInside = true;
+            }
+            if(!isInside){
+                favorites.add(newDrink);
+                Log.d("RES", "onSuccesFromFetchFavoriteRemote ADDED");
+                Log.d("RES", favorites.toString());
+                this.favoriteDrinksLiveData.postValue(new Result.Success<>(favorites));
+            }
+        }else{
+            this.favoriteDrinksLiveData.postValue(new Result.Success<>(drinkApiResponse.getDrinkList()));
+        }
+
     }
 }

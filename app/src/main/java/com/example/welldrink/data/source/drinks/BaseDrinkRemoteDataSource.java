@@ -30,4 +30,6 @@ public abstract class BaseDrinkRemoteDataSource {
 
     public abstract void fetchIngredientsByName(String ingredientName);
 
+    public abstract void fetchFavoritesByName(String name);
+
 }

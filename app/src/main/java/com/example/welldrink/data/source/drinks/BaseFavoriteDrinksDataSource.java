@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.welldrink.data.repository.drink.IDrinkResponseCallback;
 import com.example.welldrink.model.Result;
 
+import java.util.List;
+
 public abstract class BaseFavoriteDrinksDataSource {
 
     protected IDrinkResponseCallback drinkResponseCallback;
