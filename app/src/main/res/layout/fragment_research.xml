@@ -41,15 +41,6 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/research_filter_btnIngredient"
-                    style="@style/Widget.Material3.Button.ElevatedButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/research_filter_btnIngredient" />
-
-                <Button
                     android:id="@+id/research_filter_btnName"
                     style="@style/Widget.Material3.Button.ElevatedButton"
                     android:layout_width="match_parent"
@@ -57,6 +48,15 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:text="@string/research_filter_btnName" />
+
+                <Button
+                    android:id="@+id/research_filter_btnIngredient"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/research_filter_btnIngredient" />
 
                 <Button
                     android:id="@+id/research_filter_btnCategory"
