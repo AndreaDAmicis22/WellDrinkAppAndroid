@@ -28,6 +28,8 @@ import com.google.android.gms.dynamic.SupportFragmentWrapper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.Objects;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -73,9 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     .setNegativeButton(R.string.close_app_unconf, null).show();
         else {
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.home_fragment);
-            String returnTo = (String) (fragment.getView().findViewById(R.id.details_view1)).getContentDescription();
-
-            Log.d(TAG, returnTo);
+            String returnTo = (String) (fragment.requireView().findViewById(R.id.details_view1)).getContentDescription();
             if(returnTo.equals(MainFragment.class.getSimpleName()))
                 findViewById(R.id.fragment_main).performClick();
             else if(returnTo.equals(ResearchFragment.class.getSimpleName()))

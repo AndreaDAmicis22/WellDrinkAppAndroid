@@ -45,7 +45,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
-import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class MainFragment extends Fragment {
 

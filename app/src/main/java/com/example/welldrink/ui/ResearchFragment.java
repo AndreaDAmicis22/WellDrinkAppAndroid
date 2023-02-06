@@ -1,6 +1,8 @@
 package com.example.welldrink.ui;
 
-import android.content.res.Configuration;
+import static com.example.welldrink.util.ButtonHandler.handleClick;
+import static com.example.welldrink.util.ButtonHandler.isDarkMode;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,7 +25,6 @@ import com.example.welldrink.adapter.DrinkSmallInfoRecyclerViewAdapter;
 import com.example.welldrink.model.Drink;
 import com.example.welldrink.model.Result;
 import com.example.welldrink.ui.viewModel.DrinkViewModel;
-import com.example.welldrink.ui.viewModel.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class ResearchFragment extends Fragment {
 
     private int selected;
     private boolean darkMode;
-    private final ArrayList<Button> filters;
+    private final List<Button> filters;
 
     private DrinkViewModel drinkViewModel;
     private List<Drink> drinkList;
@@ -59,7 +60,7 @@ public class ResearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_research, container, false);
-        darkMode = isDarkMode();
+        darkMode = isDarkMode(requireContext());
         filters.add(view.findViewById(R.id.research_filter_btnName));
         filters.add(view.findViewById(R.id.research_filter_btnIngredient));
         filters.add(view.findViewById(R.id.research_filter_btnCategory));
@@ -71,9 +72,9 @@ public class ResearchFragment extends Fragment {
         for (Button button : filters) {
             button.setOnClickListener(el -> {
                 if (darkMode)
-                    handleClick(button, bgDark, txtDark);
+                    selected = handleClick(getResources(), selected, filters, button, bgDark, txtDark);
                 else
-                    handleClick(button, bgLight, txtLight);
+                    selected = handleClick(getResources(), selected, filters, button, bgLight, txtLight);
             });
         }
         drinkViewModel.getDrinksByNameLiveData("---").observe(getViewLifecycleOwner(), res -> {
@@ -94,7 +95,7 @@ public class ResearchFragment extends Fragment {
                 researchRecycleView.setAdapter(adapter);
             }
         });
-        SearchView searchView = getActivity().findViewById(R.id.home_inpSearch);
+        SearchView searchView = requireActivity().findViewById(R.id.home_inpSearch);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -114,38 +115,6 @@ public class ResearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-    }
-
-    private void handleClick(Button button, int bg, int txt) {
-        Log.d(TAG, String.valueOf(selected));
-        if (selected != -1 && filters.get(selected).equals(button)) {
-            button.setBackgroundColor(bg);
-            button.setTextColor(txt);
-            selected = -1;
-        } else {
-            button.setBackgroundColor(getResources().getColor(R.color.md_theme_light_primary));
-            button.setTextColor(getResources().getColor(R.color.md_theme_light_onPrimary));
-            for (int i = 0; i < filters.size(); i++)
-                if (filters.get(i).equals(button))
-                    selected = i;
-        }
-        Log.d(TAG, String.valueOf(selected));
-        resetOthers(button, bg, txt);
-    }
-
-    private void resetOthers(Button button, int bg, int txt) {
-        for (int i = 0; i < filters.size(); i++)
-            if (!filters.get(i).equals(button))
-                resetColor(filters.get(i), bg, txt);
-    }
-
-    private void resetColor(Button button, int bg, int txt) {
-        button.setBackgroundColor(bg);
-        button.setTextColor(txt);
-    }
-
-    private boolean isDarkMode() {
-        return (getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
 
     private void makeFetchCall(String query) {

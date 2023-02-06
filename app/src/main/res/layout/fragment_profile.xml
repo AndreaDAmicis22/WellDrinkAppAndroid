@@ -52,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_btnLogOut">
 
         <Button
-            android:id="@+id/profile_btnFavoriteIngredient"
+            android:id="@+id/profile_grd_btnFavoriteIngredient"
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="@string/profile_grd_btnTopIngredient"
-            app:layout_constraintBottom_toTopOf="@+id/profile_btnFavoriteIngredient"
+            app:layout_constraintBottom_toTopOf="@+id/profile_grd_btnFavoriteIngredient"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/profile_grd_btnTopDrink"
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:text="@string/profile_grd_btnFavoriteDrink"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/profile_btnFavoriteIngredient"
+            app:layout_constraintEnd_toStartOf="@+id/profile_grd_btnFavoriteIngredient"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_grd_btnTopDrink" />
