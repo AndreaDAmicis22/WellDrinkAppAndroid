@@ -84,8 +84,9 @@ public class ProfileFragment extends Fragment {
             isTopIngredient = isFavoriteDrink = isFavoriteIngredient = false;
             DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(array, drink -> {
                 Bundle bundle = new Bundle();
-                bundle.putString("name", (String) drink.getName());
+                bundle.putString("name", drink.getName());
                 bundle.putString("img", imgLink);
+                bundle.putString("from", ProfileFragment.class.getSimpleName());
                 Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_fragment_details, bundle);
                 isTopDrink = false;
             });

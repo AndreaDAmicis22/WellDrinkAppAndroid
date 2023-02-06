@@ -9,8 +9,5 @@
         android:name="com.example.welldrink.ui.FirstStartFragment"
         android:label="First"
         tools:layout="@layout/fragment_first_start">
-        <action
-            android:id="@+id/action_fragment_first_start_to_fragment_first_start"
-            app:destination="@id/fragment_first_start" />
     </fragment>
 </navigation>

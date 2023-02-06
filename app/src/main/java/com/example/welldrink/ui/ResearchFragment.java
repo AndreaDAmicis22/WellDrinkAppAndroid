@@ -60,8 +60,8 @@ public class ResearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_research, container, false);
         darkMode = isDarkMode();
-        filters.add(view.findViewById(R.id.research_filter_btnIngredient));
         filters.add(view.findViewById(R.id.research_filter_btnName));
+        filters.add(view.findViewById(R.id.research_filter_btnIngredient));
         filters.add(view.findViewById(R.id.research_filter_btnCategory));
         filters.add(view.findViewById(R.id.research_filter_btnGlass));
         int bgDark = getResources().getColor(R.color.md_theme_dark_inverseOnSurface);
@@ -87,7 +87,8 @@ public class ResearchFragment extends Fragment {
                 researchRecycleView.setLayoutManager(linearLayoutManager);
                 DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(drinkList, drink -> {
                     Bundle bundle = new Bundle();
-                    bundle.putString("name", (String) drink.getName());
+                    bundle.putString("name", drink.getName());
+                    bundle.putString("from", ResearchFragment.class.getSimpleName());
                     Navigation.findNavController(requireView()).navigate(R.id.action_fragment_research_to_fragment_details, bundle);
                 });
                 researchRecycleView.setAdapter(adapter);
@@ -149,11 +150,8 @@ public class ResearchFragment extends Fragment {
 
     private void makeFetchCall(String query) {
         switch (selected) {
-            case 0:
-                drinkViewModel.getDrinksByIngredient(query);
-                break;
             case 1:
-                drinkViewModel.getDrinksByName(query);
+                drinkViewModel.getDrinksByIngredient(query);
                 break;
             case 2:
                 drinkViewModel.getDrinksByCategory(query);
@@ -162,6 +160,7 @@ public class ResearchFragment extends Fragment {
                 drinkViewModel.getDrinksByGlass(query);
                 break;
             default:
+                drinkViewModel.getDrinksByName(query);
                 break;
         }
     }

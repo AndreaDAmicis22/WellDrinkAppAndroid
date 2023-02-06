@@ -39,7 +39,6 @@
                     android:layout_height="0dp"
                     android:gravity="center"
                     android:text="@string/research_card_txt"
-                    android:textAppearance="?attr/textAppearanceBodySmall"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/drink_btnLike"

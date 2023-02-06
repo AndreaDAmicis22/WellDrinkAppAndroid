@@ -56,8 +56,7 @@
         android:id="@+id/fragment_details"
         android:name="com.example.welldrink.ui.DetailsFragment"
         android:label="@string/nav_main"
-        tools:layout="@layout/fragment_details">
-    </fragment>
+        tools:layout="@layout/fragment_details"/>
     <activity
         android:id="@+id/registrationActivity"
         android:name="com.example.welldrink.ui.RegistrationActivity"
