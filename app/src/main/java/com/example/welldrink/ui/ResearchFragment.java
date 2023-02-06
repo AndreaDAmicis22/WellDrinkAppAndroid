@@ -90,7 +90,7 @@ public class ResearchFragment extends Fragment {
                     bundle.putString("name", drink.getName());
                     bundle.putString("from", ResearchFragment.class.getSimpleName());
                     Navigation.findNavController(requireView()).navigate(R.id.action_fragment_research_to_fragment_details, bundle);
-                });
+                }, drinkViewModel);
                 researchRecycleView.setAdapter(adapter);
             }
         });

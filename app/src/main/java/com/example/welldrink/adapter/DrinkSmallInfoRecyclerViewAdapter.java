@@ -14,14 +14,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.welldrink.model.Drink;
 import com.example.welldrink.R;
+import com.example.welldrink.ui.viewModel.DrinkViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.function.Function;
 
 public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<DrinkSmallInfoRecyclerViewAdapter.DrinkSmallInfoViewHolder> {
 
     private int selectedPos = RecyclerView.NO_POSITION;
     private static final String TAG = DrinkSmallInfoRecyclerViewAdapter.class.getSimpleName();
+
+    public DrinkSmallInfoRecyclerViewAdapter(List<Drink> array, OnItemClickListener onItemClickListener) {
+    }
 
     public interface OnItemClickListener {
         void onDrinkClick(Drink drink);
@@ -30,9 +35,12 @@ public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<Drin
     private List<Drink> drinkList;
     private OnItemClickListener onItemClickListener;
 
-    public DrinkSmallInfoRecyclerViewAdapter(List<Drink> drinkList, OnItemClickListener onItemClickListener) {
+    private DrinkViewModel drinkViewModel;
+
+    public DrinkSmallInfoRecyclerViewAdapter(List<Drink> drinkList, OnItemClickListener onItemClickListener, DrinkViewModel drinkviewModel) {
         this.drinkList = drinkList;
         this.onItemClickListener = onItemClickListener;
+        this.drinkViewModel = drinkviewModel;
     }
 
     @NonNull
@@ -69,7 +77,8 @@ public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<Drin
             CardView card = itemView.findViewById(R.id.drink_small_card);
             Button likeButton = itemView.findViewById(R.id.drink_btnLike);
             card.setOnClickListener(el -> {
-
+                drinkViewModel.clearDrinkDetails();
+                drinkViewModel.getDrinkDetail((String) drinkName.getText());
                 onItemClickListener.onDrinkClick(drinkList.get(getAdapterPosition()));
             });
             likeButton.setOnClickListener(el -> {

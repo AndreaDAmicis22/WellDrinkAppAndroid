@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.welldrink.data.repository.drink.IDrinkRepository;
+import com.example.welldrink.model.Drink;
 import com.example.welldrink.model.Result;
 
 public class DrinkViewModel extends ViewModel {
@@ -66,7 +67,7 @@ public class DrinkViewModel extends ViewModel {
     }
 
     public void clearDrinkDetails(){
-        this.detailsLiveData.setValue(null);
+        this.detailsLiveData.setValue(new Result.Success<Drink>(new Drink()));
     }
 
     private void setDrinkMutableLiveDataByName(String name){

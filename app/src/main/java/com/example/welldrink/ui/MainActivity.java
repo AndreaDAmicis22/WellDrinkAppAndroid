@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         else {
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.home_fragment);
             String returnTo = (String) (fragment.getView().findViewById(R.id.details_view1)).getContentDescription();
+
             Log.d(TAG, returnTo);
             if(returnTo.equals(MainFragment.class.getSimpleName()))
                 findViewById(R.id.fragment_main).performClick();
