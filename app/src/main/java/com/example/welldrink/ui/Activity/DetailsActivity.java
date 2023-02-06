@@ -21,6 +21,7 @@ import com.example.welldrink.adapter.DetailRecyclerViewAdapter;
 import com.example.welldrink.data.repository.drink.IDrinkRepository;
 import com.example.welldrink.data.repository.user.IUserRepository;
 import com.example.welldrink.model.Drink;
+import com.example.welldrink.model.Ingredient;
 import com.example.welldrink.model.Result;
 import com.example.welldrink.ui.viewModel.DrinkViewModel;
 import com.example.welldrink.ui.viewModel.DrinkViewModelFactory;
@@ -98,7 +99,12 @@ public class DetailsActivity extends AppCompatActivity {
         });
         Button btnShare = findViewById(R.id.details_btnShare);
         btnShare.setOnClickListener(el -> {
-            String text = "Drink: "+drink.getName()+"\n"+"Category: "+drink.getCategory()+"\n"+"Glass: "+drink.getGlass()+"\n"+"Alcol: "+drink.getAlcolType()+"\n"+"Recipe: "+drink.getInstructions();
+            String ingredient = "Ingredient:"+"\n";
+            for (Ingredient i : drink.getIngredientList()){
+                ingredient += "_"+i.getName()+" "+i.getMeasure()+"\n";
+            }
+            String text = "Drink: "+drink.getName()+"\n"+"\n"+ingredient+"\n"
+                    +"Glass: "+drink.getGlass()+"\n"+"\n"+"Recipe: "+drink.getInstructions()+"\n";
             Intent sharing = new Intent(Intent.ACTION_SEND);
             sharing.setType("text/plain");
             sharing.putExtra(Intent.EXTRA_SUBJECT, "Here is your drink!");
