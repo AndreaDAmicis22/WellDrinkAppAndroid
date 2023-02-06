@@ -97,7 +97,7 @@ public class MainFragment extends Fragment {
                 category.setText(drink.getCategory());
                 RequestCreator imgReq = Picasso.get().load(drink.getImageUrl());
                 imgReq.into(image);
-                imgReq.transform(new BlurTransformation(requireContext(), 25, 2)).into(imageBg);
+                imgReq.transform(new BlurTransformation(requireContext(), 25, 1)).into(imageBg);
                 glass.setText(drink.getGlass());
                 alcol.setText(drink.getAlcolType());
                 Picasso.get().load(drink.getImageUrl()).into(image);

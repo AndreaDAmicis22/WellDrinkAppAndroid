@@ -34,11 +34,6 @@
             android:id="@+id/action_fragment_profile_to_detailsActivity"
             app:destination="@id/detailsActivity" />
     </fragment>
-    <fragment
-        android:id="@+id/fragment_details"
-        android:name="com.example.welldrink.ui.fragment.DetailsFragment"
-        android:label="@string/nav_main"
-        tools:layout="@layout/fragment_details"/>
     <activity
         android:id="@+id/registrationActivity"
         android:name="com.example.welldrink.ui.Activity.RegistrationActivity"
