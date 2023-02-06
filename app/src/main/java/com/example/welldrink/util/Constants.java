@@ -1,5 +1,7 @@
 package com.example.welldrink.util;
 
+import com.example.welldrink.R;
+
 public class Constants {
 
     public static final String PLACEHOLDER_LINK = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.fiatprofessional.com%2Fit%2Fmopar%2F404-page-not-found&psig=AOvVaw1lzSm2_An2FWplNvL0EC_G&ust=1675681839025000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCLDsprif_vwCFQAAAAAdAAAAABAb";

@@ -84,6 +84,9 @@ public class DetailsFragment extends Fragment {
         TextView glass = view.findViewById(R.id.details_info_txtGlass);
         TextView alcol = view.findViewById(R.id.details_info_txtAlcol);
         TextView recipe = view.findViewById(R.id.details_prep_txtBody);
+        detailsRecycleView = view.findViewById(R.id.details_recView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
+        detailsRecycleView.setLayoutManager(linearLayoutManager);
         Bundle args = getArguments();
         if (args != null) {
             drinkViewModel.getDrinkDetailsLiveData(args.getString("name")).observe(
@@ -100,14 +103,6 @@ public class DetailsFragment extends Fragment {
                             glass.setText(drink.getGlass());
                             alcol.setText(drink.getAlcolType());
                             recipe.setText(drink.getInstructions());
-
-                            detailsRecycleView = view.findViewById(R.id.details_recView);
-                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
-                            detailsRecycleView.setLayoutManager(linearLayoutManager);
-//                            DetailRecyclerViewAdapter adapter = new DetailRecyclerViewAdapter(array);
-//                            detailsRecycleView.setAdapter(adapter);
-
-
                             DetailRecyclerViewAdapter adapter = new DetailRecyclerViewAdapter(drink.getIngredientList());
                             Log.d("API", "ARRIVO QUI");
                             detailsRecycleView.setAdapter(adapter);
@@ -129,15 +124,6 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        List<Ingredient> array = drink.getIngredientList();
-//        for (int i = 0; i < 5; i++) {
-//            array.add(new Ingredient(0, "lemon", false, 1542, null, "10oz"));
-//        }
-//        detailsRecycleView = view.findViewById(R.id.details_recView);
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
-//        detailsRecycleView.setLayoutManager(linearLayoutManager);
-//        DetailRecyclerViewAdapter adapter = new DetailRecyclerViewAdapter(array);
-//        detailsRecycleView.setAdapter(adapter);
     }
 
     private Boolean likeOn(Button button, Boolean bool) {
