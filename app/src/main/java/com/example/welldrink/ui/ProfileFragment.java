@@ -75,12 +75,17 @@ public class ProfileFragment extends Fragment {
         search.onActionViewCollapsed();
         profileName.setText(user.getEmail());
         List<Drink> array = new ArrayList<>();
+        ArrayList<Button> buttonList = new ArrayList<>();
+        buttonList.add(topDrink);
+        buttonList.add(topIngredient);
+        buttonList.add(favoriteDrink);
+        buttonList.add(favoriteIngredient);
         String imgLink = "https://www.thecocktaildb.com//images//media//drink//2x8thr1504816928.jpg";
         logout.setOnClickListener(el -> {
             Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_registrationActivity);
         });
         topDrink.setOnClickListener(el -> {
-            isTopDrink = manageRecycleView(array, isTopDrink, topDrink, topIngredient, favoriteDrink, favoriteIngredient, 1);
+            isTopDrink = manageRecycleView(array, isTopDrink, 0, buttonList, 1);
             isTopIngredient = isFavoriteDrink = isFavoriteIngredient = false;
             DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(array, drink -> {
                 Bundle bundle = new Bundle();
@@ -94,7 +99,7 @@ public class ProfileFragment extends Fragment {
         });
 
         topIngredient.setOnClickListener(el -> {
-            isTopIngredient = manageRecycleView(array,  isTopIngredient, topIngredient, topDrink, favoriteDrink, favoriteIngredient, 2);
+            isTopIngredient = manageRecycleView(array, isTopIngredient, 1, buttonList, 2);
             isTopDrink = isFavoriteDrink = isFavoriteIngredient = false;
             DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(array, drink -> {
                 Bundle bundle = new Bundle();
@@ -107,7 +112,7 @@ public class ProfileFragment extends Fragment {
         });
 
         favoriteDrink.setOnClickListener(el -> {
-            isFavoriteDrink = manageRecycleView(array,  isFavoriteDrink, favoriteDrink, topDrink, topIngredient, favoriteIngredient, 3);
+            isFavoriteDrink = manageRecycleView(array, isFavoriteDrink,2, buttonList, 3);
             isTopDrink = isTopIngredient = isFavoriteIngredient = false;
             DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(array, drink -> {
                 Bundle bundle = new Bundle();
@@ -120,7 +125,7 @@ public class ProfileFragment extends Fragment {
         });
 
         favoriteIngredient.setOnClickListener(el -> {
-            isFavoriteIngredient = manageRecycleView(array,  isFavoriteIngredient, favoriteIngredient, topDrink, topIngredient, favoriteDrink, 4);
+            isFavoriteIngredient = manageRecycleView(array, isFavoriteIngredient, 3, buttonList, 4);
             isTopDrink = isTopIngredient = isFavoriteDrink = false;
             DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(array, drink -> {
                 Bundle bundle = new Bundle();
@@ -135,7 +140,7 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    private boolean manageRecycleView(List<Drink> array, boolean val, Button button1, Button button2, Button button3, Button button4, int j){
+    private boolean manageRecycleView(List<Drink> array, boolean val, int c, ArrayList<Button> buttonList, int j){
         int backgroundColorDark = getResources().getColor(R.color.md_theme_dark_inverseOnSurface);
         int textColorDark = getResources().getColor(R.color.md_theme_dark_primary);
         int backgroundColorLight = getResources().getColor(R.color.md_theme_light_inverseOnSurface);
@@ -148,11 +153,11 @@ public class ProfileFragment extends Fragment {
         if (val)
             array.clear();
         if(darkMode){
-            val = changeColor(button1, val, backgroundColorDark , textColorDark);
-            resetColor(button2, button3, button4, backgroundColorDark , textColorDark);
+            resetColor(buttonList, backgroundColorDark , textColorDark);
+            val = changeColor(buttonList.get(c), val, backgroundColorDark , textColorDark);
         }else{
-            val = changeColor(button1, val, backgroundColorLight, textColorLight);
-            resetColor(button2, button3, button4, backgroundColorLight, textColorLight);
+            resetColor(buttonList, backgroundColorLight, textColorLight);
+            val = changeColor(buttonList.get(c), val, backgroundColorLight, textColorLight);
         }
         return val;
     }
@@ -169,13 +174,11 @@ public class ProfileFragment extends Fragment {
         return false;
     }
 
-    private void resetColor(Button button1, Button button2, Button button3, int backgroundColor, int textColor){
-        button1.setBackgroundColor(backgroundColor);
-        button2.setBackgroundColor(backgroundColor);
-        button3.setBackgroundColor(backgroundColor);
-        button1.setTextColor(textColor);
-        button2.setTextColor(textColor);
-        button3.setTextColor(textColor);
+    private void resetColor(ArrayList<Button> buttonList, int backgroundColor, int textColor){
+        for (int i = 0; i < 4; i++){
+            buttonList.get(i).setBackgroundColor(backgroundColor);
+            buttonList.get(i).setTextColor(textColor);
+        }
     }
 
     private boolean isDarkMode() {
