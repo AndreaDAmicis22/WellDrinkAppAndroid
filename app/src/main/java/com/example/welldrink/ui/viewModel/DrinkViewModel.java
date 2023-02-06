@@ -67,7 +67,8 @@ public class DrinkViewModel extends ViewModel {
     }
 
     public void clearDrinkDetails(){
-        this.detailsLiveData.setValue(new Result.Success<Drink>(new Drink()));
+        if(detailsLiveData != null)
+            this.detailsLiveData.setValue(new Result.Success<Drink>(new Drink()));
     }
 
     private void setDrinkMutableLiveDataByName(String name){
