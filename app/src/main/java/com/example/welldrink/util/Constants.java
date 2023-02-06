@@ -8,7 +8,7 @@ public class Constants {
     public static final String PLACEHOLDER_NAME = "Name not found";
     public static final String PLACEHOLDER_GLASS = "Glass not found";
     public static final String PLACEHOLDER_CATEGORY = "Category not found";
-    public static final String PLACEHOLDER_ALCOL = "Aclol not found";
+    public static final String PLACEHOLDER_ALCOL = "Alcol not found";
 
     public static final String API_URL = "https://welldrinkdev.altervista.org/";
     public static final String API_RANDOMDRINK = "getRandom";
@@ -24,6 +24,8 @@ public class Constants {
     public static final String API_GETBYCATEGORYPARAMETER = "category";
     public static final String API_GETTOPDRINKS = "topDrinks";
     public static final String API_GETTOPINGREDIENTS = "topIngredients";
+    public static final String API_GETINGREDIENTSBYNAME = "getIngredientsByName";
+    public static final String API_GETINGREDIENTSBYNAMEPARAMETER = "name";
 
     public static final int MINIMUM_PASSWORD_LENGTH = 6;
 

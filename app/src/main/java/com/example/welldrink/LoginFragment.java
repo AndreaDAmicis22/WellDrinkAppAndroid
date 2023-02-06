@@ -43,6 +43,10 @@ public class LoginFragment extends Fragment {
         userViewModel = new ViewModelProvider(
                 requireActivity(),
                 new UserViewModelFactory(userRepository)).get(UserViewModel.class);
+        if(userViewModel.getLoggedUser() != null){
+            this.switchActivities();
+        }
+        Log.d("LogIn", userViewModel.getLoggedUser().toString());
     }
 
     @Override

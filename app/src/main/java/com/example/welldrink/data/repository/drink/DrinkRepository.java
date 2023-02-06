@@ -82,6 +82,12 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     }
 
     @Override
+    public MutableLiveData<Result> getIngredientsByName(String name) {
+        this.drinkRemoteDataSource.fetchIngredientsByName(name);
+        return this.drinkMutableLiveData;
+    }
+
+    @Override
     public void onSuccessFromRemote(DrinkApiResponse drinkApiResponse) {
         Result result = new Result.Success<List<Drink>>(drinkApiResponse.getDrinkList());
         this.drinkMutableLiveData.postValue(result);
