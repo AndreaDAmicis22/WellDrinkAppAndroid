@@ -1,4 +1,4 @@
-package com.example.welldrink.ui;
+package com.example.welldrink.ui.fragment;
 
 import static com.example.welldrink.util.ButtonHandler.getBgDark;
 import static com.example.welldrink.util.ButtonHandler.getBgLight;

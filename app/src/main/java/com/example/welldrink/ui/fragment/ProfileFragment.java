@@ -1,4 +1,4 @@
-package com.example.welldrink.ui;
+package com.example.welldrink.ui.fragment;
 
 import static com.example.welldrink.util.ButtonHandler.handleClick;
 import static com.example.welldrink.util.ButtonHandler.isDarkMode;

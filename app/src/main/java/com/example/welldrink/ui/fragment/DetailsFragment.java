@@ -1,34 +1,33 @@
-package com.example.welldrink;
+package com.example.welldrink.ui.fragment;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.os.SystemClock;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.example.welldrink.R;
 import com.example.welldrink.adapter.DetailRecyclerViewAdapter;
 import com.example.welldrink.model.Drink;
 import com.example.welldrink.model.Result;
-import com.example.welldrink.ui.DetailsFragment;
 import com.example.welldrink.ui.viewModel.DrinkViewModel;
-import com.example.welldrink.ui.viewModel.UserViewModel;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
-public class DetailsActivity extends AppCompatActivity {
+public class DetailsFragment extends Fragment {
 
-    private static final String TAG = DetailsActivity.class.getSimpleName();
+    private static final String TAG = DetailsFragment.class.getSimpleName();
     private boolean onLike;
 
     private Drink drink;
@@ -36,29 +35,40 @@ public class DetailsActivity extends AppCompatActivity {
     private RecyclerView detailsRecycleView;
     private DrinkViewModel drinkViewModel;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+    public DetailsFragment() {
         drink = new Drink();
-        /*drinkViewModel = new ViewModelProvider(this).get(DrinkViewModel.class);
-        ImageView image = findViewById(R.id.details_img);
-        ImageView imageBg = findViewById(R.id.details_imgBg);
-        TextView name = findViewById(R.id.details_txtTitle);
-        TextView category = findViewById(R.id.details_info_txtCategory);
-        TextView glass = findViewById(R.id.details_info_txtGlass);
-        TextView alcol = findViewById(R.id.details_info_txtAlcol);
-        TextView recipe = findViewById(R.id.details_prep_txtBody);
-        detailsRecycleView = findViewById(R.id.details_recView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+    }
+
+    public static DetailsFragment newInstance() {
+        return new DetailsFragment();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        drinkViewModel = new ViewModelProvider(requireActivity()).get(DrinkViewModel.class);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_details, container, false);
+        ImageView image = view.findViewById(R.id.details_img);
+        ImageView imageBg = view.findViewById(R.id.details_imgBg);
+        TextView name = view.findViewById(R.id.details_txtTitle);
+        TextView category = view.findViewById(R.id.details_info_txtCategory);
+        TextView glass = view.findViewById(R.id.details_info_txtGlass);
+        TextView alcol = view.findViewById(R.id.details_info_txtAlcol);
+        TextView recipe = view.findViewById(R.id.details_prep_txtBody);
+        detailsRecycleView = view.findViewById(R.id.details_recView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
         detailsRecycleView.setLayoutManager(linearLayoutManager);
-        Bundle args = getIntent().getExtras();
-        Log.d(TAG, String.valueOf(args));
+        Bundle args = getArguments();
         if (args != null) {
-            View from = findViewById(R.id.details_view1);
+            View from = view.findViewById(R.id.details_view1);
             from.setContentDescription(args.getString("from"));
             drinkViewModel.getDrinkDetailsLiveData(args.getString("name")).observe(
-                    this, result -> {
+                    requireActivity(), result -> {
                         Log.d("API", "-Observer-");
                         if(result.isSuccess()){
                             Log.d("API", "result.isSuccess");
@@ -84,18 +94,23 @@ public class DetailsActivity extends AppCompatActivity {
                     }
             );
         }
-        Button btnLike = findViewById(R.id.details_btnLike);
+        Button btnLike = view.findViewById(R.id.details_btnLike);
         btnLike.setOnClickListener(view1 -> {
             onLike = likeOn(btnLike, onLike);
-        });*/
+        });
+        return view;
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
     private Boolean likeOn(Button button, Boolean bool) {
         if (!bool)
-            button.setBackground(getResources().getDrawable(R.drawable.ic_baseline_thumb_up_alt_24, this.getTheme()));
+            button.setBackground(getResources().getDrawable(R.drawable.ic_baseline_thumb_up_alt_24, getContext().getTheme()));
         else
-            button.setBackground(getResources().getDrawable(R.drawable.ic_baseline_thumb_up_off_alt_24, this.getTheme()));
+            button.setBackground(getResources().getDrawable(R.drawable.ic_baseline_thumb_up_off_alt_24, getContext().getTheme()));
         return !bool;
     }
 }

@@ -6,7 +6,7 @@
     app:startDestination="@id/fragment_main">
     <fragment
         android:id="@+id/fragment_main"
-        android:name="com.example.welldrink.ui.MainFragment"
+        android:name="com.example.welldrink.ui.fragment.MainFragment"
         android:label="@string/nav_main"
         tools:layout="@layout/fragment_main">
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_research"
-        android:name="com.example.welldrink.ui.ResearchFragment"
+        android:name="com.example.welldrink.ui.fragment.ResearchFragment"
         android:label="@string/nav_research"
         tools:layout="@layout/fragment_research" >
         <action
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_profile"
-        android:name="com.example.welldrink.ui.ProfileFragment"
+        android:name="com.example.welldrink.ui.fragment.ProfileFragment"
         android:label="@string/nav_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -36,17 +36,17 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_details"
-        android:name="com.example.welldrink.ui.DetailsFragment"
+        android:name="com.example.welldrink.ui.fragment.DetailsFragment"
         android:label="@string/nav_main"
         tools:layout="@layout/fragment_details"/>
     <activity
         android:id="@+id/registrationActivity"
-        android:name="com.example.welldrink.ui.RegistrationActivity"
+        android:name="com.example.welldrink.ui.Activity.RegistrationActivity"
         android:label="activity_registration"
         tools:layout="@layout/activity_registration" />
     <activity
         android:id="@+id/detailsActivity"
-        android:name="com.example.welldrink.DetailsActivity"
+        android:name="com.example.welldrink.ui.Activity.DetailsActivity"
         android:label="activity_details"
         tools:layout="@layout/activity_details" />
 

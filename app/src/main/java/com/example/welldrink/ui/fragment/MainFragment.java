@@ -1,4 +1,4 @@
-package com.example.welldrink.ui;
+package com.example.welldrink.ui.fragment;
 
 import static com.example.welldrink.util.Constants.PLACEHOLDER_ALCOL;
 import static com.example.welldrink.util.Constants.PLACEHOLDER_CATEGORY;
@@ -18,27 +18,23 @@ import com.example.welldrink.util.ServiceLocator;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 
