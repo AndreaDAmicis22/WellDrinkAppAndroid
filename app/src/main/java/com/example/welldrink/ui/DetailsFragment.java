@@ -100,6 +100,14 @@ public class DetailsFragment extends Fragment {
                             glass.setText(drink.getGlass());
                             alcol.setText(drink.getAlcolType());
                             recipe.setText(drink.getInstructions());
+
+                            detailsRecycleView = view.findViewById(R.id.details_recView);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
+                            detailsRecycleView.setLayoutManager(linearLayoutManager);
+//                            DetailRecyclerViewAdapter adapter = new DetailRecyclerViewAdapter(array);
+//                            detailsRecycleView.setAdapter(adapter);
+
+
                             DetailRecyclerViewAdapter adapter = new DetailRecyclerViewAdapter(drink.getIngredientList());
                             Log.d("API", "ARRIVO QUI");
                             detailsRecycleView.setAdapter(adapter);
@@ -125,11 +133,11 @@ public class DetailsFragment extends Fragment {
 //        for (int i = 0; i < 5; i++) {
 //            array.add(new Ingredient(0, "lemon", false, 1542, null, "10oz"));
 //        }
-        detailsRecycleView = view.findViewById(R.id.details_recView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
-        detailsRecycleView.setLayoutManager(linearLayoutManager);
-        DetailRecyclerViewAdapter adapter = new DetailRecyclerViewAdapter(array);
-        detailsRecycleView.setAdapter(adapter);
+//        detailsRecycleView = view.findViewById(R.id.details_recView);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
+//        detailsRecycleView.setLayoutManager(linearLayoutManager);
+//        DetailRecyclerViewAdapter adapter = new DetailRecyclerViewAdapter(array);
+//        detailsRecycleView.setAdapter(adapter);
     }
 
     private Boolean likeOn(Button button, Boolean bool) {
