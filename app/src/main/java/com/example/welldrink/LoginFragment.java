@@ -59,10 +59,6 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Button loginButton = view.findViewById(R.id.login_btnSignup);
-        Button google = view.findViewById(R.id.login_btnGoogle);
-        google.setOnClickListener(v -> {
-            switchActivitiesFirstStart();
-        });
         loginButton.setOnClickListener(v -> {
             String email = ((TextView) view.findViewById(R.id.login_txtEmail)).getText().toString().trim();
             String password = ((TextView) view.findViewById(R.id.login_txtPsw)).getText().toString().trim();
@@ -78,7 +74,7 @@ public class LoginFragment extends Fragment {
                                     User user = ((Result.Success<User>) result).getData();
                                     userViewModel.setAuthError(false);
                                     Log.d("AUTH", "Login with user: " + user.toString());
-                                    switchActivitiesMain();
+                                    switchActivities();
                                 }else{
                                     Log.d("AUTH", "ERROR login result.isSuccess()");
                                     userViewModel.setAuthError(true);
@@ -99,15 +95,10 @@ public class LoginFragment extends Fragment {
         return !email.isEmpty() && !password.isEmpty();
     }
 
-    private void switchActivitiesFirstStart() {
+    private void switchActivities() {
         Intent switchActivityIntent = new Intent(getContext(), FirstStartActivity.class);
         switchActivityIntent.putExtra("prev", false);
         switchActivityIntent.putExtra("forward", true);
-        startActivity(switchActivityIntent);
-    }
-
-    private void switchActivitiesMain() {
-        Intent switchActivityIntent = new Intent(getContext(), MainActivity.class);
         startActivity(switchActivityIntent);
     }
 

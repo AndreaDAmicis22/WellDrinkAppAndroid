@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,9 +45,13 @@ public class FirstStartFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Bundle args = getArguments();
         List<Drink> array = new ArrayList<>();
         for (int i = 0; i < 1000; i++){
-            array.add(new Drink(i, Integer.toString(5),null, null, null, null, null, null));
+            if (args != null && !args.getBoolean("first"))
+                array.add(new Drink(i, Integer.toString(5),null, null, null, null, null, null));
+            else
+                array.add(new Drink(i, Integer.toString(0),null, null, null, null, null, null));
         }
         RecyclerView researchRecycleView = view.findViewById(R.id.first_start_rscv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));

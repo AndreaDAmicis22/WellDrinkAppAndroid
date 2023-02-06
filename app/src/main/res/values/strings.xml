@@ -5,6 +5,8 @@
     <string name="home_favoriteIngredientValue">Name</string>
     <string name="home_random_txtTitle">Drink name</string>
     <string name="first_txtSubtitle">Choose your favourite</string>
+    <string name="first_txtSubtitleDrink">Choose your favourite drinks</string>
+    <string name="first_txtSubtitleIngredient">Choose your favourite ingredients</string>
     <string name="first_card_img">Ingredient</string>
     <string name="first_card1_txt">Tequila</string>
     <string name="first_card2_txt">Gin</string>
