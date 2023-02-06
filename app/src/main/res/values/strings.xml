@@ -69,4 +69,5 @@
     <string name="close_app_conf">Yes</string>
     <string name="close_app_unconf" translatable="false">No</string>
     <string name="details_btnShare">Share</string>
+    <string name="details_btnLike">Like</string>
 </resources>

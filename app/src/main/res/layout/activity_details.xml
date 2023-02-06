@@ -64,14 +64,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ImageContrastCheck" />
 
-                <Button
-                    android:id="@+id/details_btnShare"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/details_btnShare"
-                    app:layout_constraintBottom_toBottomOf="@id/details_imgBg"
-                    app:layout_constraintStart_toStartOf="@id/details_imgBg" />
-
                 <ImageView
                     android:id="@+id/details_img"
                     android:layout_width="240dp"
@@ -83,6 +75,39 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ImageContrastCheck" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/details_cardShare"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/md_theme_dark_surface"
+                    android:backgroundTint="@color/md_theme_dark_surface"
+                    app:cardCornerRadius="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <Button
+                            android:id="@+id/details_btnShare"
+                            style="?attr/materialIconButtonFilledStyle"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="@drawable/ic_baseline_share_24"
+                            android:contentDescription="@string/details_btnShare"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="TouchTargetSizeCheck" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!--YOUR CONTENT-->
+                </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/details_cardLike"
@@ -114,7 +139,6 @@
                             tools:ignore="TouchTargetSizeCheck" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <!--YOUR CONTENT-->
                 </com.google.android.material.card.MaterialCardView>
 
 
