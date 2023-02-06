@@ -1,16 +1,16 @@
-package com.example.welldrink.ui;
+package com.example.welldrink.ui.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.welldrink.R;
+import com.example.welldrink.ui.fragment.FirstStartFragment;
 
 public class FirstStartActivity extends AppCompatActivity {
 

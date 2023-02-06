@@ -42,4 +42,20 @@ public class ButtonHandler {
         return (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
 
+    public static int getBgDark(Resources resources) {
+        return resources.getColor(R.color.md_theme_dark_inverseOnSurface);
+    }
+
+    public static int getTxtDark(Resources resources) {
+        return resources.getColor(R.color.md_theme_dark_primary);
+    }
+
+    public static int getBgLight(Resources resources) {
+        return resources.getColor(R.color.md_theme_light_inverseOnSurface);
+    }
+
+    public static int getTxtLight(Resources resources) {
+        return resources.getColor(R.color.md_theme_light_primary);
+    }
+
 }

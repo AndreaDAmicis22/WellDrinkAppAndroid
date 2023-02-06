@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.DetailsFragment">
+    tools:context=".ui.Activity.DetailsActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/details_gdlStart"
@@ -20,10 +20,22 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="16dp" />
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/details_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/details_scroll"
+        app:layout_constraintEnd_toStartOf="@+id/details_gdlStart"
+        app:layout_constraintStart_toStartOf="@+id/details_gdlEnd"
+        app:layout_constraintTop_toTopOf="parent"
+        android:indeterminate="true"/>
+
     <ScrollView
+        android:id="@+id/details_scroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scrollbars="none"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/details_gdlStart"
         app:layout_constraintStart_toStartOf="@+id/details_gdlEnd"
@@ -96,7 +108,6 @@
 
                     <!--YOUR CONTENT-->
                 </com.google.android.material.card.MaterialCardView>
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -220,6 +231,7 @@
                         android:text="@string/details_prep_txtBody"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
                         android:textSize="18sp" />
+
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

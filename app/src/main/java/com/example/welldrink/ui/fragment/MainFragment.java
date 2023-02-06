@@ -1,4 +1,4 @@
-package com.example.welldrink.ui;
+package com.example.welldrink.ui.fragment;
 
 import static com.example.welldrink.util.Constants.PLACEHOLDER_ALCOL;
 import static com.example.welldrink.util.Constants.PLACEHOLDER_CATEGORY;
@@ -17,10 +17,7 @@ import com.example.welldrink.ui.viewModel.DrinkViewModelFactory;
 import com.example.welldrink.util.ServiceLocator;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
-import com.squareup.picasso.Transformation;
 
-
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -81,16 +78,15 @@ public class MainFragment extends Fragment {
         ImageView image = view.findViewById(R.id.home_random_img);
         ImageView imageBg = view.findViewById(R.id.home_random_imgBg);
         CardView card = view.findViewById(R.id.home_random_card);
-        SearchView search = getActivity().findViewById(R.id.home_inpSearch);
+        SearchView search = requireActivity().findViewById(R.id.home_inpSearch);
         search.onActionViewCollapsed();
         card.setOnClickListener(el -> {
             Bundle bundle = new Bundle();
             bundle.putString("name", (String) name.getText());
-            bundle.putString("from", MainFragment.class.getSimpleName());
             if(!name.getText().equals(PLACEHOLDER_NAME)){
                 drinkViewModel.clearDrinkDetails();
                 drinkViewModel.getDrinkDetail((String) name.getText());
-                Navigation.findNavController(requireView()).navigate(R.id.action_fragment_main_to_fragment_details, bundle);
+                Navigation.findNavController(requireView()).navigate(R.id.action_fragment_main_to_detailsActivity, bundle);
                 Log.d("API", "CLICK!");
             }
         });
@@ -101,7 +97,7 @@ public class MainFragment extends Fragment {
                 category.setText(drink.getCategory());
                 RequestCreator imgReq = Picasso.get().load(drink.getImageUrl());
                 imgReq.into(image);
-                imgReq.transform(new BlurTransformation(getContext(), 25, 2)).into(imageBg);
+                imgReq.transform(new BlurTransformation(requireContext(), 25, 2)).into(imageBg);
                 glass.setText(drink.getGlass());
                 alcol.setText(drink.getAlcolType());
                 Picasso.get().load(drink.getImageUrl()).into(image);

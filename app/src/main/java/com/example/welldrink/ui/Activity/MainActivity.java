@@ -1,34 +1,21 @@
-package com.example.welldrink.ui;
+package com.example.welldrink.ui.Activity;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.welldrink.R;
 import com.example.welldrink.databinding.ActivityMainBinding;
-import com.google.android.gms.dynamic.SupportFragmentWrapper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
-
-import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -69,20 +56,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (getCheckedItem(findViewById(R.id.home_navbar)) != 3)
-            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.close_app_title)
-                    .setMessage(R.string.close_app_desc).setPositiveButton(R.string.close_app_conf, (dialog, which) -> finish())
-                    .setNegativeButton(R.string.close_app_unconf, null).show();
-        else {
-            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.home_fragment);
-            String returnTo = (String) (fragment.requireView().findViewById(R.id.details_view1)).getContentDescription();
-            if(returnTo.equals(MainFragment.class.getSimpleName()))
-                findViewById(R.id.fragment_main).performClick();
-            else if(returnTo.equals(ResearchFragment.class.getSimpleName()))
-                findViewById(R.id.fragment_research).performClick();
-            else if(returnTo.equals(ProfileFragment.class.getSimpleName()))
-                findViewById(R.id.fragment_profile).performClick();
-        }
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.close_app_title)
+                .setMessage(R.string.close_app_desc).setPositiveButton(R.string.close_app_conf, (dialog, which) -> finish())
+                .setNegativeButton(R.string.close_app_unconf, null).show();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.welldrink.ui;
+package com.example.welldrink.ui.Activity;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;

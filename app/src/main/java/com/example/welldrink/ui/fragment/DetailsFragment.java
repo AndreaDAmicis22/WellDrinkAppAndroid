@@ -1,55 +1,29 @@
-package com.example.welldrink.ui;
+package com.example.welldrink.ui.fragment;
 
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.BlendMode;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.LightingColorFilter;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Parcelable;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.welldrink.R;
 import com.example.welldrink.adapter.DetailRecyclerViewAdapter;
 import com.example.welldrink.model.Drink;
-import com.example.welldrink.model.Ingredient;
 import com.example.welldrink.model.Result;
 import com.example.welldrink.ui.viewModel.DrinkViewModel;
-import com.example.welldrink.ui.viewModel.UserViewModel;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class DetailsFragment extends Fragment {
 

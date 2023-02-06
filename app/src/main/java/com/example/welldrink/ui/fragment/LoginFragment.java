@@ -1,4 +1,4 @@
-package com.example.welldrink;
+package com.example.welldrink.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,11 +16,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.welldrink.R;
 import com.example.welldrink.data.repository.user.IUserRepository;
 import com.example.welldrink.model.Result;
 import com.example.welldrink.model.User;
-import com.example.welldrink.ui.FirstStartActivity;
-import com.example.welldrink.ui.MainActivity;
+import com.example.welldrink.ui.Activity.FirstStartActivity;
 import com.example.welldrink.ui.viewModel.UserViewModel;
 import com.example.welldrink.ui.viewModel.UserViewModelFactory;
 import com.example.welldrink.util.ServiceLocator;
