@@ -113,7 +113,12 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
 
     @Override
     public void getFavoriteDrinks() {
-        this.baseFavoriteDrinksDataSource.fetchDrinkFavorite();
+        if(this.favoriteDrinksLiveData.getValue() != null){
+            List<Drink> favorites = ((Result.Success<List<Drink>>) this.favoriteDrinksLiveData.getValue()).getData();
+            if(favorites.isEmpty())
+                this.baseFavoriteDrinksDataSource.fetchDrinkFavorite();
+        }else
+            this.baseFavoriteDrinksDataSource.fetchDrinkFavorite();
     }
 
     public void clearDrinkMutableLiveData(){

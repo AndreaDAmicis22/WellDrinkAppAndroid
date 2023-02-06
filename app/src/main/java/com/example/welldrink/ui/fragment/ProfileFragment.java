@@ -41,11 +41,16 @@ public class ProfileFragment extends Fragment {
     private int selected;
     private boolean darkMode;
 
+    private boolean favorites;
+    private RecyclerView recyclerView;
+
+
     private static final String TAG = ProfileFragment.class.getSimpleName();
 
     public ProfileFragment() {
         buttonsList = new ArrayList<>();
         selected = -1;
+        this.favorites = false;
     }
 
     public static ProfileFragment newInstance() {
@@ -69,6 +74,7 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         darkMode = isDarkMode(requireContext());
         RecyclerView profileRecycleView = view.findViewById(R.id.profile_rcv);
+        this.recyclerView = profileRecycleView;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
         profileRecycleView.setLayoutManager(linearLayoutManager);
         Button logout = view.findViewById(R.id.profile_btnLogOut);
@@ -99,14 +105,7 @@ public class ProfileFragment extends Fragment {
             if(result.isSuccess() && selected == 2){
                 List<Drink> drinkList = ((Result.Success<List<Drink>>) result).getData();
                 Log.d("RES", "ProfileFragment: " + drinkList.toString());
-                RecyclerView researchRecycleView = view.findViewById(R.id.profile_rcv);
-                researchRecycleView.setLayoutManager(linearLayoutManager);
-                DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(drinkList, drink -> {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("name", drink.getName());
-                    Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_detailsActivity, bundle);
-                }, drinkViewModel);
-                researchRecycleView.setAdapter(adapter);
+                this.attachToRecycleView(drinkList);
             }
         });
 
@@ -115,14 +114,7 @@ public class ProfileFragment extends Fragment {
             if(result.isSuccess()){
                 List<Drink> drinkList = ((Result.Success<List<Drink>>) result).getData();
                 Log.d("RES", "ProfileFragment: " + drinkList.toString());
-                RecyclerView researchRecycleView = view.findViewById(R.id.profile_rcv);
-                researchRecycleView.setLayoutManager(linearLayoutManager);
-                DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(drinkList, drink -> {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("name", drink.getName());
-                    Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_detailsActivity, bundle);
-                }, drinkViewModel);
-                researchRecycleView.setAdapter(adapter);
+                this.attachToRecycleView(drinkList);
             }else{
                 Log.d("RES", "ERROR Result.isSuccessfull");
             }
@@ -136,7 +128,13 @@ public class ProfileFragment extends Fragment {
         switch(selected){
             case -1:
                 Log.d("RES", "CALL -1");
-                this.drinkViewModel.clearDrinkMutableLiveData();
+                if(this.favorites){
+                    //clear favorites (not to clear but not make them show)
+                    //maybe make this cleaner?
+                    this.attachToRecycleView(new ArrayList<>());
+                    favorites = false; // this is why not clearing stuff anymore
+                }else
+                    this.drinkViewModel.clearDrinkMutableLiveData();
                 break;
             case 0:
                 this.drinkViewModel.getTopDrinksLiveData();
@@ -145,10 +143,24 @@ public class ProfileFragment extends Fragment {
                 this.drinkViewModel.getTopIngredientsLiveData();
                 break;
             case 2:
-                this.drinkViewModel.getFavoriteDrinks();
+                favorites = true;
+                if(!this.drinkViewModel.getFavoriteDrinks()){
+                    //this.attachToRecycleView(/*list of favorites*/);
+                }
             default:
                 Log.d("RES", "Click on -> " + selected);
         }
+    }
+
+    private void attachToRecycleView(List<Drink> list){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
+        this.recyclerView.setLayoutManager(linearLayoutManager);
+        DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(list, drink -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("name", drink.getName());
+            Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_detailsActivity, bundle);
+        }, drinkViewModel);
+        this.recyclerView.setAdapter(adapter);
     }
 
 }

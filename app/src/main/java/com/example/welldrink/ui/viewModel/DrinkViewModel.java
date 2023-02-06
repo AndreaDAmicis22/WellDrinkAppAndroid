@@ -109,8 +109,18 @@ public class DrinkViewModel extends ViewModel {
         this.drinkRepository.setDrinkFavorite(name);
     }
 
-    public void getFavoriteDrinks(){
-        this.drinkRepository.getFavoriteDrinks();
+    public boolean getFavoriteDrinks(){
+        if(this.drinkRepository.getFavoriteDrinksLiveData().getValue() != null){
+            List<Drink> favorites = ((Result.Success<List<Drink>>) this.drinkRepository.getFavoriteDrinksLiveData().getValue()).getData();
+            if(favorites.isEmpty()){
+                this.drinkRepository.getFavoriteDrinks();
+                return true;
+            }
+            return false;
+        }else{
+            this.drinkRepository.getFavoriteDrinks();
+            return true;
+        }
     }
 
     public MutableLiveData<Result> getFavoritesLiveData(){
