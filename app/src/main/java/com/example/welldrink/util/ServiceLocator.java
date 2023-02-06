@@ -12,7 +12,9 @@ import com.example.welldrink.data.repository.user.IUserRepository;
 import com.example.welldrink.data.repository.user.UserRepository;
 import com.example.welldrink.data.service.IDrinkAPIService;
 import com.example.welldrink.data.source.drinks.BaseDrinkRemoteDataSource;
+import com.example.welldrink.data.source.drinks.BaseFavoriteDrinksDataSource;
 import com.example.welldrink.data.source.drinks.DrinkRemoteDataSource;
+import com.example.welldrink.data.source.drinks.FavoriteDrinkDataSource;
 import com.example.welldrink.data.source.user.BaseUserAuthenticationRemoteDataSource;
 import com.example.welldrink.data.source.user.BaseUserRemoteDataSource;
 import com.example.welldrink.data.source.user.UserAuthenticationRemoteDataSource;
@@ -52,7 +54,8 @@ public class ServiceLocator {
 
     public IDrinkRepository getDrinkRepository(){
         BaseDrinkRemoteDataSource drinkRemoteDataSource = new DrinkRemoteDataSource();
-        return new DrinkRepository(drinkRemoteDataSource);
+        BaseFavoriteDrinksDataSource baseFavoriteDrinksDataSource = new FavoriteDrinkDataSource();
+        return new DrinkRepository(drinkRemoteDataSource, baseFavoriteDrinksDataSource);
     }
 
 }

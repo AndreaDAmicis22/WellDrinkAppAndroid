@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Drink {
 
@@ -19,6 +20,7 @@ public class Drink {
     private String alcolType;
     @SerializedName("categoryName")
     private String category;
+    private boolean fevorite;
 
     public Drink(long id, String name, String instructions, List<Ingredient> ingredientList,
                  String imageUrl, String glass, String alcolType, String category) {
@@ -30,12 +32,14 @@ public class Drink {
         this.glass = glass;
         this.alcolType = alcolType;
         this.category = category;
+        this.fevorite = false;
     }
 
     public Drink(){
         this.ingredientList = new ArrayList<Ingredient>();
         this.name = "";
         this.instructions = "";
+        this.fevorite = false;
     }
 
     public long getId() {
@@ -114,5 +118,18 @@ public class Drink {
                 ", alcolType='" + alcolType + '\'' +
                 ", category='" + category + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Drink)) return false;
+        Drink drink = (Drink) o;
+        return getId() == drink.getId() && Objects.equals(getName(), drink.getName()) && Objects.equals(getInstructions(), drink.getInstructions()) && Objects.equals(getIngredientList(), drink.getIngredientList()) && Objects.equals(getImageUrl(), drink.getImageUrl()) && Objects.equals(getGlass(), drink.getGlass()) && Objects.equals(getAlcolType(), drink.getAlcolType()) && Objects.equals(getCategory(), drink.getCategory());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getInstructions(), getIngredientList(), getImageUrl(), getGlass(), getAlcolType(), getCategory());
     }
 }

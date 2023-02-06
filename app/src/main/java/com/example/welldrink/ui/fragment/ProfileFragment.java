@@ -128,6 +128,8 @@ public class ProfileFragment extends Fragment {
             case 1:
                 this.drinkViewModel.getTopIngredientsLiveData();
                 break;
+            case 2:
+                this.drinkViewModel.getFavoriteDrinks();
             default:
                 Log.d("RES", "Click on -> " + selected);
         }
