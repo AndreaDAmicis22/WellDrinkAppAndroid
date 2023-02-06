@@ -97,7 +97,8 @@ public class DetailsFragment extends Fragment {
                             Log.d("API", drink.toString());
                             RequestCreator imgReq = Picasso.get().load(drink.getImageUrl());
                             imgReq.into(image);
-                            imgReq.transform(new BlurTransformation(getContext(), 25, 2)).into(imageBg);
+//                            imgReq.transform(new BlurTransformation(getContext(), 25, 2)).into(imageBg);
+                            Log.d("API", "terza volta non arriva qui?");
                             name.setText(drink.getName());
                             category.setText(drink.getCategory());
                             glass.setText(drink.getGlass());

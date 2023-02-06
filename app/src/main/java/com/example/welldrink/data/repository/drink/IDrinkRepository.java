@@ -14,10 +14,13 @@ public interface IDrinkRepository {
 
     MutableLiveData<Result> getDrinksByCategory(String category);
 
-
     MutableLiveData<Result> getRandomDrink();
 
     MutableLiveData<Result> getDrinkDetails(String name);
+
+    MutableLiveData<Result> getTopDrinks();
+
+    MutableLiveData<Result> getTopIngredients();
 
     MutableLiveData<Result> getMutableLiveData();
 

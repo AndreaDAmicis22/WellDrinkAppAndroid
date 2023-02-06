@@ -69,6 +69,7 @@ public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<Drin
             CardView card = itemView.findViewById(R.id.drink_small_card);
             Button likeButton = itemView.findViewById(R.id.drink_btnLike);
             card.setOnClickListener(el -> {
+
                 onItemClickListener.onDrinkClick(drinkList.get(getAdapterPosition()));
             });
             likeButton.setOnClickListener(el -> {

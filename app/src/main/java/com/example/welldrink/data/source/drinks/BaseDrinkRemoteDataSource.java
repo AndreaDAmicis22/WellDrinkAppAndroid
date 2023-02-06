@@ -24,4 +24,8 @@ public abstract class BaseDrinkRemoteDataSource {
 
     public abstract void fetchDrinkByCategory(String category);
 
+    public abstract void fetchTopDrinks();
+
+    public abstract void fetchTopIngredients();
+
 }

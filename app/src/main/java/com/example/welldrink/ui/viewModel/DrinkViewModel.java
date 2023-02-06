@@ -1,5 +1,7 @@
 package com.example.welldrink.ui.viewModel;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -55,11 +57,16 @@ public class DrinkViewModel extends ViewModel {
     public MutableLiveData<Result> getDrinkDetailsLiveData(String name){
         if(this.detailsLiveData == null)
             setDetailsLiveData(name);
+        Log.d("RES", "GETLD !!!!");
         return this.detailsLiveData;
     }
 
     public void getDrinkDetail(String name){
         this.setDetailsLiveData(name);
+    }
+
+    public void clearDrinkDetails(){
+        this.detailsLiveData.setValue(null);
     }
 
     private void setDrinkMutableLiveDataByName(String name){

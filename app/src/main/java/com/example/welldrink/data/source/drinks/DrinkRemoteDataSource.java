@@ -102,6 +102,18 @@ public class DrinkRemoteDataSource extends BaseDrinkRemoteDataSource{
         this.handleCall(drinkApiResponseCall);
     }
 
+    @Override
+    public void fetchTopDrinks() {
+        Call<DrinkApiResponse> drinkApiResponseCall = this.drinkAPIService.getTopDrinks();
+        this.handleCall(drinkApiResponseCall);
+    }
+
+    @Override
+    public void fetchTopIngredients() {
+        Call<DrinkApiResponse> drinkApiResponseCall = this.drinkAPIService.getTopIngredients();
+        this.handleCall(drinkApiResponseCall);
+    }
+
     private void handleCall(Call<DrinkApiResponse> drinkApiResponseCall){
         drinkApiResponseCall.enqueue(new Callback<DrinkApiResponse>() {
             @Override
