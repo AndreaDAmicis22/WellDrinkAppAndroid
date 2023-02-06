@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<DrinkSmallInfoRecyclerViewAdapter.ProfileDrinkViewHolder> {
+public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<DrinkSmallInfoRecyclerViewAdapter.DrinkSmallInfoViewHolder> {
 
     private int selectedPos = RecyclerView.NO_POSITION;
     private static final String TAG = DrinkSmallInfoRecyclerViewAdapter.class.getSimpleName();
@@ -37,13 +37,13 @@ public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<Drin
 
     @NonNull
     @Override
-    public ProfileDrinkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DrinkSmallInfoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.drink_small_info, parent, false);
-        return new ProfileDrinkViewHolder(view);
+        return new DrinkSmallInfoViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProfileDrinkViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DrinkSmallInfoViewHolder holder, int position) {
         holder.bind(drinkList.get(position));
     }
 
@@ -55,13 +55,13 @@ public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<Drin
         return 0;
     }
 
-    public class ProfileDrinkViewHolder extends RecyclerView.ViewHolder {
+    public class DrinkSmallInfoViewHolder extends RecyclerView.ViewHolder {
         private final TextView drinkName;
         private final ImageView drinkImage;
 
         private boolean clicked;
 
-        public ProfileDrinkViewHolder(@NonNull View itemView) {
+        public DrinkSmallInfoViewHolder(@NonNull View itemView) {
             super(itemView);
             clicked = false;
             drinkName = itemView.findViewById(R.id.drink_small_txt);

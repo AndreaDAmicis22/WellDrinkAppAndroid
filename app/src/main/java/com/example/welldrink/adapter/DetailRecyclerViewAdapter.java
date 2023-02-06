@@ -1,8 +1,15 @@
 package com.example.welldrink.adapter;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,9 +19,11 @@ import com.example.welldrink.R;
 import com.example.welldrink.model.Ingredient;
 
 import java.util.List;
-public class DetailRecyclerViewAdapter extends RecyclerView.Adapter<DetailRecyclerViewAdapter.DetailsViewHolder> {
 
+public class DetailRecyclerViewAdapter extends RecyclerView.Adapter<DetailRecyclerViewAdapter.DetailsViewHolder> {
+    private final static String URL_AMAZON = "https://www.amazon.it/s?k=";
     private final List<Ingredient> ingredientList;
+    private static final String TAG = DetailRecyclerViewAdapter.class.getSimpleName();
 
     public DetailRecyclerViewAdapter(List<Ingredient> ingredientList){
         this.ingredientList = ingredientList;
@@ -49,6 +58,13 @@ public class DetailRecyclerViewAdapter extends RecyclerView.Adapter<DetailRecycl
             super(itemView);
             ingredientName = itemView.findViewById(R.id.details_ingrName);
             ingredientQt =itemView.findViewById(R.id.details_ingrQt);
+            Button buyButton = itemView.findViewById(R.id.details_btnCart);
+            buyButton.setOnClickListener(el -> {
+                Log.d(TAG, "btnCart clicked");
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+                browserIntent.setData(Uri.parse(URL_AMAZON+ingredientName));
+                itemView.getContext().startActivity(browserIntent);
+            });
         }
 
         public void bind (Ingredient ingredient){
@@ -56,6 +72,5 @@ public class DetailRecyclerViewAdapter extends RecyclerView.Adapter<DetailRecycl
             ingredientQt.setText(ingredient.getMeasure());
         }
     }
-
 
 }
