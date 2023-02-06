@@ -95,23 +95,25 @@ public class DetailsFragment extends Fragment {
             from.setContentDescription(args.getString("from"));
             drinkViewModel.getDrinkDetailsLiveData(args.getString("name")).observe(
                     requireActivity(), result -> {
+                        Log.d("API", "-Observer-");
                         if(result.isSuccess()){
                             Log.d("API", "result.isSuccess");
                             drink = ((Result.Success<Drink>) result).getData();
-                            Log.d("API", drink.toString());
+                            //Log.d("API", drink.toString());
                             RequestCreator imgReq = Picasso.get().load(drink.getImageUrl());
                             imgReq.into(image);
-//                            imgReq.transform(new BlurTransformation(getContext(), 25, 2)).into(imageBg);
-                            Log.d("API", "terza volta non arriva qui?");
+                            Log.d(TAG, String.valueOf(imageBg));
+                            //imgReq.transform(new BlurTransformation(requireContext(), 25, 2)).into(imageBg);
+                            //Log.d("API", "terza volta non arriva qui?");
                             name.setText(drink.getName());
                             category.setText(drink.getCategory());
                             glass.setText(drink.getGlass());
                             alcol.setText(drink.getAlcolType());
                             recipe.setText(drink.getInstructions());
                             DetailRecyclerViewAdapter adapter = new DetailRecyclerViewAdapter(drink.getIngredientList());
-                            Log.d("API", "ARRIVO QUI");
+                            //Log.d("API", "ARRIVO QUI");
                             detailsRecycleView.setAdapter(adapter);
-                            Log.d("API", "NON ARRIVO QUI");
+                            //Log.d("API", "NON ARRIVO QUI");
                         }else{
                             Log.d("API", "result.isSuccess failed");
                         }
