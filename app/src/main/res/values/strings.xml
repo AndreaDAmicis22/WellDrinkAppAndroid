@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WellDrink</string>
+    <string name="app_name" translatable="false">WellDrink</string>
     <string name="home_inpSearch">Search</string>
     <string name="home_favouriteIngredient">Favourite</string>
     <string name="home_favoriteIngredientValue">Name</string>
@@ -8,10 +8,10 @@
     <string name="first_txtSubtitleDrink">Choose your favourite drinks</string>
     <string name="first_txtSubtitleIngredient">Choose your favourite ingredients</string>
     <string name="first_card_img">Ingredient</string>
-    <string name="first_card1_txt">Tequila</string>
-    <string name="first_card2_txt">Gin</string>
-    <string name="first_card3_txt">Vodka</string>
-    <string name="first_card4_txt">Rum</string>
+    <string name="first_card1_txt" translatable="false">Tequila</string>
+    <string name="first_card2_txt" translatable="false">Gin</string>
+    <string name="first_card3_txt" translatable="false">Vodka</string>
+    <string name="first_card4_txt" translatable="false">Rum</string>
     <string name="first_btnPrevious">Previous</string>
     <string name="first_btnNext">Next</string>
     <string name="research_filter_btnIngredient">Ingredient</string>
@@ -22,15 +22,15 @@
     <string name="profile_grd_btnFavoriteIngredient">Favorite ingredients</string>
     <string name="profile_grd_btnTopDrink">Top drinks</string>
     <string name="profile_grd_btnTopIngredient">Top ingredients</string>
-    <string name="profile_btnTop20">Top 20</string>
+    <string name="profile_btnTop20" translatable="false">Top 20</string>
     <string name="home_btnProfile">Profile</string>
-    <string name="research_scvResults">Scrollview</string>
+    <string name="research_scvResults" translatable="false">Scrollview</string>
     <string name="home_random_img">Image</string>
-    <string name="profile_txtNameProfile">Nome utente</string>
+    <string name="profile_txtNameProfile">User name</string>
     <string name="profile_img">Profile picture</string>
     <string name="research_card_txt">Drink name</string>
     <string name="research_card_img">Drink image</string>
-    <string name="details_txtVolume">40%</string>
+    <string name="details_txtVolume" translatable="false">40%</string>
     <string name="details_titleDrink">Drink name</string>
     <string name="details_card1_txtName">Ingredient</string>
     <string name="details_card1_txtQty">Qty</string>
@@ -38,25 +38,25 @@
     <string name="details_prep_textTitle">Recipe</string>
     <string name="details_prep_txtBody">Information</string>
     <string name="details_img">Drink image</string>
-    <string name="nav_main">Home</string>
+    <string name="nav_main" translatable="false">Home</string>
     <string name="nav_profile">Profile</string>
     <string name="nav_research">Research</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fav_card_title_drink">Favorite Drink</string>
     <string name="fav_card_title_ingredient">Favorite Ingredient</string>
-    <string name="profile_btnLogOut">Log out</string>
-    <string name="login_txtTitle">Login</string>
+    <string name="profile_btnLogOut" translatable="false">Log out</string>
+    <string name="login_txtTitle" translatable="false">Login</string>
     <string name="login_btnSignUp">Go to Signup</string>
-    <string name="login_btnLogin">Login</string>
+    <string name="login_btnLogin" translatable="false">Login</string>
     <string name="login_txtOr">OR</string>
     <string name="login_btnLoginGoogle">Login with Google</string>
     <string name="signup_txtTitle">Signup</string>
-    <string name="signup_txtUsername">Username</string>
+    <string name="signup_txtUsername" translatable="false">Username</string>
     <string name="login_txtConfPsw">Confirm password</string>
     <string name="signup_btnBackLogin">Back to Login</string>
-    <string name="logo">Logo</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
+    <string name="logo" translatable="false">Logo</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="password" translatable="false">Password</string>
     <string name="signup_btnSignup">Signup</string>
     <string name="research_filter_btnCategory">Category</string>
     <string name="nav_details">Details</string>
@@ -67,5 +67,5 @@
     <string name="close_app_title">Confirm exit</string>
     <string name="close_app_desc">Are you sure you want to exit?</string>
     <string name="close_app_conf">Yes</string>
-    <string name="close_app_unconf">No</string>
+    <string name="close_app_unconf" translatable="false">No</string>
 </resources>
