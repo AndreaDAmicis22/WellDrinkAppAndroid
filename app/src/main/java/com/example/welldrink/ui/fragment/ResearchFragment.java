@@ -98,13 +98,14 @@ public class ResearchFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.d("RES", query);
                 makeFetchCall(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String query) {
+                if(!query.isEmpty())
+                    makeFetchCall(query);
                 return false;
             }
         });

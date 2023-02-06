@@ -86,9 +86,9 @@ public class DrinkViewModel extends ViewModel {
             this.drinkMutableLiveData.setValue(new Result.Success<Drink>(new Drink()));
             this.drinkRepository.clearDrinkMutableLiveData();
             this.drinkMutableLiveData = this.drinkRepository.getMutableLiveData();
-//            Log.d("RES", "-------CLEAR----------");
-//            Log.d("RES", ((Result.Success) this.drinkMutableLiveData.getValue()).getData().toString());
-//            Log.d("RES", ((Result.Success) this.drinkRepository.getMutableLiveData().getValue()).getData().toString());
+            Log.d("RES", "-------CLEAR----------");
+            Log.d("RES", ((Result.Success) this.drinkMutableLiveData.getValue()).getData().toString());
+            Log.d("RES", ((Result.Success) this.drinkRepository.getMutableLiveData().getValue()).getData().toString());
 
         }
     }
