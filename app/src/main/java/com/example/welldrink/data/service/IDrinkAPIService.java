@@ -10,6 +10,8 @@ import static com.example.welldrink.util.Constants.API_GETBYCATEGORY;
 import static com.example.welldrink.util.Constants.API_GETBYCATEGORYPARAMETER;
 import static com.example.welldrink.util.Constants.API_GETBYGLASS;
 import static com.example.welldrink.util.Constants.API_GETBYGLASSPARAMETER;
+import static com.example.welldrink.util.Constants.API_GETINGREDIENTSBYNAME;
+import static com.example.welldrink.util.Constants.API_GETINGREDIENTSBYNAMEPARAMETER;
 import static com.example.welldrink.util.Constants.API_GETTOPDRINKS;
 import static com.example.welldrink.util.Constants.API_GETTOPINGREDIENTS;
 import static com.example.welldrink.util.Constants.API_RANDOMDRINK;
@@ -54,5 +56,10 @@ public interface IDrinkAPIService {
 
     @GET(API_GETTOPINGREDIENTS)
     Call<DrinkApiResponse> getTopIngredients();
+
+    @GET(API_GETINGREDIENTSBYNAME)
+    Call<DrinkApiResponse> getIngredientsByName(
+            @Query(API_GETINGREDIENTSBYNAMEPARAMETER) String name
+    );
 
 }

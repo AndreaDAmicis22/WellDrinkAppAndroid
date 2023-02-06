@@ -28,4 +28,6 @@ public abstract class BaseDrinkRemoteDataSource {
 
     public abstract void fetchTopIngredients();
 
+    public abstract void fetchIngredientsByName(String ingredientName);
+
 }

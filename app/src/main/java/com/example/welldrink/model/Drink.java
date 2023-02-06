@@ -34,6 +34,8 @@ public class Drink {
 
     public Drink(){
         this.ingredientList = new ArrayList<Ingredient>();
+        this.name = "";
+        this.instructions = "";
     }
 
     public long getId() {
