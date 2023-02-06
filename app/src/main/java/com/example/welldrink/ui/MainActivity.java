@@ -69,20 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (getCheckedItem(findViewById(R.id.home_navbar)) != 3)
-            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.close_app_title)
-                    .setMessage(R.string.close_app_desc).setPositiveButton(R.string.close_app_conf, (dialog, which) -> finish())
-                    .setNegativeButton(R.string.close_app_unconf, null).show();
-        else {
-            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.home_fragment);
-            String returnTo = (String) (fragment.requireView().findViewById(R.id.details_view1)).getContentDescription();
-            if(returnTo.equals(MainFragment.class.getSimpleName()))
-                findViewById(R.id.fragment_main).performClick();
-            else if(returnTo.equals(ResearchFragment.class.getSimpleName()))
-                findViewById(R.id.fragment_research).performClick();
-            else if(returnTo.equals(ProfileFragment.class.getSimpleName()))
-                findViewById(R.id.fragment_profile).performClick();
-        }
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.close_app_title)
+                .setMessage(R.string.close_app_desc).setPositiveButton(R.string.close_app_conf, (dialog, which) -> finish())
+                .setNegativeButton(R.string.close_app_unconf, null).show();
     }
 
 }

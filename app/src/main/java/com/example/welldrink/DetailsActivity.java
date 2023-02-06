@@ -1,0 +1,101 @@
+package com.example.welldrink;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
+import com.example.welldrink.adapter.DetailRecyclerViewAdapter;
+import com.example.welldrink.model.Drink;
+import com.example.welldrink.model.Result;
+import com.example.welldrink.ui.DetailsFragment;
+import com.example.welldrink.ui.viewModel.DrinkViewModel;
+import com.example.welldrink.ui.viewModel.UserViewModel;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
+
+public class DetailsActivity extends AppCompatActivity {
+
+    private static final String TAG = DetailsActivity.class.getSimpleName();
+    private boolean onLike;
+
+    private Drink drink;
+
+    private RecyclerView detailsRecycleView;
+    private DrinkViewModel drinkViewModel;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_details);
+        drink = new Drink();
+        /*drinkViewModel = new ViewModelProvider(this).get(DrinkViewModel.class);
+        ImageView image = findViewById(R.id.details_img);
+        ImageView imageBg = findViewById(R.id.details_imgBg);
+        TextView name = findViewById(R.id.details_txtTitle);
+        TextView category = findViewById(R.id.details_info_txtCategory);
+        TextView glass = findViewById(R.id.details_info_txtGlass);
+        TextView alcol = findViewById(R.id.details_info_txtAlcol);
+        TextView recipe = findViewById(R.id.details_prep_txtBody);
+        detailsRecycleView = findViewById(R.id.details_recView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        detailsRecycleView.setLayoutManager(linearLayoutManager);
+        Bundle args = getIntent().getExtras();
+        Log.d(TAG, String.valueOf(args));
+        if (args != null) {
+            View from = findViewById(R.id.details_view1);
+            from.setContentDescription(args.getString("from"));
+            drinkViewModel.getDrinkDetailsLiveData(args.getString("name")).observe(
+                    this, result -> {
+                        Log.d("API", "-Observer-");
+                        if(result.isSuccess()){
+                            Log.d("API", "result.isSuccess");
+                            drink = ((Result.Success<Drink>) result).getData();
+                            Log.d("API", drink.toString());
+                            RequestCreator imgReq = Picasso.get().load(drink.getImageUrl());
+                            imgReq.into(image);
+                            Log.d(TAG, String.valueOf(imageBg));
+                            //imgReq.transform(new BlurTransformation(requireContext(), 25, 2)).into(imageBg);
+                            //Log.d("API", "terza volta non arriva qui?");
+                            name.setText(drink.getName());
+                            category.setText(drink.getCategory());
+                            glass.setText(drink.getGlass());
+                            alcol.setText(drink.getAlcolType());
+                            recipe.setText(drink.getInstructions());
+                            DetailRecyclerViewAdapter adapter = new DetailRecyclerViewAdapter(drink.getIngredientList());
+                            //Log.d("API", "ARRIVO QUI");
+                            detailsRecycleView.setAdapter(adapter);
+                            //Log.d("API", "NON ARRIVO QUI");
+                        }else{
+                            Log.d("API", "result.isSuccess failed");
+                        }
+                    }
+            );
+        }
+        Button btnLike = findViewById(R.id.details_btnLike);
+        btnLike.setOnClickListener(view1 -> {
+            onLike = likeOn(btnLike, onLike);
+        });*/
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private Boolean likeOn(Button button, Boolean bool) {
+        if (!bool)
+            button.setBackground(getResources().getDrawable(R.drawable.ic_baseline_thumb_up_alt_24, this.getTheme()));
+        else
+            button.setBackground(getResources().getDrawable(R.drawable.ic_baseline_thumb_up_off_alt_24, this.getTheme()));
+        return !bool;
+    }
+}

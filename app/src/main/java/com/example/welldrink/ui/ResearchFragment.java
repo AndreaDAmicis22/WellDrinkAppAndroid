@@ -1,8 +1,13 @@
 package com.example.welldrink.ui;
 
+import static com.example.welldrink.util.ButtonHandler.getBgDark;
+import static com.example.welldrink.util.ButtonHandler.getBgLight;
+import static com.example.welldrink.util.ButtonHandler.getTxtDark;
+import static com.example.welldrink.util.ButtonHandler.getTxtLight;
 import static com.example.welldrink.util.ButtonHandler.handleClick;
 import static com.example.welldrink.util.ButtonHandler.isDarkMode;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -62,20 +67,14 @@ public class ResearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_research, container, false);
         darkMode = isDarkMode(requireContext());
-        filters.add(view.findViewById(R.id.research_filter_btnName));
-        filters.add(view.findViewById(R.id.research_filter_btnIngredient));
-        filters.add(view.findViewById(R.id.research_filter_btnCategory));
-        filters.add(view.findViewById(R.id.research_filter_btnGlass));
-        int bgDark = getResources().getColor(R.color.md_theme_dark_inverseOnSurface);
-        int txtDark = getResources().getColor(R.color.md_theme_dark_primary);
-        int bgLight = getResources().getColor(R.color.md_theme_light_inverseOnSurface);
-        int txtLight = getResources().getColor(R.color.md_theme_light_primary);
+        addButtonsToList(view);
         for (Button button : filters) {
+            Resources resources = getResources();
             button.setOnClickListener(el -> {
                 if (darkMode)
-                    selected = handleClick(getResources(), selected, filters, button, bgDark, txtDark);
+                    selected = handleClick(resources, selected, filters, button, getBgDark(resources), getTxtDark(resources));
                 else
-                    selected = handleClick(getResources(), selected, filters, button, bgLight, txtLight);
+                    selected = handleClick(getResources(), selected, filters, button, getBgLight(resources), getTxtLight(resources));
             });
         }
         drinkViewModel.getDrinkMutableLiveData().observe(getViewLifecycleOwner(), res -> {
@@ -90,8 +89,7 @@ public class ResearchFragment extends Fragment {
                 DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(drinkList, drink -> {
                     Bundle bundle = new Bundle();
                     bundle.putString("name", drink.getName());
-                    bundle.putString("from", ResearchFragment.class.getSimpleName());
-                    Navigation.findNavController(requireView()).navigate(R.id.action_fragment_research_to_fragment_details, bundle);
+                    Navigation.findNavController(requireView()).navigate(R.id.action_fragment_research_to_detailsActivity, bundle);
                 }, drinkViewModel);
                 researchRecycleView.setAdapter(adapter);
             }
@@ -106,7 +104,7 @@ public class ResearchFragment extends Fragment {
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(String query) {
                 return false;
             }
         });
@@ -116,6 +114,13 @@ public class ResearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    private void addButtonsToList(View view) {
+        filters.add(view.findViewById(R.id.research_filter_btnName));
+        filters.add(view.findViewById(R.id.research_filter_btnIngredient));
+        filters.add(view.findViewById(R.id.research_filter_btnCategory));
+        filters.add(view.findViewById(R.id.research_filter_btnGlass));
     }
 
     private void makeFetchCall(String query) {

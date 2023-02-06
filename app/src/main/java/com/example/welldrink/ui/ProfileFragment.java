@@ -104,8 +104,7 @@ public class ProfileFragment extends Fragment {
                 DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(drinkList, drink -> {
                     Bundle bundle = new Bundle();
                     bundle.putString("name", drink.getName());
-                    bundle.putString("from", ResearchFragment.class.getSimpleName());
-                    Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_fragment_details, bundle);
+                    Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_detailsActivity, bundle);
                 }, drinkViewModel);
                 researchRecycleView.setAdapter(adapter);
             }else{
