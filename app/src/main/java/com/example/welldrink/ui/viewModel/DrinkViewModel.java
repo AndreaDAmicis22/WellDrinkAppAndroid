@@ -141,6 +141,12 @@ public class DrinkViewModel extends ViewModel {
         }
     }
 
+//    public boolean getFavoriteIngredient(){
+//        if(this.drinkRepository.getFavoriteIngredient().getValue() != null){
+////            List<String> ingredients = ((Result.Success<List<String>>))
+//        }
+//    }
+
     public MutableLiveData<Result> getFavoritesLiveData(){
         return this.drinkRepository.getFavoriteDrinksLiveData();
     }

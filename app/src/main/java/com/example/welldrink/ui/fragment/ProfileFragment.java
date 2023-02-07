@@ -130,6 +130,9 @@ public class ProfileFragment extends Fragment {
                 Log.d("RES", "ERROR Result.isSuccessfull");
             }
         });
+
+        Log.e("FAVMAIN", "_____." + this.drinkViewModel.getFavoriteIngredientsLiveData().getValue().toString());
+
         logout.setOnClickListener(el -> {
             this.userViewModel.logOut();
             Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_registrationActivity);

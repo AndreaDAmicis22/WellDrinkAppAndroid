@@ -241,7 +241,11 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
 
     @Override
     public void onSuccessFromAddingFavoriteIngredient(String name) {
-
+        if(this.favoriteIngredientsLiveData.getValue() != null){
+            List<String> favorites = ((Result.Success<List<String>>) this.favoriteIngredientsLiveData.getValue()).getData();
+            favorites.add(name);
+            this.favoriteIngredientsLiveData.postValue(new Result.Success<List<String>>(favorites));
+        }
     }
 
     @Override
