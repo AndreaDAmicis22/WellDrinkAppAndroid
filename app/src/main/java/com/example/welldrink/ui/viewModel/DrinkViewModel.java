@@ -11,6 +11,7 @@ import com.example.welldrink.model.Result;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class DrinkViewModel extends ViewModel {
 
@@ -111,7 +112,7 @@ public class DrinkViewModel extends ViewModel {
 
     public boolean getFavoriteDrinks(){
         if(this.drinkRepository.getFavoriteDrinksLiveData().getValue() != null){
-            List<Drink> favorites = ((Result.Success<List<Drink>>) this.drinkRepository.getFavoriteDrinksLiveData().getValue()).getData();
+            Map<String, Drink> favorites = ((Result.Success<Map<String, Drink>>) this.drinkRepository.getFavoriteDrinksLiveData().getValue()).getData();
             if(favorites.isEmpty()){
                 this.drinkRepository.getFavoriteDrinks();
                 return true;
@@ -125,6 +126,10 @@ public class DrinkViewModel extends ViewModel {
 
     public MutableLiveData<Result> getFavoritesLiveData(){
         return this.drinkRepository.getFavoriteDrinksLiveData();
+    }
+
+    public Map<String, Drink> getFavoriteMap(){
+        return ((Result.Success<Map<String, Drink>>) this.drinkRepository.getFavoriteDrinksLiveData().getValue()).getData();
     }
 
     private void setDrinkMutableLiveDataByName(String name){

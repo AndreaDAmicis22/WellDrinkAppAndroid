@@ -12,7 +12,9 @@ import com.example.welldrink.model.DrinkApiResponse;
 import com.example.welldrink.model.Result;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback {
 
@@ -27,6 +29,8 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     private final BaseDrinkRemoteDataSource drinkRemoteDataSource;
     private final BaseFavoriteDrinksDataSource baseFavoriteDrinksDataSource;
 
+    private static boolean isLoadingFevs;
+
     public DrinkRepository(BaseDrinkRemoteDataSource drinkRemoteDataSource,
                            BaseFavoriteDrinksDataSource baseFavoriteDrinksDataSource){
         this.drinkRemoteDataSource = drinkRemoteDataSource;
@@ -36,7 +40,8 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
         this.randomDrinkLiveData = new MutableLiveData<>();
         this.drinkMutableLiveData = new MutableLiveData<>();
         this.detailDrinkLiveData = new MutableLiveData<>();
-        this.favoriteDrinksLiveData = new MutableLiveData<>();
+        this.favoriteDrinksLiveData = new MutableLiveData<>(new Result.Success<Map<String, Drink>>(new HashMap<>()));
+        isLoadingFevs = false;
     }
 
     @Override
@@ -114,7 +119,7 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     @Override
     public void getFavoriteDrinks() {
         if(this.favoriteDrinksLiveData.getValue() != null){
-            List<Drink> favorites = ((Result.Success<List<Drink>>) this.favoriteDrinksLiveData.getValue()).getData();
+            Map<String, Drink> favorites = ((Result.Success<Map<String, Drink>>) this.favoriteDrinksLiveData.getValue()).getData();
             if(favorites.isEmpty())
                 this.baseFavoriteDrinksDataSource.fetchDrinkFavorite();
         }else
@@ -162,24 +167,25 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
 
     @Override
     public void onSuccesFromFetchFavoriteRemote(DrinkApiResponse drinkApiResponse) {
-        if(this.favoriteDrinksLiveData.getValue() != null){
-            List<Drink> favorites = ((Result.Success<List<Drink>>) this.favoriteDrinksLiveData.getValue()).getData();
-            Drink newDrink = drinkApiResponse.getDrinkList().get(0);
-            boolean isInside = false;
-            for(Drink d : favorites){
-                Log.d("RES", "onSuccesFromFetchFavoriteRemote -> " + d.getName());
-                if(d.getName().equals(newDrink.getName()))
-                    isInside = true;
-            }
-            if(!isInside){
-                favorites.add(newDrink);
-                Log.d("RES", "onSuccesFromFetchFavoriteRemote ADDED");
-                Log.d("RES", favorites.toString());
+        Log.d("RES", "---------> " + drinkApiResponse.getDrinkList().toString());
+        Drink d = drinkApiResponse.getDrinkList().get(0);
+        if(!isLoadingFevs && this.favoriteDrinksLiveData.getValue() != null){
+            Map<String, Drink> favorites = ((Result.Success<Map<String, Drink>>) this.favoriteDrinksLiveData.getValue()).getData();
+            if(!favorites.containsKey(d.getName())){
+                favorites.put(d.getName(), d);
                 this.favoriteDrinksLiveData.postValue(new Result.Success<>(favorites));
+                Log.d("RES", "onSuccesFromFetchFavoriteRemote-> " + favorites.values().toString());
             }
         }else{
-            this.favoriteDrinksLiveData.postValue(new Result.Success<>(drinkApiResponse.getDrinkList()));
-        }
+            isLoadingFevs = true;
+            Log.d("RES", "ENTRATO NELL'ELSE");
+            Map<String, Drink> fav = new HashMap<String, Drink>();
+            fav.put(d.getName(), d);
+            Log.d("RES", fav.toString());
+            Log.d("RES", fav.values().toString());
+            this.favoriteDrinksLiveData.postValue(new Result.Success<>(fav));
+            isLoadingFevs = false;
 
+        }
     }
 }

@@ -32,6 +32,7 @@ import com.example.welldrink.util.ServiceLocator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ProfileFragment extends Fragment {
     private UserViewModel userViewModel;
@@ -103,7 +104,7 @@ public class ProfileFragment extends Fragment {
         drinkViewModel.getFavoritesLiveData().observe(getViewLifecycleOwner(), result -> {
             Log.d("RES", "OBSERVER FAV");
             if(result.isSuccess() && selected == 2){
-                List<Drink> drinkList = ((Result.Success<List<Drink>>) result).getData();
+                List<Drink> drinkList = new ArrayList<>(((Result.Success<Map<String, Drink>>) result).getData().values());
                 Log.d("RES", "ProfileFragment: " + drinkList.toString());
                 this.attachToRecycleView(drinkList);
             }
@@ -145,7 +146,7 @@ public class ProfileFragment extends Fragment {
             case 2:
                 favorites = true;
                 if(!this.drinkViewModel.getFavoriteDrinks()){
-                    //this.attachToRecycleView(/*list of favorites*/);
+                    this.attachToRecycleView(new ArrayList<>(this.drinkViewModel.getFavoriteMap().values()));
                 }
             default:
                 Log.d("RES", "Click on -> " + selected);
