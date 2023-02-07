@@ -1,6 +1,7 @@
 package com.example.welldrink.ui.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +14,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.welldrink.R;
@@ -118,7 +118,7 @@ public class DetailsActivity extends AppCompatActivity {
     private void removeLoadingScreen() {
         CircularProgressIndicator loading = findViewById(R.id.details_progress);
         loading.setVisibility(View.GONE);
-        ScrollView scrollView = findViewById(R.id.details_scroll);
+        NestedScrollView scrollView = findViewById(R.id.details_scroll);
         scrollView.setVisibility(View.VISIBLE);
     }
 
