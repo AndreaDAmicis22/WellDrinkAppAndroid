@@ -3,16 +3,13 @@ package com.example.welldrink.util;
 
 import static com.example.welldrink.util.Constants.API_URL;
 
-import android.app.Application;
-import android.util.Log;
-
 import com.example.welldrink.data.repository.drink.DrinkRepository;
 import com.example.welldrink.data.repository.drink.IDrinkRepository;
 import com.example.welldrink.data.repository.user.IUserRepository;
 import com.example.welldrink.data.repository.user.UserRepository;
 import com.example.welldrink.data.service.IDrinkAPIService;
 import com.example.welldrink.data.source.drinks.BaseDrinkRemoteDataSource;
-import com.example.welldrink.data.source.drinks.BaseFavoriteDrinksDataSource;
+import com.example.welldrink.data.source.drinks.BaseFavoriteDrinkDataSource;
 import com.example.welldrink.data.source.drinks.DrinkRemoteDataSource;
 import com.example.welldrink.data.source.drinks.FavoriteDrinkDataSource;
 import com.example.welldrink.data.source.user.BaseUserAuthenticationRemoteDataSource;
@@ -54,7 +51,7 @@ public class ServiceLocator {
 
     public IDrinkRepository getDrinkRepository(){
         BaseDrinkRemoteDataSource drinkRemoteDataSource = new DrinkRemoteDataSource();
-        BaseFavoriteDrinksDataSource baseFavoriteDrinksDataSource = new FavoriteDrinkDataSource();
+        BaseFavoriteDrinkDataSource baseFavoriteDrinksDataSource = new FavoriteDrinkDataSource();
         return new DrinkRepository(drinkRemoteDataSource, baseFavoriteDrinksDataSource);
     }
 

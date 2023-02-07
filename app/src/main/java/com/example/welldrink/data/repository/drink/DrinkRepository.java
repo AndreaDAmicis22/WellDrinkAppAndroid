@@ -2,11 +2,10 @@ package com.example.welldrink.data.repository.drink;
 
 import android.util.Log;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.welldrink.data.source.drinks.BaseDrinkRemoteDataSource;
-import com.example.welldrink.data.source.drinks.BaseFavoriteDrinksDataSource;
+import com.example.welldrink.data.source.drinks.BaseFavoriteDrinkDataSource;
 import com.example.welldrink.model.Drink;
 import com.example.welldrink.model.DrinkApiResponse;
 import com.example.welldrink.model.Result;
@@ -27,12 +26,12 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     private MutableLiveData<Result> favoriteDrinksLiveData;
 
     private final BaseDrinkRemoteDataSource drinkRemoteDataSource;
-    private final BaseFavoriteDrinksDataSource baseFavoriteDrinksDataSource;
+    private final BaseFavoriteDrinkDataSource baseFavoriteDrinksDataSource;
 
     private static boolean isLoadingFevs;
 
     public DrinkRepository(BaseDrinkRemoteDataSource drinkRemoteDataSource,
-                           BaseFavoriteDrinksDataSource baseFavoriteDrinksDataSource){
+                           BaseFavoriteDrinkDataSource baseFavoriteDrinksDataSource){
         this.drinkRemoteDataSource = drinkRemoteDataSource;
         this.drinkRemoteDataSource.setDrinkCallback(this);
         this.baseFavoriteDrinksDataSource = baseFavoriteDrinksDataSource;

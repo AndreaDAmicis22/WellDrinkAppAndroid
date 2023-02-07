@@ -1,8 +1,13 @@
 package com.example.welldrink.ui.fragment;
 
+import static com.example.welldrink.util.ButtonHandler.getBgDark;
+import static com.example.welldrink.util.ButtonHandler.getBgLight;
+import static com.example.welldrink.util.ButtonHandler.getTxtDark;
+import static com.example.welldrink.util.ButtonHandler.getTxtLight;
 import static com.example.welldrink.util.ButtonHandler.handleClick;
 import static com.example.welldrink.util.ButtonHandler.isDarkMode;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -83,20 +88,14 @@ public class ProfileFragment extends Fragment {
         SearchView search = requireActivity().findViewById(R.id.home_inpSearch);
         search.onActionViewCollapsed();
         profileName.setText(user.getEmail());
-        buttonsList.add(view.findViewById(R.id.profile_grd_btnTopDrink));
-        buttonsList.add(view.findViewById(R.id.profile_grd_btnTopIngredient));
-        buttonsList.add(view.findViewById(R.id.profile_grd_btnFavoriteDrink));
-        buttonsList.add(view.findViewById(R.id.profile_grd_btnFavoriteIngredient));
-        int bgDark = getResources().getColor(R.color.md_theme_dark_inverseOnSurface);
-        int txtDark = getResources().getColor(R.color.md_theme_dark_primary);
-        int bgLight = getResources().getColor(R.color.md_theme_light_inverseOnSurface);
-        int txtLight = getResources().getColor(R.color.md_theme_light_primary);
+        addButtonsToList(buttonsList, view);
         for (Button button : buttonsList) {
             button.setOnClickListener(el -> {
+                Resources resources = getResources();
                 if (darkMode)
-                    selected = handleClick(getResources(), selected, buttonsList, button, bgDark, txtDark);
+                    selected = handleClick(getResources(), selected, buttonsList, button, getBgDark(resources), getTxtDark(resources));
                 else
-                    selected = handleClick(getResources(), selected, buttonsList, button, bgLight, txtLight);
+                    selected = handleClick(getResources(), selected, buttonsList, button, getBgLight(resources), getTxtLight(resources));
                 this.handleCall(selected);
             });
         }
@@ -120,6 +119,13 @@ public class ProfileFragment extends Fragment {
         });
         logout.setOnClickListener(el -> Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_registrationActivity));
         return view;
+    }
+
+    private void addButtonsToList(List<Button> arrayList, View view) {
+        arrayList.add(view.findViewById(R.id.profile_grd_btnTopDrink));
+        arrayList.add(view.findViewById(R.id.profile_grd_btnTopIngredient));
+        arrayList.add(view.findViewById(R.id.profile_grd_btnFavoriteDrink));
+        arrayList.add(view.findViewById(R.id.profile_grd_btnFavoriteIngredient));
     }
 
     private void handleCall(int selected){

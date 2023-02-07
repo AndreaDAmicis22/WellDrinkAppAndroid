@@ -1,13 +1,8 @@
 package com.example.welldrink.data.source.drinks;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.welldrink.data.repository.drink.IDrinkResponseCallback;
-import com.example.welldrink.model.Result;
 
-import java.util.List;
-
-public abstract class BaseFavoriteDrinksDataSource {
+public abstract class BaseFavoriteDrinkDataSource {
 
     protected IDrinkResponseCallback drinkResponseCallback;
 

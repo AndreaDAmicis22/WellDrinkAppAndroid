@@ -3,6 +3,7 @@ package com.example.welldrink.util;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.view.View;
 import android.widget.Button;
 
 import com.example.welldrink.R;
@@ -26,6 +27,7 @@ public class ButtonHandler {
         resetOthers(buttons, button, bg, txt);
         return selected;
     }
+
 
     private static void resetOthers(List<Button> buttons, Button button, int bg, int txt) {
         for (int i = 0; i < buttons.size(); i++)

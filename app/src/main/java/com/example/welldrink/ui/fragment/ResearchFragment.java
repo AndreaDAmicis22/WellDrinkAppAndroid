@@ -67,7 +67,7 @@ public class ResearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_research, container, false);
         darkMode = isDarkMode(requireContext());
-        addButtonsToList(view);
+        addButtonsToList(filters, view);
         for (Button button : filters) {
             Resources resources = getResources();
             button.setOnClickListener(el -> {
@@ -117,11 +117,11 @@ public class ResearchFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    private void addButtonsToList(View view) {
-        filters.add(view.findViewById(R.id.research_filter_btnName));
-        filters.add(view.findViewById(R.id.research_filter_btnIngredient));
-        filters.add(view.findViewById(R.id.research_filter_btnCategory));
-        filters.add(view.findViewById(R.id.research_filter_btnGlass));
+    private void addButtonsToList(List<Button> arrayList, View view) {
+        arrayList.add(view.findViewById(R.id.research_filter_btnName));
+        arrayList.add(view.findViewById(R.id.research_filter_btnIngredient));
+        arrayList.add(view.findViewById(R.id.research_filter_btnCategory));
+        arrayList.add(view.findViewById(R.id.research_filter_btnGlass));
     }
 
     private void makeFetchCall(String query) {

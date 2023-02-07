@@ -6,20 +6,15 @@ import static com.example.welldrink.util.Constants.DB_USER;
 
 import android.util.Log;
 
-import androidx.lifecycle.MutableLiveData;
-
-import com.example.welldrink.model.Drink;
-import com.example.welldrink.model.Result;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FavoriteDrinkDataSource extends BaseFavoriteDrinksDataSource{
+public class FavoriteDrinkDataSource extends BaseFavoriteDrinkDataSource {
 
     private final DatabaseReference databaseReference;
     private final String userToken;
