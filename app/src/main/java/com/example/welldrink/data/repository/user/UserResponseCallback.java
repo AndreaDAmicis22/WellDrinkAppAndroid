@@ -8,5 +8,6 @@ public interface UserResponseCallback {
     void onSuccessFromRemoteDatabase(User user);
     void onFailureFromRemoteDatabase(String error);
     void onFailureFromAuthentication(String error);
+    void onSuccessFromLogOut();
 
 }

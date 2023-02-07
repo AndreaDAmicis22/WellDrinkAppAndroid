@@ -2,6 +2,8 @@ package com.example.welldrink.data.source.user;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.welldrink.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -65,6 +67,21 @@ public class UserAuthenticationRemoteDataSource extends BaseUserAuthenticationRe
             return new User(firebaseUser.getDisplayName(), firebaseUser.getEmail(), firebaseUser.getUid());
         else
             return null;
+    }
+
+    @Override
+    public void signOut() {
+        FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null) {
+                    firebaseAuth.removeAuthStateListener(this);
+                    Log.d("AUTH", "LOGOUT");
+                }
+            }
+        };
+        firebaseAuth.addAuthStateListener(authStateListener);
+        firebaseAuth.signOut();
     }
 
 }

@@ -46,7 +46,7 @@ public class LoginFragment extends Fragment {
         if(userViewModel.getLoggedUser() != null){
             this.switchActivities();
         }
-        Log.d("LogIn", userViewModel.getLoggedUser().toString());
+        Log.d("LogIn", String.valueOf(userViewModel.getLoggedUser()));
     }
 
     @Override
