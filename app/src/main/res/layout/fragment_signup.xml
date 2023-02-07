@@ -137,15 +137,4 @@
         app:layout_constraintStart_toStartOf="@+id/signup_gdlBegin"
         app:layout_constraintTop_toBottomOf="@+id/signup_txtOr" />
 
-    <Button
-        android:id="@+id/signup_btnGoogle"
-        style="@style/Widget.Material3.Button.ElevatedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/login_btnLoginGoogle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/signup_gdlEnd"
-        app:layout_constraintStart_toStartOf="@+id/signup_gdlBegin" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.welldrink.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,13 @@ public class IngredientSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter
         public void bind(Drink ingredient){
             drinkName.setText(ingredient.getName());
             this.isFavorite = ingredient.isFavorite();
+            CardView card = itemView.findViewById(R.id.first_start_small_card);
+            Log.d("Card", String.valueOf(isFavorite));
+            if(isFavorite){
+                card.setVisibility(View.INVISIBLE);
+            }else{
+                card.setPressed(false);
+            }
         }
     }
 }

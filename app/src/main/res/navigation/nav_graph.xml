@@ -11,7 +11,11 @@
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_fragment_main_to_detailsActivity"
-            app:destination="@id/detailsActivity" />
+            app:destination="@id/detailsActivity"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/fragment_research"
@@ -20,7 +24,11 @@
         tools:layout="@layout/fragment_research" >
         <action
             android:id="@+id/action_fragment_research_to_detailsActivity"
-            app:destination="@id/detailsActivity" />
+            app:destination="@id/detailsActivity"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"/>
     </fragment>
     <fragment
         android:id="@+id/fragment_profile"
@@ -32,7 +40,11 @@
             app:destination="@id/registrationActivity"/>
         <action
             android:id="@+id/action_fragment_profile_to_detailsActivity"
-            app:destination="@id/detailsActivity" />
+            app:destination="@id/detailsActivity"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"/>
     </fragment>
     <activity
         android:id="@+id/registrationActivity"
