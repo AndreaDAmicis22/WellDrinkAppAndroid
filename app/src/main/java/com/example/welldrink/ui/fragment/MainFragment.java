@@ -15,6 +15,7 @@ import com.example.welldrink.model.Result;
 import com.example.welldrink.ui.viewModel.DrinkViewModel;
 import com.example.welldrink.ui.viewModel.DrinkViewModelFactory;
 import com.example.welldrink.util.ServiceLocator;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
@@ -35,6 +36,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -72,11 +74,6 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         Button button = view.findViewById(R.id.home_random_btn);
         TextView name = view.findViewById(R.id.home_random_txtTitle);
-        TextView category = view.findViewById(R.id.home_random_txtCategory);
-        TextView glass = view.findViewById(R.id.home_random_txtGlass);
-        TextView alcol = view.findViewById(R.id.home_random_txtAlcol);
-        ImageView image = view.findViewById(R.id.home_random_img);
-        ImageView imageBg = view.findViewById(R.id.home_random_imgBg);
         CardView card = view.findViewById(R.id.home_random_card);
         SearchView search = requireActivity().findViewById(R.id.home_inpSearch);
         search.onActionViewCollapsed();
@@ -93,20 +90,10 @@ public class MainFragment extends Fragment {
         drinkViewModel.getDrinksRandomLiveData().observe(getViewLifecycleOwner(), res -> {
             if (res.isSuccess()) {
                 Drink drink = ((Result.Success<Drink>) res).getData();
-                name.setText(drink.getName());
-                category.setText(drink.getCategory());
-                RequestCreator imgReq = Picasso.get().load(drink.getImageUrl());
-                imgReq.into(image);
-                imgReq.transform(new BlurTransformation(requireContext(), 25, 1)).into(imageBg);
-                glass.setText(drink.getGlass());
-                alcol.setText(drink.getAlcolType());
-                Picasso.get().load(drink.getImageUrl()).into(image);
+                changeTextViews(view, drink);
+                handleImages(view, drink.getImageUrl());
             } else {
-                name.setText(PLACEHOLDER_NAME);
-                category.setText(PLACEHOLDER_CATEGORY);
-                glass.setText(PLACEHOLDER_GLASS);
-                alcol.setText(PLACEHOLDER_ALCOL);
-                Picasso.get().load(PLACEHOLDER_LINK).into(image);
+                setPlaceholder(view);
             }
         });
         button.setOnClickListener(el -> {
@@ -128,6 +115,49 @@ public class MainFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         MainFavoriteRecyclerViewAdapter adapter = new MainFavoriteRecyclerViewAdapter(favs);
         recyclerView.setAdapter(adapter);
+    }
+
+    private void handleImages(View view, String link) {
+        RequestCreator imgReq = Picasso.get().load(link);
+        imgReq.into((ImageView) view.findViewById(R.id.home_random_img));
+        imgReq.transform(new BlurTransformation(requireContext(), 25, 1)).
+                into((ImageView) view.findViewById(R.id.home_random_imgBg), new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Log.d("Picasso", "Loaded");
+                        removeLoadingScreen(view);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        Log.e("Picasso", "Error loading");
+                    }
+                });
+    }
+
+    private void removeLoadingScreen(View view) {
+        CircularProgressIndicator loading = view.findViewById(R.id.home_progress);
+        loading.setVisibility(View.GONE);
+        RecyclerView recyclerView = view.findViewById(R.id.home_rcvFavorite);
+        CardView cardView = view.findViewById(R.id.home_random_card);
+        recyclerView.setVisibility(View.VISIBLE);
+        cardView.setVisibility(View.VISIBLE);
+    }
+
+    private void changeTextViews(View view, Drink drink) {
+        ((TextView) view.findViewById(R.id.home_random_txtTitle)).setText(drink.getName());
+        ((TextView) view.findViewById(R.id.home_random_txtCategory)).setText(drink.getCategory());
+        ((TextView) view.findViewById(R.id.home_random_txtGlass)).setText(drink.getGlass());
+        ((TextView) view.findViewById(R.id.home_random_txtAlcol)).setText(drink.getAlcolType());
+        Picasso.get().load(PLACEHOLDER_LINK).into((ImageView) view.findViewById(R.id.home_random_img));
+    }
+
+    private void setPlaceholder(View view) {
+        ((TextView) view.findViewById(R.id.home_random_txtTitle)).setText(PLACEHOLDER_NAME);
+        ((TextView) view.findViewById(R.id.home_random_txtCategory)).setText(PLACEHOLDER_CATEGORY);
+        ((TextView) view.findViewById(R.id.home_random_txtGlass)).setText(PLACEHOLDER_GLASS);
+        ((TextView) view.findViewById(R.id.home_random_txtAlcol)).setText(PLACEHOLDER_ALCOL);
+        Picasso.get().load(PLACEHOLDER_LINK).into((ImageView) view.findViewById(R.id.home_random_img));
     }
 
     private ArrayList<Favorite> getFavsUser() {

@@ -20,12 +20,22 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="16dp" />
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/home_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/home_gdlEnd"
+        app:layout_constraintStart_toStartOf="@+id/home_gdlBegin"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_rcvFavorite"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +46,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/home_gdlEnd"
         app:layout_constraintStart_toStartOf="@+id/home_gdlBegin"
         app:layout_constraintTop_toBottomOf="@+id/home_rcvFavorite">

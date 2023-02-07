@@ -52,13 +52,6 @@ public class DetailsActivity extends AppCompatActivity {
         drinkViewModel = new ViewModelProvider(
                 this,
                 new DrinkViewModelFactory(drinkRepository)).get(DrinkViewModel.class);
-        ImageView image = findViewById(R.id.details_img);
-        ImageView imageBg = findViewById(R.id.details_imgBg);
-        TextView name = findViewById(R.id.details_txtTitle);
-        TextView category = findViewById(R.id.details_info_txtCategory);
-        TextView glass = findViewById(R.id.details_info_txtGlass);
-        TextView alcol = findViewById(R.id.details_info_txtAlcol);
-        TextView recipe = findViewById(R.id.details_prep_txtBody);
         RecyclerView detailsRecycleView = createRecyclerView();
         Bundle args = getIntent().getExtras();
         if (args != null) {
@@ -66,27 +59,13 @@ public class DetailsActivity extends AppCompatActivity {
                     this, result -> {
                         Log.d("API", "-Observer-");
                         if(result.isSuccess()){
-                            CircularProgressIndicator loading = findViewById(R.id.details_progress);
-                            loading.setVisibility(View.GONE);
-                            ScrollView scrollView = findViewById(R.id.details_scroll);
-                            scrollView.setVisibility(View.VISIBLE);
                             Log.d("API", "result.isSuccess");
                             drink = ((Result.Success<Drink>) result).getData();
                             Log.d("API", drink.toString());
-                            RequestCreator imgReq = Picasso.get().load(drink.getImageUrl());
-                            imgReq.into(image);
-                            Log.d(TAG, String.valueOf(imageBg));
-                            imgReq.transform(new BlurTransformation(this, 25, 1)).into(imageBg);
-                            //Log.d("API", "terza volta non arriva qui?");
-                            name.setText(drink.getName());
-                            category.setText(drink.getCategory());
-                            glass.setText(drink.getGlass());
-                            alcol.setText(drink.getAlcolType());
-                            recipe.setText(drink.getInstructions());
+                            handleImages();
+                            changeTextViews();
                             DetailRecyclerViewAdapter adapter = new DetailRecyclerViewAdapter(drink.getIngredientList());
-                            //Log.d("API", "ARRIVO QUI");
                             detailsRecycleView.setAdapter(adapter);
-                            //Log.d("API", "NON ARRIVO QUI");
                         }else{
                             Log.d("API", "result.isSuccess failed");
                         }
@@ -94,23 +73,55 @@ public class DetailsActivity extends AppCompatActivity {
             );
         }
         Button btnLike = findViewById(R.id.details_btnLike);
-        btnLike.setOnClickListener(view1 -> {
-            onLike = likeOn(btnLike, onLike);
-        });
         Button btnShare = findViewById(R.id.details_btnShare);
-        btnShare.setOnClickListener(el -> {
-            String ingredient = "Ingredient:"+"\n";
-            for (Ingredient i : drink.getIngredientList()){
-                ingredient += "_"+i.getName()+" "+i.getMeasure()+"\n";
-            }
-            String text = "Drink: "+drink.getName()+"\n"+"\n"+ingredient+"\n"
-                    +"Glass: "+drink.getGlass()+"\n"+"\n"+"Recipe: "+drink.getInstructions()+"\n";
-            Intent sharing = new Intent(Intent.ACTION_SEND);
-            sharing.setType("text/plain");
-            sharing.putExtra(Intent.EXTRA_SUBJECT, "Here is your drink!");
-            sharing.putExtra(Intent.EXTRA_TEXT, text);
-            startActivity(Intent.createChooser(sharing, "Share"));
-        });
+        btnLike.setOnClickListener(view1 -> onLike = likeOn(btnLike, onLike));
+        btnShare.setOnClickListener(el -> startActivity(Intent.createChooser(handleShare(), "Share")));
+    }
+
+    private void handleImages() {
+        RequestCreator imgReq = Picasso.get().load(drink.getImageUrl());
+        imgReq.into((ImageView) findViewById(R.id.details_img));
+        imgReq.transform(new BlurTransformation(this, 25, 1)).
+                into((ImageView) findViewById(R.id.details_imgBg), new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        removeLoadingScreen();
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        Log.e("Picasso", "Error loading");
+                    }
+                });
+    }
+
+    private void removeLoadingScreen() {
+        CircularProgressIndicator loading = findViewById(R.id.details_progress);
+        loading.setVisibility(View.GONE);
+        ScrollView scrollView = findViewById(R.id.details_scroll);
+        scrollView.setVisibility(View.VISIBLE);
+    }
+
+    private void changeTextViews() {
+        ((TextView) findViewById(R.id.details_txtTitle)).setText(drink.getName());
+        ((TextView) findViewById(R.id.details_info_txtCategory)).setText(drink.getCategory());
+        ((TextView) findViewById(R.id.details_info_txtGlass)).setText(drink.getGlass());
+        ((TextView) findViewById(R.id.details_info_txtAlcol)).setText(drink.getAlcolType());
+        ((TextView) findViewById(R.id.details_prep_txtBody)).setText(drink.getInstructions());
+    }
+
+    private Intent handleShare() {
+        StringBuilder ingredient = new StringBuilder("Ingredient:" + "\n");
+        for (Ingredient i : drink.getIngredientList()){
+            ingredient.append("_").append(i.getName()).append(" ").append(i.getMeasure()).append("\n");
+        }
+        String text = "Drink: "+drink.getName()+"\n"+"\n"+ingredient+"\n"
+                +"Glass: "+drink.getGlass()+"\n"+"\n"+"Recipe: "+drink.getInstructions()+"\n";
+        Intent sharing = new Intent(Intent.ACTION_SEND);
+        sharing.setType("text/plain");
+        sharing.putExtra(Intent.EXTRA_SUBJECT, "Here is your drink!");
+        sharing.putExtra(Intent.EXTRA_TEXT, text);
+        return sharing;
     }
 
     private RecyclerView createRecyclerView() {

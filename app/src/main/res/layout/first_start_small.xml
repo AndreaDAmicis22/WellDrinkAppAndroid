@@ -10,8 +10,9 @@
         style="?attr/materialCardViewElevatedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -38,7 +39,6 @@
                     android:layout_marginBottom="8dp"
                     android:gravity="center"
                     android:text="@string/research_card_txt"
-                    android:textAppearance="?attr/textAppearanceTitleMedium"
                     android:textSize="24sp" />
 
 

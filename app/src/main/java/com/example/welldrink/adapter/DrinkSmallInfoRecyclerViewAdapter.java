@@ -83,12 +83,12 @@ public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<Drin
             Drawable filled = itemView.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_alt_24, itemView.getContext().getTheme());
             Drawable unfilled = itemView.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_off_alt_24, itemView.getContext().getTheme());
             likeButton.setOnClickListener(el -> {
-                Log.d("RES", "BIND " + isFavorite);
+                Log.d("LIKE", "CREATE " + isFavorite);
                 if (isFavorite) {
-                    likeButton.setBackground(filled);
+                    likeButton.setBackground(unfilled);
                     drinkViewModel.setDrinkUnfavorite((String) drinkName.getText());
                 } else {
-                    likeButton.setBackground(unfilled);
+                    likeButton.setBackground(filled);
                     drinkViewModel.setDrinkFavorite((String) drinkName.getText());
                 }
                 //clicked = !clicked;
@@ -103,6 +103,7 @@ public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<Drin
             Button likeButton = itemView.findViewById(R.id.drink_btnLike);
             Drawable filled = itemView.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_alt_24, itemView.getContext().getTheme());
             Drawable unfilled = itemView.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_off_alt_24, itemView.getContext().getTheme());
+            Log.d("LIKE", drinkName.getText() + " " + isFavorite);
             if(isFavorite){
                 likeButton.setBackground(filled);
             }else{

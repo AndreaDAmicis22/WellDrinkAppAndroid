@@ -100,16 +100,14 @@ public class ProfileFragment extends Fragment {
                 this.handleCall(selected);
             });
         }
-
         drinkViewModel.getFavoritesLiveData().observe(getViewLifecycleOwner(), result -> {
             Log.d("RES", "OBSERVER FAV");
             if(result.isSuccess() && selected == 2){
                 List<Drink> drinkList = new ArrayList<>(((Result.Success<Map<String, Drink>>) result).getData().values());
-                Log.d("RES", "ProfileFragment: " + drinkList.toString());
+                Log.d("RES", "ProfileFragment: " + drinkList);
                 this.attachToRecycleView(drinkList);
             }
         });
-
         drinkViewModel.getDrinkMutableLiveData().observe(getViewLifecycleOwner(), result -> {
             Log.d("RES", "PROFILE OBSERVER");
             if(result.isSuccess()){
@@ -120,7 +118,6 @@ public class ProfileFragment extends Fragment {
                 Log.d("RES", "ERROR Result.isSuccessfull");
             }
         });
-
         logout.setOnClickListener(el -> Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_registrationActivity));
         return view;
     }
@@ -128,7 +125,6 @@ public class ProfileFragment extends Fragment {
     private void handleCall(int selected){
         switch(selected){
             case -1:
-                Log.d("RES", "CALL -1");
                 if(this.favorites){
                     //clear favorites (not to clear but not make them show)
                     //maybe make this cleaner?
@@ -149,7 +145,7 @@ public class ProfileFragment extends Fragment {
                     this.attachToRecycleView(new ArrayList<>(this.drinkViewModel.getFavoriteMap().values()));
                 }
             default:
-                Log.d("RES", "Click on -> " + selected);
+                break;
         }
     }
 
