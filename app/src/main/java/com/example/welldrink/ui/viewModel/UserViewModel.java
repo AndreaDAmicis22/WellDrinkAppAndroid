@@ -35,6 +35,10 @@ public class UserViewModel extends ViewModel {
         return this.userRepository.getLoggedUser();
     }
 
+    public void logOut(){
+        this.userRepository.logOut();
+    }
+
     private void setUserMutableLiveData(String email, String password, boolean isLogIn){
         Log.d("AUTH", "setUserMutableLiveData");
         this.userMutableLiveData = this.userRepository.getUser(email, password, isLogIn);

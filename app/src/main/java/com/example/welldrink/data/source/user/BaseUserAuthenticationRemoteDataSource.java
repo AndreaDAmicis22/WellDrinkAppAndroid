@@ -17,4 +17,6 @@ public abstract class BaseUserAuthenticationRemoteDataSource {
 
     public abstract User getLoggedUser();
 
+    public abstract void signOut();
+
 }

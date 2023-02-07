@@ -51,6 +51,11 @@ public class UserRepository implements IUserRepository, UserResponseCallback{
     }
 
     @Override
+    public void logOut() {
+        this.userAuthenticationRemoteDataSource.signOut();
+    }
+
+    @Override
     public void onSuccessFromAuthentication(User user) {
         if(user != null){
             userRemoteDataSource.saveUser(user);
@@ -59,20 +64,25 @@ public class UserRepository implements IUserRepository, UserResponseCallback{
 
     @Override
     public void onSuccessFromRemoteDatabase(User user) {
-        Result.Success<User> result = new Result.Success<User>(user);
+        Result result = new Result.Success<User>(user);
         userMutableLiveData.postValue(result);
         Log.d("AUTH", "onSuccessFromRemoteDatabase -> posted");
     }
 
     @Override
     public void onFailureFromRemoteDatabase(String message) {
-        Result.Error result = new Result.Error(message);
+        Result result = new Result.Error(message);
         userMutableLiveData.postValue(result);
     }
 
     @Override
     public void onFailureFromAuthentication(String error) {
-        Result.Error result = new Result.Error(error);
+        Result result = new Result.Error(error);
         userMutableLiveData.postValue(result);
+    }
+
+    @Override
+    public void onSuccessFromLogOut() {
+        this.userMutableLiveData.setValue(null);
     }
 }

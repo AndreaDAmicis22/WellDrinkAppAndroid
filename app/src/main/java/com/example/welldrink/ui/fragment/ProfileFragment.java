@@ -130,7 +130,10 @@ public class ProfileFragment extends Fragment {
                 Log.d("RES", "ERROR Result.isSuccessfull");
             }
         });
-        logout.setOnClickListener(el -> Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_registrationActivity));
+        logout.setOnClickListener(el -> {
+            this.userViewModel.logOut();
+            Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_registrationActivity);
+        });
         return view;
     }
 

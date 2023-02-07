@@ -16,14 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WellDrink"
         tools:targetApi="31">
-        <activity
-            android:name=".ui.Activity.DetailsActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
         <activity
             android:name=".ui.Activity.RegistrationActivity"
             android:exported="true"
@@ -39,6 +32,16 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <activity
+            android:name=".ui.Activity.DetailsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
         <activity
             android:name=".ui.Activity.FirstStartActivity"
             android:exported="false"

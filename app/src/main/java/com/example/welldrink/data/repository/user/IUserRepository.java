@@ -12,4 +12,6 @@ public interface IUserRepository {
     void logIn(String mail, String password);
     User getLoggedUser();
 
+    void logOut();
+
 }
