@@ -86,12 +86,13 @@ public class DrinkViewModel extends ViewModel {
     public void clearDrinkMutableLiveData(){
         Log.d("RES", "ARRIVO QUI");
         if(this.drinkMutableLiveData != null){
-            this.drinkMutableLiveData.setValue(new Result.Success<Drink>(new Drink()));
+//            this.drinkMutableLiveData.setValue(new Result.Success<Drink>(new Drink()));
+            this.drinkMutableLiveData.setValue(new Result.Success<List<Drink>>(new ArrayList<>()));
             this.drinkRepository.clearDrinkMutableLiveData();
             this.drinkMutableLiveData = this.drinkRepository.getMutableLiveData();
-            Log.d("RES", "-------CLEAR----------");
-            Log.d("RES", ((Result.Success) this.drinkMutableLiveData.getValue()).getData().toString());
-            Log.d("RES", ((Result.Success) this.drinkRepository.getMutableLiveData().getValue()).getData().toString());
+//            Log.d("RES", "-------CLEAR----------");
+//            Log.d("RES", ((Result.Success) this.drinkMutableLiveData.getValue()).getData().toString());
+//            Log.d("RES", ((Result.Success) this.drinkRepository.getMutableLiveData().getValue()).getData().toString());
 
         }
     }
@@ -104,6 +105,10 @@ public class DrinkViewModel extends ViewModel {
     public MutableLiveData<Result> getTopIngredientsLiveData(){
         this.setDrinkMutableLiveDataTopIngredients();
         return this.drinkMutableLiveData;
+    }
+
+    public void getIngredientsByName(String name){
+        this.drinkMutableLiveData = this.drinkRepository.getIngredientsByName(name);
     }
 
     public void setDrinkFavorite(String name){

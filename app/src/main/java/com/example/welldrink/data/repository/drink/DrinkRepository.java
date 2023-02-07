@@ -28,8 +28,6 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     private final BaseDrinkRemoteDataSource drinkRemoteDataSource;
     private final BaseFavoriteDrinkDataSource baseFavoriteDrinksDataSource;
 
-    private static boolean isLoadingFevs;
-
     public DrinkRepository(BaseDrinkRemoteDataSource drinkRemoteDataSource,
                            BaseFavoriteDrinkDataSource baseFavoriteDrinksDataSource){
         this.drinkRemoteDataSource = drinkRemoteDataSource;
@@ -41,7 +39,7 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
         this.detailDrinkLiveData = new MutableLiveData<>();
         this.favoriteDrinksLiveData = new MutableLiveData<>(new Result.Success<Map<String, Drink>>(new HashMap<>()));
         this.getFavoriteDrinks();
-        isLoadingFevs = false;
+        Log.e("LIKE", "COSTRUTTORE");
     }
 
     @Override
@@ -144,6 +142,7 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     public void onSuccessFromRemote(DrinkApiResponse drinkApiResponse) {
         Result result = new Result.Success<List<Drink>>(drinkApiResponse.getDrinkList());
         Log.d("API", "onSuccessFromRemote");
+
         this.setDrinkIfFavorite(drinkApiResponse.getDrinkList());
         this.drinkMutableLiveData.postValue(result);
     }
@@ -217,10 +216,13 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     }
 
     private void setDrinkIfFavorite(List<Drink> drinks){
+//        Log.d("LIKE", "-----setDrinkIfFavorite----- -> " + drinks.get(0).getName());
+//        Log.d("LIKE", "FAVORITES " + this.getFavoriteMap().values().toString());
         for(Drink d : drinks){
             if(this.getFavoriteMap().containsKey(d.getName())){
                 d.setFevorite(true);
             }
         }
+//        Log.d("LIKE", "-----setDrinkIfFavorite----- -> " + drinks.get(0).isFavorite());
     }
 }

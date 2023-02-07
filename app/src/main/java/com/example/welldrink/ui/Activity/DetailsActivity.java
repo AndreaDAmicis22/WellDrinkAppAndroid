@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -50,6 +51,10 @@ public class DetailsActivity extends AppCompatActivity {
                 new DrinkViewModelFactory(drinkRepository)).get(DrinkViewModel.class);
         RecyclerView detailsRecycleView = createRecyclerView();
         Bundle args = getIntent().getExtras();
+        Button btnLike = findViewById(R.id.details_btnLike);
+        Button btnShare = findViewById(R.id.details_btnShare);
+        Drawable filled = getResources().getDrawable(R.drawable.ic_baseline_thumb_up_alt_24, this.getTheme());
+        Drawable unfilled = getResources().getDrawable(R.drawable.ic_baseline_thumb_up_off_alt_24, this.getTheme());
         if (args != null) {
             drinkViewModel.getDrinkDetailsLiveData(args.getString("name")).observe(
                     this, result -> {
@@ -60,6 +65,13 @@ public class DetailsActivity extends AppCompatActivity {
                             Log.d("API", drink.toString());
                             handleImages();
                             changeTextViews();
+                            if(drink.isFavorite()){
+                                Log.d("LIKE", "FAVORITEEEEEEEE");
+                                btnLike.setBackground(filled);
+                            }else{
+                                Log.d("LIKE", "ELSEEEEEEEE");
+                                btnLike.setBackground(unfilled);
+                            }
                             DetailsRecyclerViewAdapter adapter = new DetailsRecyclerViewAdapter(drink.getIngredientList());
                             detailsRecycleView.setAdapter(adapter);
                         }else{
@@ -68,9 +80,21 @@ public class DetailsActivity extends AppCompatActivity {
                     }
             );
         }
-        Button btnLike = findViewById(R.id.details_btnLike);
-        Button btnShare = findViewById(R.id.details_btnShare);
-        btnLike.setOnClickListener(view1 -> onLike = likeOn(btnLike, onLike));
+
+
+        //btnLike.setOnClickListener(view1 -> onLike = likeOn(btnLike, onLike));
+        btnLike.setOnClickListener(el -> {
+            Log.d("LIKE", "CREATE " + drink.isFavorite());
+            if (drink.isFavorite()) {
+                btnLike.setBackground(unfilled);
+                drinkViewModel.setDrinkUnfavorite(drink.getName());
+            } else {
+                btnLike.setBackground(filled);
+                drinkViewModel.setDrinkFavorite(drink.getName());
+            }
+            //clicked = !clicked;
+            drink.setFevorite(!drink.isFavorite());
+        });
         btnShare.setOnClickListener(el -> startActivity(Intent.createChooser(handleShare(), "Share")));
     }
 

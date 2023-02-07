@@ -125,6 +125,7 @@ public class Drink {
                 ", glass='" + glass + '\'' +
                 ", alcolType='" + alcolType + '\'' +
                 ", category='" + category + '\'' +
+                ", favorite='" + isFavorite() + '\'' +
                 '}';
     }
 
