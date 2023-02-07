@@ -25,6 +25,8 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
 
     private MutableLiveData<Result> favoriteDrinksLiveData;
 
+    private MutableLiveData<Result> favoriteIngredientsLiveData;
+
     private final BaseDrinkRemoteDataSource drinkRemoteDataSource;
     private final BaseFavoriteDrinkDataSource baseFavoriteDrinksDataSource;
 
@@ -38,7 +40,9 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
         this.drinkMutableLiveData = new MutableLiveData<>();
         this.detailDrinkLiveData = new MutableLiveData<>();
         this.favoriteDrinksLiveData = new MutableLiveData<>(new Result.Success<Map<String, Drink>>(new HashMap<>()));
+        this.favoriteIngredientsLiveData = new MutableLiveData<>();
         this.getFavoriteDrinks();
+        this.getFavoriteIngredients();
         Log.e("LIKE", "COSTRUTTORE");
     }
 
@@ -100,6 +104,11 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
         return this.drinkMutableLiveData;
     }
 
+    @Override
+    public MutableLiveData<Result> getFavoriteIngredient() {
+        return this.favoriteIngredientsLiveData;
+    }
+
     public MutableLiveData<Result> getFavoriteDrinksLiveData(){
         return this.favoriteDrinksLiveData;
     }
@@ -127,6 +136,11 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     @Override
     public void setIngredientUnfavorite(String name) {
         this.baseFavoriteDrinksDataSource.setIngredientUnfavorite(name);
+    }
+
+    @Override
+    public void getFavoriteIngredients() {
+        this.baseFavoriteDrinksDataSource.fetchIngredientFavorite();
     }
 
     @Override
@@ -233,6 +247,11 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     @Override
     public void onSuccessFromRemovingFavoriteIngredient(String name) {
 
+    }
+
+    @Override
+    public void onSuccessFromFetchFavoriteIngredients(List<String> name) {
+        this.favoriteIngredientsLiveData.postValue(new Result.Success<List<String>>(name));
     }
 
     private void setDrinkIfFavorite(List<Drink> drinks){

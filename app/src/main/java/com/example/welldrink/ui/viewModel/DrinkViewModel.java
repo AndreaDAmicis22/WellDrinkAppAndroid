@@ -145,6 +145,10 @@ public class DrinkViewModel extends ViewModel {
         return this.drinkRepository.getFavoriteDrinksLiveData();
     }
 
+    public MutableLiveData<Result> getFavoriteIngredientsLiveData(){
+        return this.drinkRepository.getFavoriteIngredient();
+    }
+
     public Map<String, Drink> getFavoriteMap(){
         return this.drinkRepository.getFavoriteMap();
     }
