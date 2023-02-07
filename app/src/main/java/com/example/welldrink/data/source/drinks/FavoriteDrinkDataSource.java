@@ -95,6 +95,20 @@ public class FavoriteDrinkDataSource extends BaseFavoriteDrinkDataSource {
 
     @Override
     public void fetchIngredientFavorite() {
-
+        databaseReference.child(DB_USER).child(userToken)
+                .child(DB_FAVORITEINGREDIENTS).get()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        if(task.getResult().getValue() != null){
+                            Map<String, String> favorites = (HashMap<String, String>) task.getResult().getValue();
+                            Log.d("FIRE", favorites.values().toString());
+                            drinkResponseCallback.onSuccessFromFetchFavoriteIngredients(new ArrayList<>(favorites.values()));
+                        }else{
+                            Log.d("FIRE", "task.getResult().getValue() == null");
+                        }
+                    }else{
+                        Log.d("FIRE", "fetchIngredientFavorite -> error in fetch");
+                    }
+                });
     }
 }

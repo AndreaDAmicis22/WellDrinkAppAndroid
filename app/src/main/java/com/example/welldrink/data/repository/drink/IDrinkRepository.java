@@ -31,6 +31,8 @@ public interface IDrinkRepository {
 
     MutableLiveData<Result> getIngredientsByName(String name);
 
+    MutableLiveData<Result> getFavoriteIngredient();
+
     Map<String, Drink> getFavoriteMap();
 
     void getDrinkByNameFavorite(String name);
@@ -46,5 +48,7 @@ public interface IDrinkRepository {
     void setIngredientFavorite(String name);
 
     void setIngredientUnfavorite(String name);
+
+    void getFavoriteIngredients();
 
 }

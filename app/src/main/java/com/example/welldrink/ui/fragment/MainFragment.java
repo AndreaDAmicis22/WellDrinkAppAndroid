@@ -105,15 +105,35 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        List<Favorite> favs = getFavsUser();
-        for (int i = 0; i < 5; i++) {
-            favs.add(new Favorite(false, "Soda"));
-        }
+//        List<Favorite> favs = getFavsUser();
+//        for (int i = 0; i < 5; i++) {
+//            favs.add(new Favorite(false, "Soda"));
+//        }
+
+        List<Favorite> favoriteList = new ArrayList<>();
+
+        this.drinkViewModel.getFavoritesLiveData().observe(
+            requireActivity(), res -> {
+                Log.d("FAVMAIN", drinkViewModel.getFavoriteMap().values().toString());
+
+            });
+
+        this.drinkViewModel.getFavoriteIngredientsLiveData().observe(
+                requireActivity(), res -> {
+                    if(res.isSuccess()){
+//                        Log.d("FAVMAIN", "FAVORITE INGREDIENTS: ---> " + ((Result.Success<List<String>>) res).getData().toString());
+                        for(String n : ((Result.Success<List<String>>) res).getData()){
+                            favoriteList.add(new Favorite(false, n));
+                        }
+                    }
+                }
+        );
+
         RecyclerView recyclerView = view.findViewById(R.id.home_rcvFavorite);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        MainFavoriteRecyclerViewAdapter adapter = new MainFavoriteRecyclerViewAdapter(favs);
+        MainFavoriteRecyclerViewAdapter adapter = new MainFavoriteRecyclerViewAdapter(favoriteList);
         recyclerView.setAdapter(adapter);
     }
 
