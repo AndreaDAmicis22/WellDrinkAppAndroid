@@ -121,10 +121,19 @@ public class ProfileFragment extends Fragment {
             if (result.isSuccess()) {
                 List<Drink> drinkList = ((Result.Success<List<Drink>>) result).getData();
                 Log.d("RES", "ProfileFragment: " + drinkList.toString());
-                if(selected == 1)
+                if(selected == 1){
+                    for(String s : drinkViewModel.getFavoriteIngredientsList()){
+                        for(Drink d : drinkList){
+                            if(d.getName().equals(s)){
+                                d.setFevorite(true);
+                            }
+                        }
+                    }
                     attachToRecycleViewIngredient(drinkList);
-                else
+                }
+                else{
                     this.attachToRecycleViewDrink(drinkList);
+                }
                 removeLoadingScreen(view);
             } else {
                 Log.d("RES", "ERROR Result.isSuccessfull");
@@ -187,8 +196,14 @@ public class ProfileFragment extends Fragment {
                 break;
             case 3:
                 if(!this.drinkViewModel.getFavoriteIngredient()){
-                    //WWthis.attachToRecycleViewDrink(new ArrayList<>(this.drinkViewModel.getFavoriteIngreientsList()));
+                    List<Drink> dl = new ArrayList<>();
+                    for(String n : this.drinkViewModel.getFavoriteIngredientsList()){
+                        dl.add(new Drink(n, true));
+                    }
+                    this.attachToRecycleViewIngredient(dl);
                 }
+                removeLoadingScreen(view);
+                break;
             default:
                 break;
         }

@@ -163,7 +163,7 @@ public class DrinkViewModel extends ViewModel {
         return this.drinkRepository.getFavoriteIngredient();
     }
 
-    public List<String> getFavoriteIngreientsList(){
+    public List<String> getFavoriteIngredientsList(){
         if(!this.getFavoriteIngredient()){
             return ((Result.Success<List<String>>) this.drinkRepository.getFavoriteIngredient().getValue()).getData();
         }

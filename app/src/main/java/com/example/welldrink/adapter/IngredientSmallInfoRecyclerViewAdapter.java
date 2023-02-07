@@ -77,6 +77,11 @@ public class IngredientSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter
         public void bind(Drink ingredient) {
             drinkName.setText(ingredient.getName());
             this.isFavorite = ingredient.isFavorite();
+            CardView card = itemView.findViewById(R.id.first_start_small_card);
+            if(isFavorite)
+                card.setCardBackgroundColor(itemView.getResources().getColor(R.color.md_theme_light_primary));
+            else
+                card.setCardBackgroundColor(getBgDark(itemView.getResources()));
         }
     }
 }

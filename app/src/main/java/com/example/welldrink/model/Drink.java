@@ -42,6 +42,11 @@ public class Drink {
         this.fevorite = false;
     }
 
+    public Drink(String name, boolean fevorite){
+        this.name = name;
+        this.fevorite = fevorite;
+    }
+
     public long getId() {
         return id;
     }

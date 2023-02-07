@@ -243,14 +243,24 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     public void onSuccessFromAddingFavoriteIngredient(String name) {
         if(this.favoriteIngredientsLiveData.getValue() != null){
             List<String> favorites = ((Result.Success<List<String>>) this.favoriteIngredientsLiveData.getValue()).getData();
-            favorites.add(name);
+            boolean found = false;
+            for(String f : favorites){
+                if(f.equals(name))
+                    found = true;
+            }
+            if(!found)
+                favorites.add(name);
             this.favoriteIngredientsLiveData.postValue(new Result.Success<List<String>>(favorites));
         }
     }
 
     @Override
     public void onSuccessFromRemovingFavoriteIngredient(String name) {
-
+        if(this.favoriteIngredientsLiveData.getValue() != null){
+            List<String> favorites = ((Result.Success<List<String>>) this.favoriteIngredientsLiveData.getValue()).getData();
+            favorites.remove(favorites.indexOf(name));
+            this.favoriteIngredientsLiveData.postValue(new Result.Success<List<String>>(favorites));
+        }
     }
 
     @Override
