@@ -3,7 +3,6 @@ package com.example.welldrink.adapter;
 import static com.example.welldrink.util.Constants.AMAZON_LINK;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,11 +19,11 @@ import com.example.welldrink.model.Ingredient;
 
 import java.util.List;
 
-public class DetailRecyclerViewAdapter extends RecyclerView.Adapter<DetailRecyclerViewAdapter.DetailsViewHolder> {
+public class DetailsRecyclerViewAdapter extends RecyclerView.Adapter<DetailsRecyclerViewAdapter.DetailsViewHolder> {
     private final List<Ingredient> ingredientList;
-    private static final String TAG = DetailRecyclerViewAdapter.class.getSimpleName();
+    private static final String TAG = DetailsRecyclerViewAdapter.class.getSimpleName();
 
-    public DetailRecyclerViewAdapter(List<Ingredient> ingredientList){
+    public DetailsRecyclerViewAdapter(List<Ingredient> ingredientList){
         this.ingredientList = ingredientList;
     }
 

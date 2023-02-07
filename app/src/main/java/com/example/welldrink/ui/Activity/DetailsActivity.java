@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.transition.CircularPropagation;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,16 +16,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.welldrink.R;
-import com.example.welldrink.adapter.DetailRecyclerViewAdapter;
+import com.example.welldrink.adapter.DetailsRecyclerViewAdapter;
 import com.example.welldrink.data.repository.drink.IDrinkRepository;
-import com.example.welldrink.data.repository.user.IUserRepository;
 import com.example.welldrink.model.Drink;
 import com.example.welldrink.model.Ingredient;
 import com.example.welldrink.model.Result;
 import com.example.welldrink.ui.viewModel.DrinkViewModel;
 import com.example.welldrink.ui.viewModel.DrinkViewModelFactory;
-import com.example.welldrink.ui.viewModel.UserViewModel;
-import com.example.welldrink.ui.viewModel.UserViewModelFactory;
 import com.example.welldrink.util.ServiceLocator;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.squareup.picasso.Picasso;
@@ -64,7 +60,7 @@ public class DetailsActivity extends AppCompatActivity {
                             Log.d("API", drink.toString());
                             handleImages();
                             changeTextViews();
-                            DetailRecyclerViewAdapter adapter = new DetailRecyclerViewAdapter(drink.getIngredientList());
+                            DetailsRecyclerViewAdapter adapter = new DetailsRecyclerViewAdapter(drink.getIngredientList());
                             detailsRecycleView.setAdapter(adapter);
                         }else{
                             Log.d("API", "result.isSuccess failed");

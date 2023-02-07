@@ -20,22 +20,12 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="16dp" />
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/home_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/home_gdlEnd"
-        app:layout_constraintStart_toStartOf="@+id/home_gdlBegin"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_rcvFavorite"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +36,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/home_gdlEnd"
         app:layout_constraintStart_toStartOf="@+id/home_gdlBegin"
         app:layout_constraintTop_toBottomOf="@+id/home_rcvFavorite">
@@ -61,12 +51,23 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/home_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    app:layout_constraintBottom_toBottomOf="@+id/home_random_imgBg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/home_random_imgBg"
+                    app:layout_constraintTop_toTopOf="@+id/home_random_imgBg" />
+
                 <ImageView
                     android:id="@+id/home_random_imgBg"
                     android:layout_width="match_parent"
                     android:layout_height="240dp"
                     android:contentDescription="@string/home_random_img"
                     android:scaleType="centerCrop"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -79,6 +80,7 @@
                     android:layout_height="240dp"
                     android:contentDescription="@string/home_random_img"
                     android:src="@drawable/ic_baseline_question_mark_128"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -90,6 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/home_btnProfile"
+                    android:visibility="invisible"
                     app:icon="@drawable/ic_baseline_refresh_24"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

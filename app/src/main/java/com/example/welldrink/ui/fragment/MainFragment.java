@@ -98,6 +98,7 @@ public class MainFragment extends Fragment {
         });
         button.setOnClickListener(el -> {
             drinkViewModel.getDrinksRandom();
+            activeLoadingScreen(view);
         });
         return view;
     }
@@ -137,11 +138,24 @@ public class MainFragment extends Fragment {
 
     private void removeLoadingScreen(View view) {
         CircularProgressIndicator loading = view.findViewById(R.id.home_progress);
-        loading.setVisibility(View.GONE);
-        RecyclerView recyclerView = view.findViewById(R.id.home_rcvFavorite);
-        CardView cardView = view.findViewById(R.id.home_random_card);
-        recyclerView.setVisibility(View.VISIBLE);
-        cardView.setVisibility(View.VISIBLE);
+        loading.setVisibility(View.INVISIBLE);
+        ImageView img = view.findViewById(R.id.home_random_img);
+        ImageView imgBg = view.findViewById(R.id.home_random_imgBg);
+        Button button = view.findViewById(R.id.home_random_btn);
+        img.setVisibility(View.VISIBLE);
+        imgBg.setVisibility(View.VISIBLE);
+        button.setVisibility(View.VISIBLE);
+    }
+
+    private void activeLoadingScreen(View view) {
+        CircularProgressIndicator loading = view.findViewById(R.id.home_progress);
+        loading.setVisibility(View.VISIBLE);
+        ImageView img = view.findViewById(R.id.home_random_img);
+        ImageView imgBg = view.findViewById(R.id.home_random_imgBg);
+        Button button = view.findViewById(R.id.home_random_btn);
+        img.setVisibility(View.INVISIBLE);
+        imgBg.setVisibility(View.INVISIBLE);
+        button.setVisibility(View.INVISIBLE);
     }
 
     private void changeTextViews(View view, Drink drink) {
