@@ -7,6 +7,8 @@ import static com.example.welldrink.util.ButtonHandler.getTxtLight;
 import static com.example.welldrink.util.ButtonHandler.handleClick;
 import static com.example.welldrink.util.ButtonHandler.isDarkMode;
 
+import android.app.Activity;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 
@@ -41,6 +43,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class ProfileFragment extends Fragment {

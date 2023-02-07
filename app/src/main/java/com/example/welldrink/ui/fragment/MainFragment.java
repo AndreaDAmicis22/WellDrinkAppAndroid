@@ -121,7 +121,7 @@ public class MainFragment extends Fragment {
         this.drinkViewModel.getFavoriteIngredientsLiveData().observe(
                 requireActivity(), res -> {
                     if(res.isSuccess()){
-//                        Log.d("FAVMAIN", "FAVORITE INGREDIENTS: ---> " + ((Result.Success<List<String>>) res).getData().toString());
+                        Log.d("FAVMAIN", "FAVORITE INGREDIENTS: ---> " + ((Result.Success<List<String>>) res).getData().toString());
                         for(String n : ((Result.Success<List<String>>) res).getData()){
                             favoriteList.add(new Favorite(false, n));
                         }
@@ -135,6 +135,7 @@ public class MainFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+        Log.d("FAVMAIN", favoriteList.toString());
         MainFavoriteRecyclerViewAdapter adapter = new MainFavoriteRecyclerViewAdapter(favoriteList);
         recyclerView.setAdapter(adapter);
     }
