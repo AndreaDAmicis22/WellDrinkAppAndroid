@@ -149,7 +149,6 @@ public class MainFragment extends Fragment {
         ((TextView) view.findViewById(R.id.home_random_txtCategory)).setText(drink.getCategory());
         ((TextView) view.findViewById(R.id.home_random_txtGlass)).setText(drink.getGlass());
         ((TextView) view.findViewById(R.id.home_random_txtAlcol)).setText(drink.getAlcolType());
-        Picasso.get().load(PLACEHOLDER_LINK).into((ImageView) view.findViewById(R.id.home_random_img));
     }
 
     private void setPlaceholder(View view) {
