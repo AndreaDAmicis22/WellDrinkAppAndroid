@@ -79,6 +79,7 @@ public class LoginFragment extends Fragment {
                                     User user = ((Result.Success<User>) result).getData();
                                     userViewModel.setAuthError(false);
                                     Log.d("AUTH", "Login with user: " + user.toString());
+                                    switchActivities();
                                 }else{
                                     Log.d("AUTH", "ERROR login result.isSuccess()");
                                     userViewModel.setAuthError(true);
