@@ -43,6 +43,12 @@ public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<Drin
         this.drinkViewModel = drinkviewModel;
     }
 
+    public DrinkSmallInfoRecyclerViewAdapter(List<Drink> drinkList, DrinkViewModel drinkviewModel) {
+        this.drinkList = drinkList;
+        this.onItemClickListener = drink -> {};
+        this.drinkViewModel = drinkviewModel;
+    }
+
     @NonNull
     @Override
     public DrinkSmallInfoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

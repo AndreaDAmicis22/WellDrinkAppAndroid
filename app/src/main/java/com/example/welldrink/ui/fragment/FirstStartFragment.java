@@ -13,19 +13,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.SearchView;
 
 import com.example.welldrink.R;
-import com.example.welldrink.adapter.StartRecyclerViewAdapter;
+import com.example.welldrink.adapter.DrinkSmallInfoRecyclerViewAdapter;
+import com.example.welldrink.adapter.IngredientSmallInfoRecyclerViewAdapter;
 import com.example.welldrink.data.repository.drink.IDrinkRepository;
-import com.example.welldrink.data.repository.user.IUserRepository;
 import com.example.welldrink.model.Drink;
+import com.example.welldrink.model.Ingredient;
 import com.example.welldrink.model.Result;
 import com.example.welldrink.ui.viewModel.DrinkViewModel;
 import com.example.welldrink.ui.viewModel.DrinkViewModelFactory;
-import com.example.welldrink.ui.viewModel.UserViewModel;
-import com.example.welldrink.ui.viewModel.UserViewModelFactory;
 import com.example.welldrink.util.ServiceLocator;
 
 import java.util.ArrayList;
@@ -69,7 +67,7 @@ public class FirstStartFragment extends Fragment {
                 requireActivity(), res -> {
                     if(res.isSuccess()){
                         List<Drink> drinkList = ((Result.Success<List<Drink>>) res).getData();
-                        StartRecyclerViewAdapter adapter = new StartRecyclerViewAdapter(drinkList);
+                        DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(drinkList, drinkViewModel);
                         researchRecycleView.setAdapter(adapter);
                     }else{
                         //snackbar

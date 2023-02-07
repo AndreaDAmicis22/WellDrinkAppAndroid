@@ -27,8 +27,10 @@ import android.widget.TextView;
 
 import com.example.welldrink.R;
 import com.example.welldrink.adapter.DrinkSmallInfoRecyclerViewAdapter;
+import com.example.welldrink.adapter.IngredientSmallInfoRecyclerViewAdapter;
 import com.example.welldrink.data.repository.user.IUserRepository;
 import com.example.welldrink.model.Drink;
+import com.example.welldrink.model.Ingredient;
 import com.example.welldrink.model.Result;
 import com.example.welldrink.model.User;
 import com.example.welldrink.ui.viewModel.DrinkViewModel;
@@ -110,7 +112,7 @@ public class ProfileFragment extends Fragment {
             if (result.isSuccess() && selected == 2) {
                 List<Drink> drinkList = new ArrayList<>(((Result.Success<Map<String, Drink>>) result).getData().values());
                 Log.d("RES", "ProfileFragment: " + drinkList);
-                this.attachToRecycleView(drinkList);
+                this.attachToRecycleViewDrink(drinkList);
                 removeLoadingScreen(view);
             }
         });
@@ -119,7 +121,7 @@ public class ProfileFragment extends Fragment {
             if (result.isSuccess()) {
                 List<Drink> drinkList = ((Result.Success<List<Drink>>) result).getData();
                 Log.d("RES", "ProfileFragment: " + drinkList.toString());
-                this.attachToRecycleView(drinkList);
+                this.attachToRecycleViewDrink(drinkList);
                 removeLoadingScreen(view);
             } else {
                 Log.d("RES", "ERROR Result.isSuccessfull");
@@ -156,7 +158,7 @@ public class ProfileFragment extends Fragment {
                 if (this.favorites) {
                     //clear favorites (not to clear but not make them show)
                     //maybe make this cleaner?
-                    this.attachToRecycleView(new ArrayList<>());
+                    this.attachToRecycleViewDrink(new ArrayList<>());
                     favorites = false; // this is why not clearing stuff anymore
                 } else
                     this.drinkViewModel.clearDrinkMutableLiveData();
@@ -170,7 +172,7 @@ public class ProfileFragment extends Fragment {
             case 2:
                 favorites = true;
                 if (!this.drinkViewModel.getFavoriteDrinks()) {
-                    this.attachToRecycleView(new ArrayList<>(this.drinkViewModel.getFavoriteMap().values()));
+                    this.attachToRecycleViewDrink(new ArrayList<>(this.drinkViewModel.getFavoriteMap().values()));
                 }
                 removeLoadingScreen(view);
             default:
@@ -178,7 +180,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private void attachToRecycleView(List<Drink> list) {
+    private void attachToRecycleViewDrink(List<Drink> list) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
         this.recyclerView.setLayoutManager(linearLayoutManager);
         DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(list, drink -> {
@@ -186,6 +188,13 @@ public class ProfileFragment extends Fragment {
             bundle.putString("name", drink.getName());
             Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_detailsActivity, bundle);
         }, drinkViewModel);
+        this.recyclerView.setAdapter(adapter);
+    }
+
+    private void attachToRecycleViewIngredient(List<Ingredient> list) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
+        this.recyclerView.setLayoutManager(linearLayoutManager);
+        IngredientSmallInfoRecyclerViewAdapter adapter = new IngredientSmallInfoRecyclerViewAdapter(list);
         this.recyclerView.setAdapter(adapter);
     }
 
