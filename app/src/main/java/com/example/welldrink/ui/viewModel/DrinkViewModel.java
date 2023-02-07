@@ -167,7 +167,7 @@ public class DrinkViewModel extends ViewModel {
         if(!this.getFavoriteIngredient()){
             return ((Result.Success<List<String>>) this.drinkRepository.getFavoriteIngredient().getValue()).getData();
         }
-        return ((Result.Success<List<String>>) this.drinkRepository.getFavoriteIngredient().getValue()).getData();
+        return new ArrayList<>();
     }
 
     public Map<String, Drink> getFavoriteMap(){

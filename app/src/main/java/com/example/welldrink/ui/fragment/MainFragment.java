@@ -111,13 +111,16 @@ public class MainFragment extends Fragment {
 //        }
 
         List<Favorite> favoriteList = new ArrayList<>();
+        RecyclerView recyclerView = view.findViewById(R.id.home_rcvFavorite);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
+        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
 //        this.drinkViewModel.getFavoritesLiveData().observe(
 //            requireActivity(), res -> {
 //                Log.d("FAVMAIN", drinkViewModel.getFavoriteMap().values().toString());
 //
 //            });
-
         this.drinkViewModel.getFavoriteIngredientsLiveData().observe(
                 requireActivity(), res -> {
                     if(res.isSuccess()){
@@ -125,19 +128,12 @@ public class MainFragment extends Fragment {
                         for(String n : ((Result.Success<List<String>>) res).getData()){
                             favoriteList.add(new Favorite(false, n));
                         }
+                        MainFavoriteRecyclerViewAdapter adapter = new MainFavoriteRecyclerViewAdapter(favoriteList);
+                        recyclerView.setAdapter(adapter);
                     }
                 }
         );
 
-        Log.e("FAVMAIN", drinkViewModel.getFavoriteMap().values().toString());
-
-        RecyclerView recyclerView = view.findViewById(R.id.home_rcvFavorite);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
-        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        Log.d("FAVMAIN", favoriteList.toString());
-        MainFavoriteRecyclerViewAdapter adapter = new MainFavoriteRecyclerViewAdapter(favoriteList);
-        recyclerView.setAdapter(adapter);
     }
 
     private void handleImages(View view, String link) {
