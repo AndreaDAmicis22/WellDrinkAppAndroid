@@ -6,8 +6,6 @@ import com.example.welldrink.data.service.IDrinkAPIService;
 import com.example.welldrink.model.DrinkApiResponse;
 import com.example.welldrink.util.ServiceLocator;
 
-import java.util.zip.DeflaterInputStream;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -134,7 +132,7 @@ public class DrinkRemoteDataSource extends BaseDrinkRemoteDataSource{
                     if(response.body().getDrinkList().isEmpty()){
                         drinkCallback.onFailureFromRemote("Error in API call");
                     }else{
-                        drinkCallback.onSuccesFromFetchFavoriteRemote(response.body());
+                        drinkCallback.onSuccessFromFetchFavoriteRemote(response.body());
                     }
 
                 }else{

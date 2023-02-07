@@ -106,6 +106,14 @@ public class Drink {
         this.instructions = instructions;
     }
 
+    public boolean isFavorite() {
+        return fevorite;
+    }
+
+    public void setFevorite(boolean fevorite) {
+        this.fevorite = fevorite;
+    }
+
     @Override
     public String toString() {
         return "Drink{" +

@@ -37,4 +37,6 @@ public interface IDrinkRepository {
 
     void clearDrinkMutableLiveData();
 
+    void setDrinkUnfavorite(String name);
+
 }

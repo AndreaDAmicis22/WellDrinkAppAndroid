@@ -16,6 +16,10 @@ public interface IDrinkResponseCallback {
 
     void onSuccessFromFetchFavorite(List<String> favoriteList);
 
-    void onSuccesFromFetchFavoriteRemote(DrinkApiResponse drinkApiResponse);
+    void onSuccessFromFetchFavoriteRemote(DrinkApiResponse drinkApiResponse);
+
+    void onSuccessFromAddingFavorite(String name);
+
+    void onSuccessFromRemovingFavorite(String name);
 
 }

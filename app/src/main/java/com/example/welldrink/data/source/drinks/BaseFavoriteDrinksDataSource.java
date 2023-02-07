@@ -17,6 +17,8 @@ public abstract class BaseFavoriteDrinksDataSource {
 
     public abstract void setDrinkFavorite(String name);
 
+    public abstract void setDrinkUnFavorite(String name);
+
     public abstract void fetchDrinkFavorite();
 
 }

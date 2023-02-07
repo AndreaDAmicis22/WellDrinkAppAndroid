@@ -110,6 +110,10 @@ public class DrinkViewModel extends ViewModel {
         this.drinkRepository.setDrinkFavorite(name);
     }
 
+    public void setDrinkUnfavorite(String name){
+        this.drinkRepository.setDrinkUnfavorite(name);
+    }
+
     public boolean getFavoriteDrinks(){
         if(this.drinkRepository.getFavoriteDrinksLiveData().getValue() != null){
             Map<String, Drink> favorites = ((Result.Success<Map<String, Drink>>) this.drinkRepository.getFavoriteDrinksLiveData().getValue()).getData();

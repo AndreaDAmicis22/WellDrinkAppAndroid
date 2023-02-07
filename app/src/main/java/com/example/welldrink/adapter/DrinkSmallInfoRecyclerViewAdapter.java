@@ -1,6 +1,7 @@
 package com.example.welldrink.adapter;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,6 @@ import com.example.welldrink.ui.viewModel.DrinkViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.function.Function;
 
 public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<DrinkSmallInfoRecyclerViewAdapter.DrinkSmallInfoViewHolder> {
 
@@ -67,36 +67,47 @@ public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<Drin
         private final TextView drinkName;
         private final ImageView drinkImage;
 
-        private boolean clicked;
+        private boolean isFavorite;
 
         public DrinkSmallInfoViewHolder(@NonNull View itemView) {
             super(itemView);
-            clicked = false;
             drinkName = itemView.findViewById(R.id.drink_small_txt);
             drinkImage = itemView.findViewById(R.id.drink_small_img);
             CardView card = itemView.findViewById(R.id.drink_small_card);
-            Button likeButton = itemView.findViewById(R.id.drink_btnLike);
             card.setOnClickListener(el -> {
                 drinkViewModel.clearDrinkDetails();
                 drinkViewModel.getDrinkDetail((String) drinkName.getText());
                 onItemClickListener.onDrinkClick(drinkList.get(getAdapterPosition()));
             });
+            Button likeButton = itemView.findViewById(R.id.drink_btnLike);
+            Drawable filled = itemView.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_alt_24, itemView.getContext().getTheme());
+            Drawable unfilled = itemView.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_off_alt_24, itemView.getContext().getTheme());
             likeButton.setOnClickListener(el -> {
-                Drawable filled = itemView.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_alt_24, itemView.getContext().getTheme());
-                Drawable unfilled = itemView.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_off_alt_24, itemView.getContext().getTheme());
-                if (clicked) {
-                    likeButton.setBackground(unfilled);
-                } else {
+                Log.d("RES", "BIND " + isFavorite);
+                if (isFavorite) {
                     likeButton.setBackground(filled);
+                    drinkViewModel.setDrinkUnfavorite((String) drinkName.getText());
+                } else {
+                    likeButton.setBackground(unfilled);
                     drinkViewModel.setDrinkFavorite((String) drinkName.getText());
                 }
-                clicked = !clicked;
+                //clicked = !clicked;
+                isFavorite = !isFavorite;
             });
         }
 
         public void bind(Drink drink) {
             drinkName.setText(drink.getName());
             Picasso.get().load(drink.getImageUrl()).into(drinkImage);
+            this.isFavorite = drink.isFavorite();
+            Button likeButton = itemView.findViewById(R.id.drink_btnLike);
+            Drawable filled = itemView.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_alt_24, itemView.getContext().getTheme());
+            Drawable unfilled = itemView.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_off_alt_24, itemView.getContext().getTheme());
+            if(isFavorite){
+                likeButton.setBackground(filled);
+            }else{
+                likeButton.setBackground(unfilled);
+            }
         }
     }
 }

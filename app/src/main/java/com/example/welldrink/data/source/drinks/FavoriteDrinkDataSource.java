@@ -38,9 +38,21 @@ public class FavoriteDrinkDataSource extends BaseFavoriteDrinksDataSource{
                 .child(String.valueOf(name.hashCode()))
                 .setValue(name).addOnSuccessListener(a -> {
                     Log.d("FIRE", "Messo a favorite");
-                    //call back che aggiunge il dirnk alla mutablelivedata dei favorites
+                    drinkResponseCallback.onSuccessFromAddingFavorite(name);
                 }).addOnFailureListener(err -> {
                     Log.d("FIRE", "ERRORE in favorite");
+                });
+    }
+
+    @Override
+    public void setDrinkUnFavorite(String name) {
+        databaseReference.child(DB_USER).child(userToken)
+                .child(DB_FAVORITEDRINK).child(String.valueOf(name.hashCode())).removeValue()
+                .addOnSuccessListener(a -> {
+                    Log.d("FIRE", "Tolto da favorites");
+                    drinkResponseCallback.onSuccessFromRemovingFavorite(name);
+                }).addOnFailureListener(err -> {
+                    Log.d("FIRE", "ERRORE in remove from favorite");
                 });
     }
 
@@ -51,9 +63,6 @@ public class FavoriteDrinkDataSource extends BaseFavoriteDrinksDataSource{
                 Log.d("FIRE", "task.isSuccessful()");
                 Log.d("FIRE", task.getResult().getValue().toString());
                 Map<String, String> favorites = (HashMap<String, String>) task.getResult().getValue();
-//                for(String s : favorites.values()){
-//                    Log.d("FIRE", s);
-//                }
                 drinkResponseCallback.onSuccessFromFetchFavorite(new ArrayList<>(favorites.values()));
             }else{
                 Log.d("FIRE", "ERROR task.isSuccessful()");

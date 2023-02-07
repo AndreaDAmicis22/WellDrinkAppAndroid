@@ -117,6 +117,11 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     }
 
     @Override
+    public void setDrinkUnfavorite(String name) {
+        this.baseFavoriteDrinksDataSource.setDrinkUnFavorite(name);
+    }
+
+    @Override
     public void getFavoriteDrinks() {
         if(this.favoriteDrinksLiveData.getValue() != null){
             Map<String, Drink> favorites = ((Result.Success<Map<String, Drink>>) this.favoriteDrinksLiveData.getValue()).getData();
@@ -166,26 +171,41 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     }
 
     @Override
-    public void onSuccesFromFetchFavoriteRemote(DrinkApiResponse drinkApiResponse) {
+    public void onSuccessFromFetchFavoriteRemote(DrinkApiResponse drinkApiResponse) {
         Log.d("RES", "---------> " + drinkApiResponse.getDrinkList().toString());
         Drink d = drinkApiResponse.getDrinkList().get(0);
-        if(!isLoadingFevs && this.favoriteDrinksLiveData.getValue() != null){
+        d.setFevorite(true);
+        if(this.favoriteDrinksLiveData.getValue() != null){
             Map<String, Drink> favorites = ((Result.Success<Map<String, Drink>>) this.favoriteDrinksLiveData.getValue()).getData();
             if(!favorites.containsKey(d.getName())){
                 favorites.put(d.getName(), d);
                 this.favoriteDrinksLiveData.postValue(new Result.Success<>(favorites));
                 Log.d("RES", "onSuccesFromFetchFavoriteRemote-> " + favorites.values().toString());
             }
+            Log.d("RES", "---> " + favorites.values());
         }else{
-            isLoadingFevs = true;
             Log.d("RES", "ENTRATO NELL'ELSE");
             Map<String, Drink> fav = new HashMap<String, Drink>();
             fav.put(d.getName(), d);
             Log.d("RES", fav.toString());
             Log.d("RES", fav.values().toString());
             this.favoriteDrinksLiveData.postValue(new Result.Success<>(fav));
-            isLoadingFevs = false;
+        }
+    }
 
+    @Override
+    public void onSuccessFromAddingFavorite(String name) {
+        this.drinkRemoteDataSource.fetchFavoritesByName(name);
+    }
+
+    @Override
+    public void onSuccessFromRemovingFavorite(String name) {
+        if(this.favoriteDrinksLiveData.getValue() != null){
+            Map<String, Drink> favorite = ((Result.Success<Map<String, Drink>>) this.favoriteDrinksLiveData.getValue()).getData();
+            if(favorite.containsKey(name)){
+                favorite.remove(name);
+            }
+            Log.d("RES", "Removed");
         }
     }
 }
