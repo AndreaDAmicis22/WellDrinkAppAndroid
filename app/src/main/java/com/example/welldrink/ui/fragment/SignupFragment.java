@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.example.welldrink.R;
 import com.example.welldrink.model.Result;
 import com.example.welldrink.model.User;
+import com.example.welldrink.ui.Activity.FirstStartActivity;
 import com.example.welldrink.ui.Activity.MainActivity;
 import com.example.welldrink.ui.viewModel.UserViewModel;
 import com.google.android.material.snackbar.Snackbar;
@@ -93,11 +94,6 @@ public class SignupFragment extends Fragment {
         });
     }
 
-    private void switchActivities() {
-        Intent switchActivityIntent = new Intent(getContext(), MainActivity.class);
-        startActivity(switchActivityIntent);
-    }
-
     private boolean checkData(String username, String mail, String password, String passwordConf){
         if(password.equals(passwordConf) && isPasswordOk(password)){
             return true;
@@ -122,8 +118,13 @@ public class SignupFragment extends Fragment {
     }
 
     private boolean isPasswordOk(String password){
-        if(!password.isEmpty() && password.length() >= MINIMUM_PASSWORD_LENGTH)
-            return true;
-        return false;
+        return !password.isEmpty() && password.length() >= MINIMUM_PASSWORD_LENGTH;
+    }
+
+    private void switchActivities() {
+        Intent switchActivityIntent = new Intent(getContext(), FirstStartActivity.class);
+        switchActivityIntent.putExtra("prev", false);
+        switchActivityIntent.putExtra("forward", true);
+        startActivity(switchActivityIntent);
     }
 }

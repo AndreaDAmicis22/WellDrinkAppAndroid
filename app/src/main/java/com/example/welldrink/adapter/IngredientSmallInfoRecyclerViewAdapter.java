@@ -1,5 +1,8 @@
 package com.example.welldrink.adapter;
 
+import static com.example.welldrink.util.ButtonHandler.getBgDark;
+import static com.example.welldrink.util.ButtonHandler.getBgLight;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.welldrink.model.Drink;
@@ -25,7 +29,7 @@ public class IngredientSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter
     private final DrinkViewModel drinkViewModel;
 
 
-    public IngredientSmallInfoRecyclerViewAdapter(List<Drink> ingredientList, DrinkViewModel drinkViewModel){
+    public IngredientSmallInfoRecyclerViewAdapter(List<Drink> ingredientList, DrinkViewModel drinkViewModel) {
         this.ingredientList = ingredientList;
         this.drinkViewModel = drinkViewModel;
     }
@@ -44,7 +48,7 @@ public class IngredientSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter
 
     @Override
     public int getItemCount() {
-        if (ingredientList != null){
+        if (ingredientList != null) {
             return ingredientList.size();
         }
         return 0;
@@ -59,24 +63,20 @@ public class IngredientSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter
             drinkName = itemView.findViewById(R.id.first_start_small_txt);
             CardView card = itemView.findViewById(R.id.first_start_small_card);
             card.setOnClickListener(el -> {
-                if(isFavorite)
+                if (isFavorite) {
+                    card.setCardBackgroundColor(getBgDark(itemView.getResources()));
                     drinkViewModel.setIngredientUnfavorite((String) drinkName.getText());
-                else
+                } else {
+                    card.setCardBackgroundColor(itemView.getResources().getColor(R.color.md_theme_light_primary));
                     drinkViewModel.setIngredientFavorite((String) drinkName.getText());
+                }
                 isFavorite = !isFavorite;
             });
         }
 
-        public void bind(Drink ingredient){
+        public void bind(Drink ingredient) {
             drinkName.setText(ingredient.getName());
             this.isFavorite = ingredient.isFavorite();
-            CardView card = itemView.findViewById(R.id.first_start_small_card);
-            Log.d("Card", String.valueOf(isFavorite));
-            if(isFavorite){
-                card.setVisibility(View.INVISIBLE);
-            }else{
-                card.setPressed(false);
-            }
         }
     }
 }

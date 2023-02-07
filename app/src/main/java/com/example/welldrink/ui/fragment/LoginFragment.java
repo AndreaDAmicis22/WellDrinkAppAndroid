@@ -21,6 +21,7 @@ import com.example.welldrink.data.repository.user.IUserRepository;
 import com.example.welldrink.model.Result;
 import com.example.welldrink.model.User;
 import com.example.welldrink.ui.Activity.FirstStartActivity;
+import com.example.welldrink.ui.Activity.MainActivity;
 import com.example.welldrink.ui.viewModel.UserViewModel;
 import com.example.welldrink.ui.viewModel.UserViewModelFactory;
 import com.example.welldrink.util.ServiceLocator;
@@ -78,7 +79,6 @@ public class LoginFragment extends Fragment {
                                     User user = ((Result.Success<User>) result).getData();
                                     userViewModel.setAuthError(false);
                                     Log.d("AUTH", "Login with user: " + user.toString());
-                                    switchActivities();
                                 }else{
                                     Log.d("AUTH", "ERROR login result.isSuccess()");
                                     userViewModel.setAuthError(true);
@@ -100,9 +100,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void switchActivities() {
-        Intent switchActivityIntent = new Intent(getContext(), FirstStartActivity.class);
-        switchActivityIntent.putExtra("prev", false);
-        switchActivityIntent.putExtra("forward", true);
+        Intent switchActivityIntent = new Intent(getContext(), MainActivity.class);
         startActivity(switchActivityIntent);
     }
 
