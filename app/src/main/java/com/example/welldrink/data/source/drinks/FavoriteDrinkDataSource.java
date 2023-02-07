@@ -56,9 +56,13 @@ public class FavoriteDrinkDataSource extends BaseFavoriteDrinkDataSource {
         databaseReference.child(DB_USER).child(userToken).child(DB_FAVORITEDRINK).get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 Log.d("FIRE", "task.isSuccessful()");
-                Log.d("FIRE", task.getResult().getValue().toString());
-                Map<String, String> favorites = (HashMap<String, String>) task.getResult().getValue();
-                drinkResponseCallback.onSuccessFromFetchFavorite(new ArrayList<>(favorites.values()));
+//                Log.d("FIRE", task.getResult().getValue().toString());
+                if(task.getResult().getValue() != null){
+                    Map<String, String> favorites = (HashMap<String, String>) task.getResult().getValue();
+                    drinkResponseCallback.onSuccessFromFetchFavorite(new ArrayList<>(favorites.values()));
+                }else{
+                    Log.d("FIRE", "task.getResult().getValue() == null");
+                }
             }else{
                 Log.d("FIRE", "ERROR task.isSuccessful()");
             }

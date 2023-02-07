@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.welldrink.model.Drink;
 import com.example.welldrink.model.Result;
 
+import java.util.Map;
+
 public interface IDrinkRepository {
 
     MutableLiveData<Result> getDrinksByName(String name);
@@ -28,6 +30,8 @@ public interface IDrinkRepository {
     MutableLiveData<Result> getFavoriteDrinksLiveData();
 
     MutableLiveData<Result> getIngredientsByName(String name);
+
+    Map<String, Drink> getFavoriteMap();
 
     void getDrinkByNameFavorite(String name);
 

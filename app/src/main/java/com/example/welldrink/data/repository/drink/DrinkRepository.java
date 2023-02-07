@@ -40,6 +40,7 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
         this.drinkMutableLiveData = new MutableLiveData<>();
         this.detailDrinkLiveData = new MutableLiveData<>();
         this.favoriteDrinksLiveData = new MutableLiveData<>(new Result.Success<Map<String, Drink>>(new HashMap<>()));
+        this.getFavoriteDrinks();
         isLoadingFevs = false;
     }
 
@@ -107,7 +108,7 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
 
     @Override
     public void getDrinkByNameFavorite(String name) {
-
+    ////??????
     }
 
     @Override
@@ -130,6 +131,10 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
             this.baseFavoriteDrinksDataSource.fetchDrinkFavorite();
     }
 
+    public Map<String, Drink> getFavoriteMap(){
+        return ((Result.Success<Map<String, Drink>>) this.getFavoriteDrinksLiveData().getValue()).getData();
+    }
+
     public void clearDrinkMutableLiveData(){
         if(this.drinkMutableLiveData != null)
             this.drinkMutableLiveData.setValue(new Result.Success<List<Drink>>(new ArrayList<Drink>()));
@@ -139,6 +144,7 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     public void onSuccessFromRemote(DrinkApiResponse drinkApiResponse) {
         Result result = new Result.Success<List<Drink>>(drinkApiResponse.getDrinkList());
         Log.d("API", "onSuccessFromRemote");
+        this.setDrinkIfFavorite(drinkApiResponse.getDrinkList());
         this.drinkMutableLiveData.postValue(result);
     }
 
@@ -151,12 +157,14 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     @Override
     public void onSuccessFromRemoteRandom(DrinkApiResponse drinkApiREsponse) {
         Result res = new Result.Success<>(drinkApiREsponse.getDrinkList().get(0));
+        this.setDrinkIfFavorite(drinkApiREsponse.getDrinkList());
         this.randomDrinkLiveData.postValue(res);
     }
 
     @Override
     public void onSuccessFromRemoteDetails(DrinkApiResponse drinkApiResponse) {
         Result res = new Result.Success<>(drinkApiResponse.getDrinkList().get(0));
+        this.setDrinkIfFavorite(drinkApiResponse.getDrinkList());
         this.detailDrinkLiveData.postValue(res);
     }
 
@@ -205,6 +213,14 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
                 favorite.remove(name);
             }
             Log.d("RES", "Removed");
+        }
+    }
+
+    private void setDrinkIfFavorite(List<Drink> drinks){
+        for(Drink d : drinks){
+            if(this.getFavoriteMap().containsKey(d.getName())){
+                d.setFevorite(true);
+            }
         }
     }
 }

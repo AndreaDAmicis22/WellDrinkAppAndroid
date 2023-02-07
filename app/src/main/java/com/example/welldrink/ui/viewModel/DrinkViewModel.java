@@ -133,7 +133,7 @@ public class DrinkViewModel extends ViewModel {
     }
 
     public Map<String, Drink> getFavoriteMap(){
-        return ((Result.Success<Map<String, Drink>>) this.drinkRepository.getFavoriteDrinksLiveData().getValue()).getData();
+        return this.drinkRepository.getFavoriteMap();
     }
 
     private void setDrinkMutableLiveDataByName(String name){
