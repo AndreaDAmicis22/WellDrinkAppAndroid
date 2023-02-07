@@ -141,11 +141,19 @@ public class DrinkViewModel extends ViewModel {
         }
     }
 
-//    public boolean getFavoriteIngredient(){
-//        if(this.drinkRepository.getFavoriteIngredient().getValue() != null){
-////            List<String> ingredients = ((Result.Success<List<String>>))
-//        }
-//    }
+    public boolean getFavoriteIngredient(){
+        if(this.drinkRepository.getFavoriteIngredient().getValue() != null){
+            List<String> ingredients = ((Result.Success<List<String>>) this.drinkRepository.getFavoriteIngredient().getValue()).getData();
+            if(ingredients.isEmpty()){
+                this.drinkRepository.getFavoriteIngredients();
+                return true;
+            }
+            return false;
+        }else{
+            this.drinkRepository.getFavoriteIngredients();
+            return true;
+        }
+    }
 
     public MutableLiveData<Result> getFavoritesLiveData(){
         return this.drinkRepository.getFavoriteDrinksLiveData();
