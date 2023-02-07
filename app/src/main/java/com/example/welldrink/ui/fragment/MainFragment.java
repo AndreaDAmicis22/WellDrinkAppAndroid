@@ -112,11 +112,11 @@ public class MainFragment extends Fragment {
 
         List<Favorite> favoriteList = new ArrayList<>();
 
-        this.drinkViewModel.getFavoritesLiveData().observe(
-            requireActivity(), res -> {
-                Log.d("FAVMAIN", drinkViewModel.getFavoriteMap().values().toString());
-
-            });
+//        this.drinkViewModel.getFavoritesLiveData().observe(
+//            requireActivity(), res -> {
+//                Log.d("FAVMAIN", drinkViewModel.getFavoriteMap().values().toString());
+//
+//            });
 
         this.drinkViewModel.getFavoriteIngredientsLiveData().observe(
                 requireActivity(), res -> {
@@ -128,6 +128,8 @@ public class MainFragment extends Fragment {
                     }
                 }
         );
+
+        Log.e("FAVMAIN", drinkViewModel.getFavoriteMap().values().toString());
 
         RecyclerView recyclerView = view.findViewById(R.id.home_rcvFavorite);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());

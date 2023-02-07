@@ -43,7 +43,7 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
         this.favoriteIngredientsLiveData = new MutableLiveData<>();
         this.getFavoriteDrinks();
         this.getFavoriteIngredients();
-        Log.e("LIKE", "COSTRUTTORE");
+//        Log.e("LIKE", "COSTRUTTORE");
     }
 
     @Override
