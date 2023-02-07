@@ -43,4 +43,8 @@ public interface IDrinkRepository {
 
     void setDrinkUnfavorite(String name);
 
+    void setIngredientFavorite(String name);
+
+    void setIngredientUnfavorite(String name);
+
 }

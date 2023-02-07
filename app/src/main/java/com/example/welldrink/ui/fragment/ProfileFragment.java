@@ -121,7 +121,10 @@ public class ProfileFragment extends Fragment {
             if (result.isSuccess()) {
                 List<Drink> drinkList = ((Result.Success<List<Drink>>) result).getData();
                 Log.d("RES", "ProfileFragment: " + drinkList.toString());
-                this.attachToRecycleViewDrink(drinkList);
+                if(selected == 1)
+                    attachToRecycleViewIngredient(drinkList);
+                else
+                    this.attachToRecycleViewDrink(drinkList);
                 removeLoadingScreen(view);
             } else {
                 Log.d("RES", "ERROR Result.isSuccessfull");
@@ -191,10 +194,10 @@ public class ProfileFragment extends Fragment {
         this.recyclerView.setAdapter(adapter);
     }
 
-    private void attachToRecycleViewIngredient(List<Ingredient> list) {
+    private void attachToRecycleViewIngredient(List<Drink> list) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
         this.recyclerView.setLayoutManager(linearLayoutManager);
-        IngredientSmallInfoRecyclerViewAdapter adapter = new IngredientSmallInfoRecyclerViewAdapter(list);
+        IngredientSmallInfoRecyclerViewAdapter adapter = new IngredientSmallInfoRecyclerViewAdapter(list, drinkViewModel);
         this.recyclerView.setAdapter(adapter);
     }
 

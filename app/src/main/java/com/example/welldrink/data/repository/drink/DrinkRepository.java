@@ -120,6 +120,16 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     }
 
     @Override
+    public void setIngredientFavorite(String name) {
+        this.baseFavoriteDrinksDataSource.setIngredientFavorite(name);
+    }
+
+    @Override
+    public void setIngredientUnfavorite(String name) {
+        this.baseFavoriteDrinksDataSource.setIngredientUnfavorite(name);
+    }
+
+    @Override
     public void getFavoriteDrinks() {
         if(this.favoriteDrinksLiveData.getValue() != null){
             Map<String, Drink> favorites = ((Result.Success<Map<String, Drink>>) this.favoriteDrinksLiveData.getValue()).getData();
@@ -213,6 +223,16 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
             }
             Log.d("RES", "Removed");
         }
+    }
+
+    @Override
+    public void onSuccessFromAddingFavoriteIngredient(String name) {
+
+    }
+
+    @Override
+    public void onSuccessFromRemovingFavoriteIngredient(String name) {
+
     }
 
     private void setDrinkIfFavorite(List<Drink> drinks){

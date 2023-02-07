@@ -30,6 +30,7 @@ public class Constants {
     public static final String DB_REALTIME = "https://welldrink-680e6-default-rtdb.europe-west1.firebasedatabase.app/";
     public static final String DB_USER = "users";
     public static final String DB_FAVORITEDRINK = "favoriteDrinks";
+    public static final String DB_FAVORITEINGREDIENTS = "favoriteIngredients";
 
 
     public static final String AMAZON_LINK = "https://www.amazon.it/s?k=";

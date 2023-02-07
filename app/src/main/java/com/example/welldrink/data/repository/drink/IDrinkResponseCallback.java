@@ -22,4 +22,8 @@ public interface IDrinkResponseCallback {
 
     void onSuccessFromRemovingFavorite(String name);
 
+    void onSuccessFromAddingFavoriteIngredient(String name);
+
+    void onSuccessFromRemovingFavoriteIngredient(String name);
+
 }

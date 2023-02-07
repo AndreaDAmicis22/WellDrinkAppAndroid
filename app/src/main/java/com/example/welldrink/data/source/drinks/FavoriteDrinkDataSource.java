@@ -1,6 +1,7 @@
 package com.example.welldrink.data.source.drinks;
 
 import static com.example.welldrink.util.Constants.DB_FAVORITEDRINK;
+import static com.example.welldrink.util.Constants.DB_FAVORITEINGREDIENTS;
 import static com.example.welldrink.util.Constants.DB_REALTIME;
 import static com.example.welldrink.util.Constants.DB_USER;
 
@@ -67,5 +68,33 @@ public class FavoriteDrinkDataSource extends BaseFavoriteDrinkDataSource {
                 Log.d("FIRE", "ERROR task.isSuccessful()");
             }
         });
+    }
+
+    @Override
+    public void setIngredientFavorite(String name) {
+        databaseReference.child(DB_USER).child(userToken)
+                .child(DB_FAVORITEINGREDIENTS).child(String.valueOf(name.hashCode()))
+                .setValue(name).addOnSuccessListener(a -> {
+                    drinkResponseCallback.onSuccessFromAddingFavoriteIngredient(name);
+                }).addOnFailureListener(err -> {
+                    Log.d("FIRE", "ERROR setIngredientFavorite");
+                });
+    }
+
+    @Override
+    public void setIngredientUnfavorite(String name) {
+        databaseReference.child(DB_USER).child(userToken)
+                .child(DB_FAVORITEINGREDIENTS).child(String.valueOf(name.hashCode())).removeValue()
+                .addOnSuccessListener(a -> {
+                    Log.d("FIRE", "Tolto da favorites");
+                    drinkResponseCallback.onSuccessFromRemovingFavoriteIngredient(name);
+                }).addOnFailureListener(err -> {
+                    Log.d("FIRE", "ERRORE in remove from favorite");
+                });
+    }
+
+    @Override
+    public void fetchIngredientFavorite() {
+
     }
 }

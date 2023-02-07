@@ -67,8 +67,15 @@ public class FirstStartFragment extends Fragment {
                 requireActivity(), res -> {
                     if(res.isSuccess()){
                         List<Drink> drinkList = ((Result.Success<List<Drink>>) res).getData();
-                        DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(drinkList, drinkViewModel);
-                        researchRecycleView.setAdapter(adapter);
+                        if(args != null && !args.getBoolean("first")){
+                            IngredientSmallInfoRecyclerViewAdapter adapter = new IngredientSmallInfoRecyclerViewAdapter(drinkList, drinkViewModel);
+                            researchRecycleView.setAdapter(adapter);
+                        }
+                        else{
+                            DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(drinkList, drinkViewModel);
+                            researchRecycleView.setAdapter(adapter);
+                        }
+
                     }else{
                         //snackbar
                     }
