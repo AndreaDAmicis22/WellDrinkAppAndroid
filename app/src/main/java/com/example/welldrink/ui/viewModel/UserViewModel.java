@@ -20,15 +20,15 @@ public class UserViewModel extends ViewModel {
         this.authError = false;
     }
 
-    public MutableLiveData<Result> getUserMutableLiveData(String email, String password, boolean isLogIn){
+    public MutableLiveData<Result> getUserMutableLiveData(String email, String password, boolean isLogIn, String username){
         if(userMutableLiveData == null){
-            setUserMutableLiveData(email, password, isLogIn);
+            setUserMutableLiveData(email, password, isLogIn, username);
         }
         return userMutableLiveData;
     }
 
-    public void getUser(String email, String password, boolean isLogin){
-        setUserMutableLiveData(email, password, isLogin);
+    public void getUser(String email, String password, boolean isLogin, String username){
+        setUserMutableLiveData(email, password, isLogin, username);
     }
 
     public User getLoggedUser(){
@@ -39,9 +39,9 @@ public class UserViewModel extends ViewModel {
         this.userRepository.logOut();
     }
 
-    private void setUserMutableLiveData(String email, String password, boolean isLogIn){
+    private void setUserMutableLiveData(String email, String password, boolean isLogIn, String username){
         Log.d("AUTH", "setUserMutableLiveData");
-        this.userMutableLiveData = this.userRepository.getUser(email, password, isLogIn);
+        this.userMutableLiveData = this.userRepository.getUser(email, password, isLogIn, username);
     }
 
     public boolean isAuthError(){

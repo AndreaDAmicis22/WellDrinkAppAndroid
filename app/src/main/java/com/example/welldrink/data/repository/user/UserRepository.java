@@ -26,18 +26,18 @@ public class UserRepository implements IUserRepository, UserResponseCallback{
 
 
     @Override
-    public MutableLiveData<Result> getUser(String email, String password, boolean isLogIn) {
+    public MutableLiveData<Result> getUser(String email, String password, boolean isLogIn, String username) {
         if(isLogIn){
             this.logIn(email, password);
         }else{
-            this.signUp(email, password);
+            this.signUp(email, password, username);
         }
         return this.userMutableLiveData;
     }
 
     @Override
-    public void signUp(String mail, String password) {
-        userAuthenticationRemoteDataSource.signUp(mail, password);
+    public void signUp(String mail, String password, String username) {
+        userAuthenticationRemoteDataSource.signUp(mail, password, username);
     }
 
     @Override

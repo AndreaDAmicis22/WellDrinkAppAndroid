@@ -66,7 +66,7 @@ public class SignupFragment extends Fragment {
             if(checkData(username, email, password, passwordConf)){
                 if(!userViewModel.isAuthError()){
                     Log.d("AUTH", "checkData done");
-                    userViewModel.getUserMutableLiveData(email, password, false).observe(
+                    userViewModel.getUserMutableLiveData(email, password, false, username).observe(
                             getViewLifecycleOwner(), result -> {
                                 Log.d("AUTH", "observer");
                                 if(result.isSuccess()){
@@ -84,7 +84,7 @@ public class SignupFragment extends Fragment {
                             }
                     );
                 }else{
-                    userViewModel.getUser(email, password, false);
+                    userViewModel.getUser(email, password, false, username);
                 }
             }else{
                 Snackbar.make(requireActivity().findViewById(android.R.id.content),

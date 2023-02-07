@@ -91,7 +91,7 @@ public class ProfileFragment extends Fragment {
         TextView profileName = view.findViewById(R.id.profile_txtNameProfile);
         SearchView search = requireActivity().findViewById(R.id.home_inpSearch);
         search.onActionViewCollapsed();
-        profileName.setText(user.getEmail());
+        profileName.setText(user.getName());
         addButtonsToList(buttonsList, view);
         for (Button button : buttonsList) {
             button.setOnClickListener(el -> {
@@ -131,7 +131,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        Log.e("FAVMAIN", "_____." + this.drinkViewModel.getFavoriteIngredientsLiveData().getValue().toString());
+//        Log.e("FAVMAIN", "_____." + this.drinkViewModel.getFavoriteIngredientsLiveData().getValue().toString());
 
         logout.setOnClickListener(el -> {
             this.userViewModel.logOut();
@@ -184,6 +184,11 @@ public class ProfileFragment extends Fragment {
                     this.attachToRecycleViewDrink(new ArrayList<>(this.drinkViewModel.getFavoriteMap().values()));
                 }
                 removeLoadingScreen(view);
+                break;
+            case 3:
+                if(!this.drinkViewModel.getFavoriteIngredient()){
+                    //WWthis.attachToRecycleViewDrink(new ArrayList<>(this.drinkViewModel.getFavoriteIngreientsList()));
+                }
             default:
                 break;
         }

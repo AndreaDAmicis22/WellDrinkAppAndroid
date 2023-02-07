@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.example.welldrink.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class UserAuthenticationRemoteDataSource extends BaseUserAuthenticationRemoteDataSource{
 
@@ -15,16 +16,23 @@ public class UserAuthenticationRemoteDataSource extends BaseUserAuthenticationRe
     public UserAuthenticationRemoteDataSource() { firebaseAuth = FirebaseAuth.getInstance();}
 
     @Override
-    public void signUp(String email, String password) {
+    public void signUp(String email, String password, String username) {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 Log.d("AUTH", "Signup-taskSuccessful");
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 Log.d("AUTH", "Signup-firebaseUser");
                 if(firebaseUser != null){
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(username).build();
+
+                    firebaseUser.updateProfile(profileUpdates)
+                            .addOnCompleteListener(task1 -> {
+                                Log.d("AUTH", "USERNAME SET");
+                            });
                     Log.d("AUTH", "Signup-firebaseUser != null");
                     userResponseCallback.onSuccessFromAuthentication(
-                            new User(firebaseUser.getDisplayName(), email, firebaseUser.getUid())
+                            new User(username, email, firebaseUser.getUid())
                     );
                 }else{
                     Log.d("AUTH", "FirebaseUser == null");
@@ -83,5 +91,6 @@ public class UserAuthenticationRemoteDataSource extends BaseUserAuthenticationRe
         firebaseAuth.addAuthStateListener(authStateListener);
         firebaseAuth.signOut();
     }
+
 
 }

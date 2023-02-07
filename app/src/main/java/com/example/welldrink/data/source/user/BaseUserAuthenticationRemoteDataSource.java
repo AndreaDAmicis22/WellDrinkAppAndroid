@@ -11,7 +11,7 @@ public abstract class BaseUserAuthenticationRemoteDataSource {
         this.userResponseCallback = userResponseCallback;
     }
 
-    public abstract void signUp(String email, String password);
+    public abstract void signUp(String email, String password, String username);
 
     public abstract void signIn(String email, String password);
 
