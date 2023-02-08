@@ -51,7 +51,6 @@
     <string name="first_txtSubtitleIngredient">Scegli i tuoi ingredienti preferiti</string>
     <string name="details_btnShare">Condividi</string>
     <string name="details_btnLike">Mi piace</string>
-    <string name="error_drink">Non sono stato in grado di ottenere i dettagli del drink</string>
     <string name="error_picasso">Errore nel caricamento dell\'immagine</string>
     <string name="error_drink">Non sono stato in grado di ottenere i dettagli dell\'elemento</string>
 </resources>

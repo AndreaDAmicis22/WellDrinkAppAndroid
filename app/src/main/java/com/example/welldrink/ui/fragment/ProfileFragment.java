@@ -203,6 +203,7 @@ public class ProfileFragment extends Fragment {
         DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(list, drink -> {
             Bundle bundle = new Bundle();
             bundle.putString("name", drink.getName());
+            bundle.putBoolean("fav", drink.isFavorite());
             Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_detailsActivity, bundle);
         }, drinkViewModel);
         this.recyclerView.setAdapter(adapter);

@@ -60,6 +60,7 @@ public class DetailsActivity extends AppCompatActivity {
                         if (result.isSuccess()) {
                             Log.d("API", "result.isSuccess");
                             drink = ((Result.Success<Drink>) result).getData();
+                            drink.setFavorite(args.getBoolean("fav"));
                             Log.d("API", drink.toString());
                             handleImages();
                             changeTextViews();
@@ -77,7 +78,6 @@ public class DetailsActivity extends AppCompatActivity {
             );
         }
         btnLike.setOnClickListener(el -> {
-            Log.d("LIKE", "CREATE " + drink.isFavorite());
             if (drink.isFavorite()) {
                 btnLike.setBackground(getUnfilled(getResources(), getTheme()));
                 drinkViewModel.setDrinkUnfavorite(drink.getName());
