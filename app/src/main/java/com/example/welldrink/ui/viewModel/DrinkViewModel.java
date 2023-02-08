@@ -141,6 +141,10 @@ public class DrinkViewModel extends ViewModel {
         }
     }
 
+    public void forceFavoriteFetch(){
+        this.drinkRepository.forceFetchDrink();
+    }
+
     public boolean getFavoriteIngredient() {
         if (this.drinkRepository.getFavoriteIngredient().getValue() != null) {
             List<String> ingredients = ((Result.Success<List<String>>) this.drinkRepository.getFavoriteIngredient().getValue()).getData();

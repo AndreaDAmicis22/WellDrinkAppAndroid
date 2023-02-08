@@ -152,6 +152,10 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
             this.baseFavoriteDrinksDataSource.fetchDrinkFavorite();
     }
 
+    public void forceFetchDrink(){
+        this.baseFavoriteDrinksDataSource.fetchDrinkFavorite();
+    }
+
     public Map<String, Drink> getFavoriteMap() {
         return ((Result.Success<Map<String, Drink>>) this.getFavoriteDrinksLiveData().getValue()).getData();
     }

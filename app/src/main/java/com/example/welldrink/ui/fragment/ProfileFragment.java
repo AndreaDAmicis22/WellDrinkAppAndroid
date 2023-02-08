@@ -216,4 +216,10 @@ public class ProfileFragment extends Fragment {
         this.recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.drinkViewModel.forceFavoriteFetch();
+    }
+
 }

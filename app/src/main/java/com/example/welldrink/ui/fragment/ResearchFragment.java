@@ -144,4 +144,10 @@ public class ResearchFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.drinkViewModel.forceFavoriteFetch();
+    }
+
 }

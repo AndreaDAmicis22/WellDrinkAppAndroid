@@ -5,6 +5,7 @@ import static com.example.welldrink.util.Constants.PLACEHOLDER_CATEGORY;
 import static com.example.welldrink.util.Constants.PLACEHOLDER_GLASS;
 import static com.example.welldrink.util.Constants.PLACEHOLDER_LINK;
 import static com.example.welldrink.util.Constants.PLACEHOLDER_NAME;
+import static com.example.welldrink.util.ErrorSnackbars.handleDrinkError;
 import static com.example.welldrink.util.ErrorSnackbars.handlePicassoError;
 
 import com.example.welldrink.R;
@@ -48,6 +49,7 @@ import jp.wasabeef.picasso.transformations.BlurTransformation;
 public class MainFragment extends Fragment {
 
     private DrinkViewModel drinkViewModel;
+    private Drink randDrink;
 
     public MainFragment() {
 
@@ -64,6 +66,7 @@ public class MainFragment extends Fragment {
         drinkViewModel = new ViewModelProvider(
                 requireActivity(),
                 new DrinkViewModelFactory(drinkRepository)).get(DrinkViewModel.class);
+        this.randDrink = new Drink();
     }
 
     @Override
@@ -78,6 +81,7 @@ public class MainFragment extends Fragment {
         card.setOnClickListener(el -> {
             Bundle bundle = new Bundle();
             bundle.putString("name", (String) name.getText());
+            bundle.putBoolean("fav", this.randDrink.isFavorite());
             if (!name.getText().equals(PLACEHOLDER_NAME)) {
                 drinkViewModel.clearDrinkDetails();
                 drinkViewModel.getDrinkDetail((String) name.getText());
@@ -88,12 +92,24 @@ public class MainFragment extends Fragment {
         drinkViewModel.getDrinksRandomLiveData().observe(getViewLifecycleOwner(), res -> {
             if (res.isSuccess()) {
                 Drink drink = ((Result.Success<Drink>) res).getData();
+                if(this.randDrink.isFavorite())
+                    drink.setFavorite(true);
+                this.randDrink = drink;
                 changeTextViews(view, drink);
                 handleImages(view, drink.getImageUrl());
             } else {
                 setPlaceholder(view);
+                handleDrinkError(view);
             }
         });
+        this.drinkViewModel.getFavoritesLiveData().observe(
+                requireActivity(), res -> {
+                    if(res.isSuccess()){
+                        if(this.randDrink.getName() != null)
+                            if(this.drinkViewModel.getFavoriteMap().containsKey(this.randDrink.getName()))
+                                this.randDrink.setFavorite(true);
+                    }
+                });
         button.setOnClickListener(el -> {
             drinkViewModel.getDrinksRandom();
             activeLoadingScreen(view);
@@ -109,6 +125,7 @@ public class MainFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+
         this.drinkViewModel.getFavoriteIngredientsLiveData().observe(
                 requireActivity(), res -> {
                     if (res.isSuccess()) {
@@ -173,6 +190,12 @@ public class MainFragment extends Fragment {
         ((TextView) view.findViewById(R.id.home_random_txtGlass)).setText(PLACEHOLDER_GLASS);
         ((TextView) view.findViewById(R.id.home_random_txtAlcol)).setText(PLACEHOLDER_ALCOL);
         Picasso.get().load(PLACEHOLDER_LINK).into((ImageView) view.findViewById(R.id.home_random_img));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.drinkViewModel.forceFavoriteFetch();
     }
 
 }
