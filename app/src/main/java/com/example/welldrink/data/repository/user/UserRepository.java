@@ -9,14 +9,14 @@ import com.example.welldrink.data.source.user.BaseUserRemoteDataSource;
 import com.example.welldrink.model.Result;
 import com.example.welldrink.model.User;
 
-public class UserRepository implements IUserRepository, UserResponseCallback{
+public class UserRepository implements IUserRepository, UserResponseCallback {
 
     private final BaseUserRemoteDataSource userRemoteDataSource;
     private final BaseUserAuthenticationRemoteDataSource userAuthenticationRemoteDataSource;
     private final MutableLiveData<Result> userMutableLiveData;
 
     public UserRepository(BaseUserRemoteDataSource userRemoteDataSource,
-                          BaseUserAuthenticationRemoteDataSource userAuthenticationRemoteDataSource){
+                          BaseUserAuthenticationRemoteDataSource userAuthenticationRemoteDataSource) {
         this.userRemoteDataSource = userRemoteDataSource;
         this.userAuthenticationRemoteDataSource = userAuthenticationRemoteDataSource;
         this.userRemoteDataSource.setUserResponseCallback(this);
@@ -27,9 +27,9 @@ public class UserRepository implements IUserRepository, UserResponseCallback{
 
     @Override
     public MutableLiveData<Result> getUser(String email, String password, boolean isLogIn, String username) {
-        if(isLogIn){
+        if (isLogIn) {
             this.logIn(email, password);
-        }else{
+        } else {
             this.signUp(email, password, username);
         }
         return this.userMutableLiveData;
@@ -57,14 +57,14 @@ public class UserRepository implements IUserRepository, UserResponseCallback{
 
     @Override
     public void onSuccessFromAuthentication(User user) {
-        if(user != null){
+        if (user != null) {
             userRemoteDataSource.saveUser(user);
         }
     }
 
     @Override
     public void onSuccessFromRemoteDatabase(User user) {
-        Result result = new Result.Success<User>(user);
+        Result result = new Result.Success<>(user);
         userMutableLiveData.postValue(result);
         Log.d("AUTH", "onSuccessFromRemoteDatabase -> posted");
     }

@@ -33,9 +33,7 @@ public class FirstStartActivity extends AppCompatActivity {
             prev.setEnabled(true);
             prev.setEnabled(false);
         }
-        searchView.setOnClickListener(v -> {
-            searchView.setIconified(false);
-        });
+        searchView.setOnClickListener(v -> searchView.setIconified(false));
         prev.setOnClickListener(el -> {
             handleClick(true, prev);
             choose.setText(R.string.first_txtSubtitleDrink);
@@ -46,10 +44,8 @@ public class FirstStartActivity extends AppCompatActivity {
                 handleClick(false, prev);
                 choose.setText(R.string.first_txtSubtitleIngredient);
                 end = true;
-            }
-            else {
+            } else
                 switchActivities();
-            }
         });
     }
 

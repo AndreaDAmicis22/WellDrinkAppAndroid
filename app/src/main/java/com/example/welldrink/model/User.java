@@ -1,5 +1,7 @@
 package com.example.welldrink.model;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.Exclude;
 
 public class User {
@@ -8,7 +10,7 @@ public class User {
     private String email;
     private final String id;
 
-    public User(String name, String email, String id){
+    public User(String name, String email, String id) {
         this.name = name;
         this.email = email;
         this.id = id;
@@ -35,6 +37,7 @@ public class User {
         return id;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "User{" +

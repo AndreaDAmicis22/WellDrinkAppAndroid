@@ -23,7 +23,7 @@ public class DetailsRecyclerViewAdapter extends RecyclerView.Adapter<DetailsRecy
     private final List<Ingredient> ingredientList;
     private static final String TAG = DetailsRecyclerViewAdapter.class.getSimpleName();
 
-    public DetailsRecyclerViewAdapter(List<Ingredient> ingredientList){
+    public DetailsRecyclerViewAdapter(List<Ingredient> ingredientList) {
         this.ingredientList = ingredientList;
     }
 
@@ -55,12 +55,12 @@ public class DetailsRecyclerViewAdapter extends RecyclerView.Adapter<DetailsRecy
         public DetailsViewHolder(@NonNull View itemView) {
             super(itemView);
             ingredientName = itemView.findViewById(R.id.details_ingrName);
-            ingredientQt =itemView.findViewById(R.id.details_ingrQt);
+            ingredientQt = itemView.findViewById(R.id.details_ingrQt);
             Button buyButton = itemView.findViewById(R.id.details_btnCart);
             buyButton.setOnClickListener(el -> {
                 String element = encode((String) ingredientName.getText());
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AMAZON_LINK+element));
-                Log.d(TAG, AMAZON_LINK+ingredientName.getText());
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AMAZON_LINK + element));
+                Log.d(TAG, AMAZON_LINK + ingredientName.getText());
                 itemView.getContext().startActivity(intent);
             });
         }
@@ -72,7 +72,7 @@ public class DetailsRecyclerViewAdapter extends RecyclerView.Adapter<DetailsRecy
             return element;
         }
 
-        public void bind (Ingredient ingredient){
+        public void bind(Ingredient ingredient) {
             ingredientName.setText(ingredient.getName());
             ingredientQt.setText(ingredient.getMeasure());
         }

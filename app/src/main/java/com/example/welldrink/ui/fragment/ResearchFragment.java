@@ -6,6 +6,7 @@ import static com.example.welldrink.util.ButtonHandler.getTxtDark;
 import static com.example.welldrink.util.ButtonHandler.getTxtLight;
 import static com.example.welldrink.util.ButtonHandler.handleClick;
 import static com.example.welldrink.util.ButtonHandler.isDarkMode;
+import static com.example.welldrink.util.ErrorSnackbars.handleDrinkError;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -78,7 +79,7 @@ public class ResearchFragment extends Fragment {
             });
         }
         drinkViewModel.getDrinkMutableLiveData().observe(getViewLifecycleOwner(), res -> {
-            if(res.isSuccess()){
+            if (res.isSuccess()) {
                 Log.d("RES", "Observer");
                 List<Drink> drinks = ((Result.Success<List<Drink>>) res).getData();
                 Log.d("RES", drinks.toString());
@@ -92,6 +93,8 @@ public class ResearchFragment extends Fragment {
                     Navigation.findNavController(requireView()).navigate(R.id.action_fragment_research_to_detailsActivity, bundle);
                 }, drinkViewModel);
                 researchRecycleView.setAdapter(adapter);
+            } else {
+                handleDrinkError(view);
             }
         });
         SearchView searchView = requireActivity().findViewById(R.id.home_inpSearch);
@@ -104,7 +107,7 @@ public class ResearchFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String query) {
-                if(!query.isEmpty())
+                if (!query.isEmpty())
                     makeFetchCall(query);
                 return false;
             }

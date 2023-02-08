@@ -4,7 +4,6 @@
     <string name="home_favouriteIngredient">Preferiti</string>
     <string name="home_favoriteIngredientValue">Nome</string>
     <string name="home_random_txtTitle">Nome del drink</string>
-    <string name="first_txtSubtitle">Scegli i tuoi preferiti</string>
     <string name="first_btnPrevious">Indietro</string>
     <string name="first_btnNext">Avanti</string>
     <string name="research_filter_btnIngredient">Ingrediente</string>
@@ -35,7 +34,6 @@
     <string name="fav_card_title_drink">Drink Preferito</string>
     <string name="login_btnSignUp">Registrati</string>
     <string name="login_txtOr">O</string>
-    <string name="login_btnLoginGoogle">Accedi con Google</string>
     <string name="signup_txtTitle">Iscriviti</string>
     <string name="login_txtConfPsw">Conferma Password</string>
     <string name="signup_btnBackLogin">Torna al Login</string>
@@ -51,7 +49,9 @@
     <string name="close_app_conf">Sì</string>
     <string name="first_txtSubtitleDrink">Scegli i tuoi drink preferiti</string>
     <string name="first_txtSubtitleIngredient">Scegli i tuoi ingredienti preferiti</string>
-    <string name="hello_blank_fragment">Ciao fragment vuoto</string>
     <string name="details_btnShare">Condividi</string>
     <string name="details_btnLike">Mi piace</string>
+    <string name="error_drink">Non sono stato in grado di ottenere i dettagli del drink</string>
+    <string name="error_picasso">Errore nel caricamento dell\'immagine</string>
+    <string name="error_drink">Non sono stato in grado di ottenere i dettagli dell\'elemento</string>
 </resources>

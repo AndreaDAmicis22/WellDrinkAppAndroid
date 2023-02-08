@@ -1,6 +1,7 @@
 package com.example.welldrink.ui.fragment;
 
 import static com.example.welldrink.util.Constants.MINIMUM_PASSWORD_LENGTH;
+import static com.example.welldrink.util.ErrorSnackbars.handleRegistrationError;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,9 +31,12 @@ public class SignupFragment extends Fragment {
 
     private UserViewModel userViewModel;
 
-    public SignupFragment() {}
+    public SignupFragment() {
+    }
 
-    public static SignupFragment newInstance() { return new SignupFragment(); }
+    public static SignupFragment newInstance() {
+        return new SignupFragment();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,30 +67,29 @@ public class SignupFragment extends Fragment {
             String email = ((TextView) view.findViewById(R.id.signup_txtEmail)).getText().toString().trim();
             String password = ((TextView) view.findViewById(R.id.signup_txtPsw)).getText().toString().trim();
             String passwordConf = ((TextView) view.findViewById(R.id.signup_txtConfPsw)).getText().toString().trim();
-            if(checkData(username, email, password, passwordConf)){
-                if(!userViewModel.isAuthError()){
+            if (checkData(username, email, password, passwordConf)) {
+                if (!userViewModel.isAuthError()) {
                     Log.d("AUTH", "checkData done");
                     userViewModel.getUserMutableLiveData(email, password, false, username).observe(
                             getViewLifecycleOwner(), result -> {
                                 Log.d("AUTH", "observer");
-                                if(result.isSuccess()){
+                                if (result.isSuccess()) {
                                     Log.d("AUTH", "result.isSuccess()");
                                     User user = ((Result.Success<User>) result).getData();
                                     userViewModel.setAuthError(false);
                                     switchActivities();
-                                }else{
+                                } else {
                                     userViewModel.setAuthError(true);
                                     Log.d("AUTH", "ERROR in registration");
-                                    Snackbar.make(requireActivity().findViewById(android.R.id.content),
-                                            ((Result.Error) result).getMessage(),
-                                            Snackbar.LENGTH_SHORT).show();
+                                    handleRegistrationError(requireActivity().findViewById(android.R.id.content),
+                                            ((Result.Error) result).getMessage());
                                 }
                             }
                     );
-                }else{
+                } else {
                     userViewModel.getUser(email, password, false, username);
                 }
-            }else{
+            } else {
                 Snackbar.make(requireActivity().findViewById(android.R.id.content),
                         getErrorInserction(username, email, password, passwordConf),
                         Snackbar.LENGTH_LONG).show();
@@ -94,30 +97,30 @@ public class SignupFragment extends Fragment {
         });
     }
 
-    private boolean checkData(String username, String mail, String password, String passwordConf){
-        if(password.equals(passwordConf) && isPasswordOk(password)){
+    private boolean checkData(String username, String mail, String password, String passwordConf) {
+        if (password.equals(passwordConf) && isPasswordOk(password)) {
             return true;
         }
         return false;
     }
 
-    private String getErrorInserction(String username, String email, String password, String passwordConf){
-        if(password.isEmpty() || passwordConf.isEmpty()){
+    private String getErrorInserction(String username, String email, String password, String passwordConf) {
+        if (password.isEmpty() || passwordConf.isEmpty()) {
             return "Empty password";
         } else if (!password.equals(passwordConf)) {
             return "Password not matching confermation";
         } else if (password.length() < MINIMUM_PASSWORD_LENGTH) {
             return "Password must be at least " + MINIMUM_PASSWORD_LENGTH + " characters";
-        }else if (email.isEmpty()){
+        } else if (email.isEmpty()) {
             return "Empty mail";
-        }else if (username.isEmpty()){
+        } else if (username.isEmpty()) {
             return "Empty username";
-        } else{
+        } else {
             return "Mail error";
         }
     }
 
-    private boolean isPasswordOk(String password){
+    private boolean isPasswordOk(String password) {
         return !password.isEmpty() && password.length() >= MINIMUM_PASSWORD_LENGTH;
     }
 

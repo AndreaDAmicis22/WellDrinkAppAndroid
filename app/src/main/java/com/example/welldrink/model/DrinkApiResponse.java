@@ -4,18 +4,16 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 
-public class DrinkApiResponse extends DrinkResponse{
+public class DrinkApiResponse extends DrinkResponse {
 
 
     public DrinkApiResponse() {
         super();
     }
 
-    public DrinkApiResponse(List<Drink> drinkList){
+    public DrinkApiResponse(List<Drink> drinkList) {
         super(drinkList);
     }
-
-
 
     @NonNull
     @Override

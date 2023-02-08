@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class UserRemoteDataSource extends BaseUserRemoteDataSource{
+public class UserRemoteDataSource extends BaseUserRemoteDataSource {
 
     private final DatabaseReference databaseReference;
 
@@ -31,10 +31,10 @@ public class UserRemoteDataSource extends BaseUserRemoteDataSource{
         databaseReference.child(DB_USER).child(user.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
                     Log.d("AUTH", "saveUser user alrady in db");
                     userResponseCallback.onSuccessFromRemoteDatabase(user);
-                }else{
+                } else {
                     Log.d("AUTH", "saveUser user was not in db");
                     databaseReference.child(DB_USER).child(user.getId()).setValue(user).addOnSuccessListener(a -> {
                         Log.d("AUTH", "user saved in db");
@@ -45,6 +45,7 @@ public class UserRemoteDataSource extends BaseUserRemoteDataSource{
                     });
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.d("AUTH", "saveUser -> onCancelled");

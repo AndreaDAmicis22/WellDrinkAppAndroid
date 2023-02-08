@@ -21,7 +21,8 @@
             android:name=".ui.Activity.RegistrationActivity"
             android:exported="true"
             android:noHistory="true"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -35,7 +36,8 @@
         <activity
             android:name=".ui.Activity.DetailsActivity"
             android:exported="false"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -45,7 +47,8 @@
             android:name=".ui.Activity.FirstStartActivity"
             android:exported="false"
             android:noHistory="true"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -53,7 +56,8 @@
         <activity
             android:name=".ui.Activity.MainActivity"
             android:exported="false"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

@@ -14,16 +14,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class FavoriteDrinkDataSource extends BaseFavoriteDrinkDataSource {
 
     private final DatabaseReference databaseReference;
     private final String userToken;
 
-    public FavoriteDrinkDataSource(){
+    public FavoriteDrinkDataSource() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance(DB_REALTIME);
         databaseReference = firebaseDatabase.getReference().getRef();
-        userToken = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        userToken = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
     }
 
 
@@ -35,9 +36,7 @@ public class FavoriteDrinkDataSource extends BaseFavoriteDrinkDataSource {
                 .setValue(name).addOnSuccessListener(a -> {
                     Log.d("FIRE", "Messo a favorite");
                     drinkResponseCallback.onSuccessFromAddingFavorite(name);
-                }).addOnFailureListener(err -> {
-                    Log.d("FIRE", "ERRORE in favorite");
-                });
+                }).addOnFailureListener(err -> Log.d("FIRE", "ERRORE in favorite"));
     }
 
     @Override
@@ -47,24 +46,21 @@ public class FavoriteDrinkDataSource extends BaseFavoriteDrinkDataSource {
                 .addOnSuccessListener(a -> {
                     Log.d("FIRE", "Tolto da favorites");
                     drinkResponseCallback.onSuccessFromRemovingFavorite(name);
-                }).addOnFailureListener(err -> {
-                    Log.d("FIRE", "ERRORE in remove from favorite");
-                });
+                }).addOnFailureListener(err -> Log.d("FIRE", "ERRORE in remove from favorite"));
     }
 
     @Override
     public void fetchDrinkFavorite() {
         databaseReference.child(DB_USER).child(userToken).child(DB_FAVORITEDRINK).get().addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
+            if (task.isSuccessful()) {
                 Log.d("FIRE", "task.isSuccessful()");
-//                Log.d("FIRE", task.getResult().getValue().toString());
-                if(task.getResult().getValue() != null){
+                if (task.getResult().getValue() != null) {
                     Map<String, String> favorites = (HashMap<String, String>) task.getResult().getValue();
                     drinkResponseCallback.onSuccessFromFetchFavorite(new ArrayList<>(favorites.values()));
-                }else{
+                } else {
                     Log.d("FIRE", "task.getResult().getValue() == null");
                 }
-            }else{
+            } else {
                 Log.d("FIRE", "ERROR task.isSuccessful()");
             }
         });
@@ -74,11 +70,9 @@ public class FavoriteDrinkDataSource extends BaseFavoriteDrinkDataSource {
     public void setIngredientFavorite(String name) {
         databaseReference.child(DB_USER).child(userToken)
                 .child(DB_FAVORITEINGREDIENTS).child(String.valueOf(name.hashCode()))
-                .setValue(name).addOnSuccessListener(a -> {
-                    drinkResponseCallback.onSuccessFromAddingFavoriteIngredient(name);
-                }).addOnFailureListener(err -> {
-                    Log.d("FIRE", "ERROR setIngredientFavorite");
-                });
+                .setValue(name).addOnSuccessListener(a ->
+                        drinkResponseCallback.onSuccessFromAddingFavoriteIngredient(name)).addOnFailureListener(err ->
+                        Log.d("FIRE", "ERROR setIngredientFavorite"));
     }
 
     @Override
@@ -88,9 +82,7 @@ public class FavoriteDrinkDataSource extends BaseFavoriteDrinkDataSource {
                 .addOnSuccessListener(a -> {
                     Log.d("FIRE", "Tolto da favorites");
                     drinkResponseCallback.onSuccessFromRemovingFavoriteIngredient(name);
-                }).addOnFailureListener(err -> {
-                    Log.d("FIRE", "ERRORE in remove from favorite");
-                });
+                }).addOnFailureListener(err -> Log.d("FIRE", "ERRORE in remove from favorite"));
     }
 
     @Override
@@ -98,15 +90,15 @@ public class FavoriteDrinkDataSource extends BaseFavoriteDrinkDataSource {
         databaseReference.child(DB_USER).child(userToken)
                 .child(DB_FAVORITEINGREDIENTS).get()
                 .addOnCompleteListener(task -> {
-                    if(task.isSuccessful()){
-                        if(task.getResult().getValue() != null){
+                    if (task.isSuccessful()) {
+                        if (task.getResult().getValue() != null) {
                             Map<String, String> favorites = (HashMap<String, String>) task.getResult().getValue();
                             Log.d("FIRE", favorites.values().toString());
                             drinkResponseCallback.onSuccessFromFetchFavoriteIngredients(new ArrayList<>(favorites.values()));
-                        }else{
+                        } else {
                             Log.d("FIRE", "task.getResult().getValue() == null");
                         }
-                    }else{
+                    } else {
                         Log.d("FIRE", "fetchIngredientFavorite -> error in fetch");
                     }
                 });

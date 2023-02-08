@@ -7,7 +7,7 @@ public abstract class BaseUserRemoteDataSource {
 
     protected UserResponseCallback userResponseCallback;
 
-    public void setUserResponseCallback(UserResponseCallback userResponseCallback){
+    public void setUserResponseCallback(UserResponseCallback userResponseCallback) {
         this.userResponseCallback = userResponseCallback;
     }
 

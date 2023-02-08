@@ -25,11 +25,12 @@ public class ServiceLocator {
 
     private static volatile ServiceLocator INSTANCE = null;
 
-    private ServiceLocator() {}
+    private ServiceLocator() {
+    }
 
-    public static ServiceLocator getInstance(){
+    public static ServiceLocator getInstance() {
         if (INSTANCE == null) {
-            synchronized(ServiceLocator.class) {
+            synchronized (ServiceLocator.class) {
                 if (INSTANCE == null) {
                     INSTANCE = new ServiceLocator();
                 }
@@ -38,18 +39,18 @@ public class ServiceLocator {
         return INSTANCE;
     }
 
-    public IDrinkAPIService getDrinkAPIService(){
+    public IDrinkAPIService getDrinkAPIService() {
         Retrofit r = new Retrofit.Builder().baseUrl(API_URL).addConverterFactory(GsonConverterFactory.create()).build();
         return r.create(IDrinkAPIService.class);
     }
 
-    public IUserRepository getUserRepository(){
+    public IUserRepository getUserRepository() {
         BaseUserRemoteDataSource userRemoteDataSource = new UserRemoteDataSource();
         BaseUserAuthenticationRemoteDataSource userAuthenticationRemoteDataSource = new UserAuthenticationRemoteDataSource();
         return new UserRepository(userRemoteDataSource, userAuthenticationRemoteDataSource);
     }
 
-    public IDrinkRepository getDrinkRepository(){
+    public IDrinkRepository getDrinkRepository() {
         BaseDrinkRemoteDataSource drinkRemoteDataSource = new DrinkRemoteDataSource();
         BaseFavoriteDrinkDataSource baseFavoriteDrinksDataSource = new FavoriteDrinkDataSource();
         return new DrinkRepository(drinkRemoteDataSource, baseFavoriteDrinksDataSource);

@@ -5,6 +5,7 @@ import static com.example.welldrink.util.Constants.PLACEHOLDER_CATEGORY;
 import static com.example.welldrink.util.Constants.PLACEHOLDER_GLASS;
 import static com.example.welldrink.util.Constants.PLACEHOLDER_LINK;
 import static com.example.welldrink.util.Constants.PLACEHOLDER_NAME;
+import static com.example.welldrink.util.ErrorSnackbars.handlePicassoError;
 
 import com.example.welldrink.R;
 import com.example.welldrink.adapter.MainFavoriteRecyclerViewAdapter;
@@ -46,8 +47,6 @@ import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class MainFragment extends Fragment {
 
-    private static final String TAG = MainFragment.class.getSimpleName();
-
     private DrinkViewModel drinkViewModel;
 
     public MainFragment() {
@@ -79,7 +78,7 @@ public class MainFragment extends Fragment {
         card.setOnClickListener(el -> {
             Bundle bundle = new Bundle();
             bundle.putString("name", (String) name.getText());
-            if(!name.getText().equals(PLACEHOLDER_NAME)){
+            if (!name.getText().equals(PLACEHOLDER_NAME)) {
                 drinkViewModel.clearDrinkDetails();
                 drinkViewModel.getDrinkDetail((String) name.getText());
                 Navigation.findNavController(requireView()).navigate(R.id.action_fragment_main_to_detailsActivity, bundle);
@@ -105,35 +104,21 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        List<Favorite> favs = getFavsUser();
-//        for (int i = 0; i < 5; i++) {
-//            favs.add(new Favorite(false, "Soda"));
-//        }
-
         List<Favorite> favoriteList = new ArrayList<>();
         RecyclerView recyclerView = view.findViewById(R.id.home_rcvFavorite);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-
-//        this.drinkViewModel.getFavoritesLiveData().observe(
-//            requireActivity(), res -> {
-//                Log.d("FAVMAIN", drinkViewModel.getFavoriteMap().values().toString());
-//
-//            });
         this.drinkViewModel.getFavoriteIngredientsLiveData().observe(
                 requireActivity(), res -> {
-                    if(res.isSuccess()){
-                        Log.d("FAVMAIN", "FAVORITE INGREDIENTS: ---> " + ((Result.Success<List<String>>) res).getData().toString());
-                        for(String n : ((Result.Success<List<String>>) res).getData()){
+                    if (res.isSuccess()) {
+                        for (String n : ((Result.Success<List<String>>) res).getData())
                             favoriteList.add(new Favorite(false, n));
-                        }
                         MainFavoriteRecyclerViewAdapter adapter = new MainFavoriteRecyclerViewAdapter(favoriteList);
                         recyclerView.setAdapter(adapter);
                     }
                 }
         );
-
     }
 
     private void handleImages(View view, String link) {
@@ -143,13 +128,12 @@ public class MainFragment extends Fragment {
                 into((ImageView) view.findViewById(R.id.home_random_imgBg), new com.squareup.picasso.Callback() {
                     @Override
                     public void onSuccess() {
-                        Log.d("Picasso", "Loaded");
                         removeLoadingScreen(view);
                     }
 
                     @Override
                     public void onError(Exception e) {
-                        Log.e("Picasso", "Error loading");
+                        handlePicassoError(view.findViewById(android.R.id.content));
                     }
                 });
     }
@@ -191,7 +175,4 @@ public class MainFragment extends Fragment {
         Picasso.get().load(PLACEHOLDER_LINK).into((ImageView) view.findViewById(R.id.home_random_img));
     }
 
-    private ArrayList<Favorite> getFavsUser() {
-        return new ArrayList<>();
-    }
 }

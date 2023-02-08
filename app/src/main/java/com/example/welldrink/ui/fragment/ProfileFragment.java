@@ -6,9 +6,8 @@ import static com.example.welldrink.util.ButtonHandler.getTxtDark;
 import static com.example.welldrink.util.ButtonHandler.getTxtLight;
 import static com.example.welldrink.util.ButtonHandler.handleClick;
 import static com.example.welldrink.util.ButtonHandler.isDarkMode;
+import static com.example.welldrink.util.ErrorSnackbars.handleDrinkError;
 
-import android.app.Activity;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 
@@ -23,7 +22,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -32,7 +30,6 @@ import com.example.welldrink.adapter.DrinkSmallInfoRecyclerViewAdapter;
 import com.example.welldrink.adapter.IngredientSmallInfoRecyclerViewAdapter;
 import com.example.welldrink.data.repository.user.IUserRepository;
 import com.example.welldrink.model.Drink;
-import com.example.welldrink.model.Ingredient;
 import com.example.welldrink.model.Result;
 import com.example.welldrink.model.User;
 import com.example.welldrink.ui.viewModel.DrinkViewModel;
@@ -43,7 +40,6 @@ import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class ProfileFragment extends Fragment {
@@ -56,9 +52,6 @@ public class ProfileFragment extends Fragment {
 
     private boolean favorites;
     private RecyclerView recyclerView;
-
-
-    private static final String TAG = ProfileFragment.class.getSimpleName();
 
     public ProfileFragment() {
         buttonsList = new ArrayList<>();
@@ -117,6 +110,8 @@ public class ProfileFragment extends Fragment {
                 Log.d("RES", "ProfileFragment: " + drinkList);
                 this.attachToRecycleViewDrink(drinkList);
                 removeLoadingScreen(view);
+            } else if (selected == 2) {
+                handleDrinkError(view);
             }
         });
         drinkViewModel.getDrinkMutableLiveData().observe(getViewLifecycleOwner(), result -> {
@@ -124,27 +119,19 @@ public class ProfileFragment extends Fragment {
             if (result.isSuccess()) {
                 List<Drink> drinkList = ((Result.Success<List<Drink>>) result).getData();
                 Log.d("RES", "ProfileFragment: " + drinkList.toString());
-                if(selected == 1){
-                    for(String s : drinkViewModel.getFavoriteIngredientsList()){
-                        for(Drink d : drinkList){
-                            if(d.getName().equals(s)){
-                                d.setFevorite(true);
-                            }
-                        }
-                    }
+                if (selected == 1) {
+                    for (String s : drinkViewModel.getFavoriteIngredientsList())
+                        for (Drink d : drinkList)
+                            if (d.getName().equals(s))
+                                d.setFavorite(true);
                     attachToRecycleViewIngredient(drinkList);
-                }
-                else{
+                } else
                     this.attachToRecycleViewDrink(drinkList);
-                }
                 removeLoadingScreen(view);
             } else {
-                Log.d("RES", "ERROR Result.isSuccessfull");
+                handleDrinkError(view);
             }
         });
-
-//        Log.e("FAVMAIN", "_____." + this.drinkViewModel.getFavoriteIngredientsLiveData().getValue().toString());
-
         logout.setOnClickListener(el -> {
             this.userViewModel.logOut();
             Navigation.findNavController(requireView()).navigate(R.id.action_fragment_profile_to_registrationActivity);
@@ -192,17 +179,15 @@ public class ProfileFragment extends Fragment {
                 break;
             case 2:
                 favorites = true;
-                if (!this.drinkViewModel.getFavoriteDrinks()) {
+                if (!this.drinkViewModel.getFavoriteDrinks())
                     this.attachToRecycleViewDrink(new ArrayList<>(this.drinkViewModel.getFavoriteMap().values()));
-                }
                 removeLoadingScreen(view);
                 break;
             case 3:
-                if(!this.drinkViewModel.getFavoriteIngredient()){
+                if (!this.drinkViewModel.getFavoriteIngredient()) {
                     List<Drink> dl = new ArrayList<>();
-                    for(String n : this.drinkViewModel.getFavoriteIngredientsList()){
+                    for (String n : this.drinkViewModel.getFavoriteIngredientsList())
                         dl.add(new Drink(n, true));
-                    }
                     this.attachToRecycleViewIngredient(dl);
                 }
                 removeLoadingScreen(view);

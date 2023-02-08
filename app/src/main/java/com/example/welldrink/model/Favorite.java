@@ -1,5 +1,7 @@
 package com.example.welldrink.model;
 
+import androidx.annotation.NonNull;
+
 import java.util.Objects;
 
 public class Favorite {
@@ -32,6 +34,7 @@ public class Favorite {
         return Objects.hash(getName());
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Favorite{" +

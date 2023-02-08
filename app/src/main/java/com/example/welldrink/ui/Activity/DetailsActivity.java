@@ -1,14 +1,17 @@
 package com.example.welldrink.ui.Activity;
 
+import static com.example.welldrink.util.ErrorSnackbars.handleDrinkError;
+import static com.example.welldrink.util.ErrorSnackbars.handlePicassoError;
+import static com.example.welldrink.util.LikeHandler.getFilled;
+import static com.example.welldrink.util.LikeHandler.getUnfilled;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,9 +36,6 @@ import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    private static final String TAG = DetailsActivity.class.getSimpleName();
-    private boolean onLike;
-
     private Drink drink;
 
     private DrinkViewModel drinkViewModel;
@@ -53,47 +53,39 @@ public class DetailsActivity extends AppCompatActivity {
         Bundle args = getIntent().getExtras();
         Button btnLike = findViewById(R.id.details_btnLike);
         Button btnShare = findViewById(R.id.details_btnShare);
-        Drawable filled = getResources().getDrawable(R.drawable.ic_baseline_thumb_up_alt_24, this.getTheme());
-        Drawable unfilled = getResources().getDrawable(R.drawable.ic_baseline_thumb_up_off_alt_24, this.getTheme());
         if (args != null) {
             drinkViewModel.getDrinkDetailsLiveData(args.getString("name")).observe(
                     this, result -> {
                         Log.d("API", "-Observer-");
-                        if(result.isSuccess()){
+                        if (result.isSuccess()) {
                             Log.d("API", "result.isSuccess");
                             drink = ((Result.Success<Drink>) result).getData();
                             Log.d("API", drink.toString());
                             handleImages();
                             changeTextViews();
-                            if(drink.isFavorite()){
-                                Log.d("LIKE", "FAVORITEEEEEEEE");
-                                btnLike.setBackground(filled);
-                            }else{
-                                Log.d("LIKE", "ELSEEEEEEEE");
-                                btnLike.setBackground(unfilled);
-                            }
+                            if (drink.isFavorite())
+                                btnLike.setBackground(getFilled(getResources(), getTheme()));
+                            else
+                                btnLike.setBackground(getUnfilled(getResources(), getTheme()));
                             DetailsRecyclerViewAdapter adapter = new DetailsRecyclerViewAdapter(drink.getIngredientList());
                             detailsRecycleView.setAdapter(adapter);
-                        }else{
+                        } else {
                             Log.d("API", "result.isSuccess failed");
+                            handleDrinkError(findViewById(android.R.id.content));
                         }
                     }
             );
         }
-
-
-        //btnLike.setOnClickListener(view1 -> onLike = likeOn(btnLike, onLike));
         btnLike.setOnClickListener(el -> {
             Log.d("LIKE", "CREATE " + drink.isFavorite());
             if (drink.isFavorite()) {
-                btnLike.setBackground(unfilled);
+                btnLike.setBackground(getUnfilled(getResources(), getTheme()));
                 drinkViewModel.setDrinkUnfavorite(drink.getName());
             } else {
-                btnLike.setBackground(filled);
+                btnLike.setBackground(getFilled(getResources(), getTheme()));
                 drinkViewModel.setDrinkFavorite(drink.getName());
             }
-            //clicked = !clicked;
-            drink.setFevorite(!drink.isFavorite());
+            drink.setFavorite(!drink.isFavorite());
         });
         btnShare.setOnClickListener(el -> startActivity(Intent.createChooser(handleShare(), "Share")));
     }
@@ -110,7 +102,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Exception e) {
-                        Log.e("Picasso", "Error loading");
+                        handlePicassoError(findViewById(android.R.id.content));
                     }
                 });
     }
@@ -132,11 +124,11 @@ public class DetailsActivity extends AppCompatActivity {
 
     private Intent handleShare() {
         StringBuilder ingredient = new StringBuilder("Ingredient:" + "\n");
-        for (Ingredient i : drink.getIngredientList()){
+        for (Ingredient i : drink.getIngredientList()) {
             ingredient.append("_").append(i.getName()).append(" ").append(i.getMeasure()).append("\n");
         }
-        String text = "Drink: "+drink.getName()+"\n"+"\n"+ingredient+"\n"
-                +"Glass: "+drink.getGlass()+"\n"+"\n"+"Recipe: "+drink.getInstructions()+"\n";
+        String text = "Drink: " + drink.getName() + "\n" + "\n" + ingredient + "\n"
+                + "Glass: " + drink.getGlass() + "\n" + "\n" + "Recipe: " + drink.getInstructions() + "\n";
         Intent sharing = new Intent(Intent.ACTION_SEND);
         sharing.setType("text/plain");
         sharing.putExtra(Intent.EXTRA_SUBJECT, "Here is your drink!");
@@ -149,14 +141,5 @@ public class DetailsActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         detailsRecyclerView.setLayoutManager(linearLayoutManager);
         return detailsRecyclerView;
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private Boolean likeOn(Button button, Boolean bool) {
-        if (!bool)
-            button.setBackground(getResources().getDrawable(R.drawable.ic_baseline_thumb_up_alt_24, this.getTheme()));
-        else
-            button.setBackground(getResources().getDrawable(R.drawable.ic_baseline_thumb_up_off_alt_24, this.getTheme()));
-        return !bool;
     }
 }

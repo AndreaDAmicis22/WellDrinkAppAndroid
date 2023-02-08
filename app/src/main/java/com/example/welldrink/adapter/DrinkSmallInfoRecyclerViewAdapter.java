@@ -1,7 +1,8 @@
 package com.example.welldrink.adapter;
 
-import android.graphics.drawable.Drawable;
-import android.util.Log;
+import static com.example.welldrink.util.LikeHandler.getFilled;
+import static com.example.welldrink.util.LikeHandler.getUnfilled;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,20 +23,14 @@ import java.util.List;
 
 public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<DrinkSmallInfoRecyclerViewAdapter.DrinkSmallInfoViewHolder> {
 
-    private int selectedPos = RecyclerView.NO_POSITION;
-    private static final String TAG = DrinkSmallInfoRecyclerViewAdapter.class.getSimpleName();
-
-    public DrinkSmallInfoRecyclerViewAdapter(List<Drink> array, OnItemClickListener onItemClickListener) {
-    }
-
     public interface OnItemClickListener {
         void onDrinkClick(Drink drink);
     }
 
-    private List<Drink> drinkList;
-    private OnItemClickListener onItemClickListener;
+    private final List<Drink> drinkList;
+    private final OnItemClickListener onItemClickListener;
 
-    private DrinkViewModel drinkViewModel;
+    private final DrinkViewModel drinkViewModel;
 
     public DrinkSmallInfoRecyclerViewAdapter(List<Drink> drinkList, OnItemClickListener onItemClickListener, DrinkViewModel drinkviewModel) {
         this.drinkList = drinkList;
@@ -45,7 +40,8 @@ public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<Drin
 
     public DrinkSmallInfoRecyclerViewAdapter(List<Drink> drinkList, DrinkViewModel drinkviewModel) {
         this.drinkList = drinkList;
-        this.onItemClickListener = drink -> {};
+        this.onItemClickListener = drink -> {
+        };
         this.drinkViewModel = drinkviewModel;
     }
 
@@ -86,18 +82,14 @@ public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<Drin
                 onItemClickListener.onDrinkClick(drinkList.get(getAdapterPosition()));
             });
             Button likeButton = itemView.findViewById(R.id.drink_btnLike);
-            Drawable filled = itemView.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_alt_24, itemView.getContext().getTheme());
-            Drawable unfilled = itemView.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_off_alt_24, itemView.getContext().getTheme());
             likeButton.setOnClickListener(el -> {
-                Log.d("LIKE", "CREATE " + isFavorite);
                 if (isFavorite) {
-                    likeButton.setBackground(unfilled);
+                    likeButton.setBackground(getUnfilled(itemView.getResources(), itemView.getContext().getTheme()));
                     drinkViewModel.setDrinkUnfavorite((String) drinkName.getText());
                 } else {
-                    likeButton.setBackground(filled);
+                    likeButton.setBackground(getFilled(itemView.getResources(), itemView.getContext().getTheme()));
                     drinkViewModel.setDrinkFavorite((String) drinkName.getText());
                 }
-                //clicked = !clicked;
                 isFavorite = !isFavorite;
             });
         }
@@ -107,13 +99,10 @@ public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<Drin
             Picasso.get().load(drink.getImageUrl()).into(drinkImage);
             this.isFavorite = drink.isFavorite();
             Button likeButton = itemView.findViewById(R.id.drink_btnLike);
-            Drawable filled = itemView.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_alt_24, itemView.getContext().getTheme());
-            Drawable unfilled = itemView.getResources().getDrawable(R.drawable.ic_baseline_thumb_up_off_alt_24, itemView.getContext().getTheme());
-            Log.d("LIKE", drinkName.getText() + " " + isFavorite);
-            if(isFavorite){
-                likeButton.setBackground(filled);
-            }else{
-                likeButton.setBackground(unfilled);
+            if (isFavorite) {
+                likeButton.setBackground(getFilled(itemView.getResources(), itemView.getContext().getTheme()));
+            } else {
+                likeButton.setBackground(getUnfilled(itemView.getResources(), itemView.getContext().getTheme()));
             }
         }
     }

@@ -15,36 +15,36 @@ public class UserViewModel extends ViewModel {
     private MutableLiveData<Result> userMutableLiveData;
     private boolean authError;
 
-    public UserViewModel(IUserRepository userRepository){
+    public UserViewModel(IUserRepository userRepository) {
         this.userRepository = userRepository;
         this.authError = false;
     }
 
-    public MutableLiveData<Result> getUserMutableLiveData(String email, String password, boolean isLogIn, String username){
-        if(userMutableLiveData == null){
+    public MutableLiveData<Result> getUserMutableLiveData(String email, String password, boolean isLogIn, String username) {
+        if (userMutableLiveData == null) {
             setUserMutableLiveData(email, password, isLogIn, username);
         }
         return userMutableLiveData;
     }
 
-    public void getUser(String email, String password, boolean isLogin, String username){
+    public void getUser(String email, String password, boolean isLogin, String username) {
         setUserMutableLiveData(email, password, isLogin, username);
     }
 
-    public User getLoggedUser(){
+    public User getLoggedUser() {
         return this.userRepository.getLoggedUser();
     }
 
-    public void logOut(){
+    public void logOut() {
         this.userRepository.logOut();
     }
 
-    private void setUserMutableLiveData(String email, String password, boolean isLogIn, String username){
+    private void setUserMutableLiveData(String email, String password, boolean isLogIn, String username) {
         Log.d("AUTH", "setUserMutableLiveData");
         this.userMutableLiveData = this.userRepository.getUser(email, password, isLogIn, username);
     }
 
-    public boolean isAuthError(){
+    public boolean isAuthError() {
         return this.authError;
     }
 

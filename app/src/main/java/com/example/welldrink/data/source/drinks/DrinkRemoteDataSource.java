@@ -1,6 +1,8 @@
-    package com.example.welldrink.data.source.drinks;
+package com.example.welldrink.data.source.drinks;
 
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.example.welldrink.data.service.IDrinkAPIService;
 import com.example.welldrink.model.DrinkApiResponse;
@@ -10,11 +12,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DrinkRemoteDataSource extends BaseDrinkRemoteDataSource{
+public class DrinkRemoteDataSource extends BaseDrinkRemoteDataSource {
 
     private final IDrinkAPIService drinkAPIService;
 
-    public DrinkRemoteDataSource(){
+    public DrinkRemoteDataSource() {
         this.drinkAPIService = ServiceLocator.getInstance().getDrinkAPIService();
     }
 
@@ -30,15 +32,15 @@ public class DrinkRemoteDataSource extends BaseDrinkRemoteDataSource{
         Call<DrinkApiResponse> drinkApiResponseCall = this.drinkAPIService.getDrinkRandom();
         drinkApiResponseCall.enqueue(new Callback<DrinkApiResponse>() {
             @Override
-            public void onResponse(Call<DrinkApiResponse> call, Response<DrinkApiResponse> response) {
-                if(response.body() != null && response.isSuccessful()){
+            public void onResponse(@NonNull Call<DrinkApiResponse> call, @NonNull Response<DrinkApiResponse> response) {
+                if (response.body() != null && response.isSuccessful()) {
                     Log.d("API", response.body().toString());
-                    if(response.body().getDrinkList().isEmpty()){
+                    if (response.body().getDrinkList().isEmpty()) {
                         drinkCallback.onFailureFromRemote("Error in API call");
-                    }else{
+                    } else {
                         drinkCallback.onSuccessFromRemoteRandom(response.body());
                     }
-                }else{
+                } else {
                     Log.d("API", String.valueOf(response.isSuccessful()));
                     Log.d("API", "else ");
                     drinkCallback.onFailureFromRemote("Error in API call");
@@ -46,7 +48,7 @@ public class DrinkRemoteDataSource extends BaseDrinkRemoteDataSource{
             }
 
             @Override
-            public void onFailure(Call<DrinkApiResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<DrinkApiResponse> call, @NonNull Throwable t) {
                 Log.d("API", t.getMessage());
                 Log.d("API", "onFailure");
                 drinkCallback.onFailureFromRemote(t.getMessage());
@@ -60,15 +62,15 @@ public class DrinkRemoteDataSource extends BaseDrinkRemoteDataSource{
 
         res.enqueue(new Callback<DrinkApiResponse>() {
             @Override
-            public void onResponse(Call<DrinkApiResponse> call, Response<DrinkApiResponse> response) {
-                if(response.body() != null && response.isSuccessful()){
+            public void onResponse(@NonNull Call<DrinkApiResponse> call, @NonNull Response<DrinkApiResponse> response) {
+                if (response.body() != null && response.isSuccessful()) {
                     Log.d("API", response.body().toString());
-                    if(response.body().getDrinkList().isEmpty()){
+                    if (response.body().getDrinkList().isEmpty()) {
                         drinkCallback.onFailureFromRemote("Error in API call");
-                    }else{
+                    } else {
                         drinkCallback.onSuccessFromRemoteDetails(response.body());
                     }
-                }else{
+                } else {
                     Log.d("API", String.valueOf(response.isSuccessful()));
                     Log.d("API", "else ");
                     drinkCallback.onFailureFromRemote("Error in API call");
@@ -76,7 +78,7 @@ public class DrinkRemoteDataSource extends BaseDrinkRemoteDataSource{
             }
 
             @Override
-            public void onFailure(Call<DrinkApiResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<DrinkApiResponse> call, @NonNull Throwable t) {
                 Log.d("API", t.getMessage());
                 Log.d("API", "onFailure");
                 drinkCallback.onFailureFromRemote(t.getMessage());
@@ -126,16 +128,16 @@ public class DrinkRemoteDataSource extends BaseDrinkRemoteDataSource{
 
         drinkApiResponseCall.enqueue(new Callback<DrinkApiResponse>() {
             @Override
-            public void onResponse(Call<DrinkApiResponse> call, Response<DrinkApiResponse> response) {
-                if(response.body() != null && response.isSuccessful()){
+            public void onResponse(@NonNull Call<DrinkApiResponse> call, @NonNull Response<DrinkApiResponse> response) {
+                if (response.body() != null && response.isSuccessful()) {
                     Log.d("API", response.body().toString());
-                    if(response.body().getDrinkList().isEmpty()){
+                    if (response.body().getDrinkList().isEmpty()) {
                         drinkCallback.onFailureFromRemote("Error in API call");
-                    }else{
+                    } else {
                         drinkCallback.onSuccessFromFetchFavoriteRemote(response.body());
                     }
 
-                }else{
+                } else {
                     Log.d("API", String.valueOf(response.isSuccessful()));
                     Log.d("API", "else ");
                     drinkCallback.onFailureFromRemote("Error in API call");
@@ -143,21 +145,21 @@ public class DrinkRemoteDataSource extends BaseDrinkRemoteDataSource{
             }
 
             @Override
-            public void onFailure(Call<DrinkApiResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<DrinkApiResponse> call, @NonNull Throwable t) {
 
             }
         });
 
     }
 
-    private void handleCall(Call<DrinkApiResponse> drinkApiResponseCall){
+    private void handleCall(Call<DrinkApiResponse> drinkApiResponseCall) {
         drinkApiResponseCall.enqueue(new Callback<DrinkApiResponse>() {
             @Override
-            public void onResponse(Call<DrinkApiResponse> call, Response<DrinkApiResponse> response) {
-                if(response.body() != null && response.isSuccessful()){
+            public void onResponse(@NonNull Call<DrinkApiResponse> call, @NonNull Response<DrinkApiResponse> response) {
+                if (response.body() != null && response.isSuccessful()) {
                     Log.d("API", response.body().toString());
                     drinkCallback.onSuccessFromRemote(response.body());
-                }else{
+                } else {
                     Log.d("API", String.valueOf(response.isSuccessful()));
                     Log.d("API", "else ");
                     drinkCallback.onFailureFromRemote("Error in API call");
@@ -165,7 +167,7 @@ public class DrinkRemoteDataSource extends BaseDrinkRemoteDataSource{
             }
 
             @Override
-            public void onFailure(Call<DrinkApiResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<DrinkApiResponse> call, @NonNull Throwable t) {
                 Log.d("API", t.getMessage());
                 Log.d("API", "onFailure");
                 drinkCallback.onFailureFromRemote(t.getMessage());

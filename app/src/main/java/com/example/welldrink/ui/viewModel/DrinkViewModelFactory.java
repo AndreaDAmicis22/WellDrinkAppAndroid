@@ -10,7 +10,7 @@ public class DrinkViewModelFactory implements ViewModelProvider.Factory {
 
     private final IDrinkRepository drinkRepository;
 
-    public DrinkViewModelFactory(IDrinkRepository drinkRepository){
+    public DrinkViewModelFactory(IDrinkRepository drinkRepository) {
         this.drinkRepository = drinkRepository;
     }
 

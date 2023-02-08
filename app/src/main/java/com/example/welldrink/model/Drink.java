@@ -1,5 +1,7 @@
 package com.example.welldrink.model;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -8,11 +10,11 @@ import java.util.Objects;
 
 public class Drink {
 
+    @SerializedName("ingredients")
+    private List<Ingredient> ingredientList;
     private long id;
     private String name;
     private String instructions;
-    @SerializedName("ingredients")
-    private List<Ingredient> ingredientList;
     @SerializedName("image")
     private String imageUrl;
     @SerializedName("glassName")
@@ -20,7 +22,7 @@ public class Drink {
     private String alcolType;
     @SerializedName("categoryName")
     private String category;
-    private boolean fevorite;
+    private boolean favorite;
 
     public Drink(long id, String name, String instructions, List<Ingredient> ingredientList,
                  String imageUrl, String glass, String alcolType, String category) {
@@ -32,19 +34,19 @@ public class Drink {
         this.glass = glass;
         this.alcolType = alcolType;
         this.category = category;
-        this.fevorite = false;
+        this.favorite = false;
     }
 
-    public Drink(){
-        this.ingredientList = new ArrayList<Ingredient>();
+    public Drink() {
+        this.ingredientList = new ArrayList<>();
         this.name = "";
         this.instructions = "";
-        this.fevorite = false;
+        this.favorite = false;
     }
 
-    public Drink(String name, boolean fevorite){
+    public Drink(String name, boolean favorite) {
         this.name = name;
-        this.fevorite = fevorite;
+        this.favorite = favorite;
     }
 
     public long getId() {
@@ -67,20 +69,12 @@ public class Drink {
         return instructions;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public void setId(long id) {
         this.id = id;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setIngredientList(List<Ingredient> ingredientList) {
-        this.ingredientList = ingredientList;
     }
 
     public String getAlcolType() {
@@ -95,30 +89,19 @@ public class Drink {
         return glass;
     }
 
-    public void setAlcolType(String alcolType) {
-        this.alcolType = alcolType;
-    }
-
     public void setCategory(String category) {
         this.category = category;
     }
 
-    public void setGlass(String glass) {
-        this.glass = glass;
-    }
-
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
-    }
-
     public boolean isFavorite() {
-        return fevorite;
+        return favorite;
     }
 
-    public void setFevorite(boolean fevorite) {
-        this.fevorite = fevorite;
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Drink{" +

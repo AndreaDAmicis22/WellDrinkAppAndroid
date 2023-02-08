@@ -25,7 +25,7 @@ import retrofit2.http.Query;
 public interface IDrinkAPIService {
     @GET(API_BYNAME)
     Call<DrinkApiResponse> getDrinksByName(
-        @Query(API_BYNAMEPARAMETER) String name
+            @Query(API_BYNAMEPARAMETER) String name
     );
 
     @GET(API_RANDOMDRINK)

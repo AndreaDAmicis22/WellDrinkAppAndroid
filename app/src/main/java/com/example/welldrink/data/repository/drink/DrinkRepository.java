@@ -17,21 +17,21 @@ import java.util.Map;
 
 public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback {
 
-    private MutableLiveData<Result> drinkMutableLiveData;
+    private final MutableLiveData<Result> drinkMutableLiveData;
 
-    private MutableLiveData<Result> randomDrinkLiveData;
+    private final MutableLiveData<Result> randomDrinkLiveData;
 
-    private MutableLiveData<Result> detailDrinkLiveData;
+    private final MutableLiveData<Result> detailDrinkLiveData;
 
-    private MutableLiveData<Result> favoriteDrinksLiveData;
+    private final MutableLiveData<Result> favoriteDrinksLiveData;
 
-    private MutableLiveData<Result> favoriteIngredientsLiveData;
+    private final MutableLiveData<Result> favoriteIngredientsLiveData;
 
     private final BaseDrinkRemoteDataSource drinkRemoteDataSource;
     private final BaseFavoriteDrinkDataSource baseFavoriteDrinksDataSource;
 
     public DrinkRepository(BaseDrinkRemoteDataSource drinkRemoteDataSource,
-                           BaseFavoriteDrinkDataSource baseFavoriteDrinksDataSource){
+                           BaseFavoriteDrinkDataSource baseFavoriteDrinksDataSource) {
         this.drinkRemoteDataSource = drinkRemoteDataSource;
         this.drinkRemoteDataSource.setDrinkCallback(this);
         this.baseFavoriteDrinksDataSource = baseFavoriteDrinksDataSource;
@@ -43,7 +43,6 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
         this.favoriteIngredientsLiveData = new MutableLiveData<>();
         this.getFavoriteDrinks();
         this.getFavoriteIngredients();
-//        Log.e("LIKE", "COSTRUTTORE");
     }
 
     @Override
@@ -70,7 +69,7 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
         return this.drinkMutableLiveData;
     }
 
-    public MutableLiveData<Result> getRandomDrink(){
+    public MutableLiveData<Result> getRandomDrink() {
         drinkRemoteDataSource.fetchRandomDrink();
         return this.randomDrinkLiveData;
     }
@@ -109,13 +108,13 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
         return this.favoriteIngredientsLiveData;
     }
 
-    public MutableLiveData<Result> getFavoriteDrinksLiveData(){
+    public MutableLiveData<Result> getFavoriteDrinksLiveData() {
         return this.favoriteDrinksLiveData;
     }
 
     @Override
     public void getDrinkByNameFavorite(String name) {
-    ////??????
+
     }
 
     @Override
@@ -145,26 +144,26 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
 
     @Override
     public void getFavoriteDrinks() {
-        if(this.favoriteDrinksLiveData.getValue() != null){
+        if (this.favoriteDrinksLiveData.getValue() != null) {
             Map<String, Drink> favorites = ((Result.Success<Map<String, Drink>>) this.favoriteDrinksLiveData.getValue()).getData();
-            if(favorites.isEmpty())
+            if (favorites.isEmpty())
                 this.baseFavoriteDrinksDataSource.fetchDrinkFavorite();
-        }else
+        } else
             this.baseFavoriteDrinksDataSource.fetchDrinkFavorite();
     }
 
-    public Map<String, Drink> getFavoriteMap(){
+    public Map<String, Drink> getFavoriteMap() {
         return ((Result.Success<Map<String, Drink>>) this.getFavoriteDrinksLiveData().getValue()).getData();
     }
 
-    public void clearDrinkMutableLiveData(){
-        if(this.drinkMutableLiveData != null)
+    public void clearDrinkMutableLiveData() {
+        if (this.drinkMutableLiveData != null)
             this.drinkMutableLiveData.setValue(new Result.Success<List<Drink>>(new ArrayList<Drink>()));
     }
 
     @Override
     public void onSuccessFromRemote(DrinkApiResponse drinkApiResponse) {
-        Result result = new Result.Success<List<Drink>>(drinkApiResponse.getDrinkList());
+        Result result = new Result.Success<>(drinkApiResponse.getDrinkList());
         Log.d("API", "onSuccessFromRemote");
 
         this.setDrinkIfFavorite(drinkApiResponse.getDrinkList());
@@ -193,9 +192,8 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
 
     @Override
     public void onSuccessFromFetchFavorite(List<String> favoriteList) {
-        for(String s : favoriteList){
+        for (String s : favoriteList) {
             Log.d("RES", "success -> " + s);
-            //fetch of all drinks by name
             this.drinkRemoteDataSource.fetchFavoritesByName(s);
         }
     }
@@ -204,18 +202,18 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
     public void onSuccessFromFetchFavoriteRemote(DrinkApiResponse drinkApiResponse) {
         Log.d("RES", "---------> " + drinkApiResponse.getDrinkList().toString());
         Drink d = drinkApiResponse.getDrinkList().get(0);
-        d.setFevorite(true);
-        if(this.favoriteDrinksLiveData.getValue() != null){
+        d.setFavorite(true);
+        if (this.favoriteDrinksLiveData.getValue() != null) {
             Map<String, Drink> favorites = ((Result.Success<Map<String, Drink>>) this.favoriteDrinksLiveData.getValue()).getData();
-            if(!favorites.containsKey(d.getName())){
+            if (!favorites.containsKey(d.getName())) {
                 favorites.put(d.getName(), d);
                 this.favoriteDrinksLiveData.postValue(new Result.Success<>(favorites));
                 Log.d("RES", "onSuccesFromFetchFavoriteRemote-> " + favorites.values().toString());
             }
             Log.d("RES", "---> " + favorites.values());
-        }else{
+        } else {
             Log.d("RES", "ENTRATO NELL'ELSE");
-            Map<String, Drink> fav = new HashMap<String, Drink>();
+            Map<String, Drink> fav = new HashMap<>();
             fav.put(d.getName(), d);
             Log.d("RES", fav.toString());
             Log.d("RES", fav.values().toString());
@@ -230,52 +228,43 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
 
     @Override
     public void onSuccessFromRemovingFavorite(String name) {
-        if(this.favoriteDrinksLiveData.getValue() != null){
+        if (this.favoriteDrinksLiveData.getValue() != null) {
             Map<String, Drink> favorite = ((Result.Success<Map<String, Drink>>) this.favoriteDrinksLiveData.getValue()).getData();
-            if(favorite.containsKey(name)){
-                favorite.remove(name);
-            }
+            favorite.remove(name);
             Log.d("RES", "Removed");
         }
     }
 
     @Override
     public void onSuccessFromAddingFavoriteIngredient(String name) {
-        if(this.favoriteIngredientsLiveData.getValue() != null){
+        if (this.favoriteIngredientsLiveData.getValue() != null) {
             List<String> favorites = ((Result.Success<List<String>>) this.favoriteIngredientsLiveData.getValue()).getData();
-            boolean found = false;
-            for(String f : favorites){
-                if(f.equals(name))
-                    found = true;
-            }
-            if(!found)
+            int i = 0;
+            while (i < favorites.size() && favorites.get(i).equals(name))
+                i++;
+            if (i == favorites.size())
                 favorites.add(name);
-            this.favoriteIngredientsLiveData.postValue(new Result.Success<List<String>>(favorites));
+            this.favoriteIngredientsLiveData.postValue(new Result.Success<>(favorites));
         }
     }
 
     @Override
     public void onSuccessFromRemovingFavoriteIngredient(String name) {
-        if(this.favoriteIngredientsLiveData.getValue() != null){
+        if (this.favoriteIngredientsLiveData.getValue() != null) {
             List<String> favorites = ((Result.Success<List<String>>) this.favoriteIngredientsLiveData.getValue()).getData();
-            favorites.remove(favorites.indexOf(name));
-            this.favoriteIngredientsLiveData.postValue(new Result.Success<List<String>>(favorites));
+            favorites.remove(name);
+            this.favoriteIngredientsLiveData.postValue(new Result.Success<>(favorites));
         }
     }
 
     @Override
     public void onSuccessFromFetchFavoriteIngredients(List<String> name) {
-        this.favoriteIngredientsLiveData.postValue(new Result.Success<List<String>>(name));
+        this.favoriteIngredientsLiveData.postValue(new Result.Success<>(name));
     }
 
-    private void setDrinkIfFavorite(List<Drink> drinks){
-//        Log.d("LIKE", "-----setDrinkIfFavorite----- -> " + drinks.get(0).getName());
-//        Log.d("LIKE", "FAVORITES " + this.getFavoriteMap().values().toString());
-        for(Drink d : drinks){
-            if(this.getFavoriteMap().containsKey(d.getName())){
-                d.setFevorite(true);
-            }
-        }
-//        Log.d("LIKE", "-----setDrinkIfFavorite----- -> " + drinks.get(0).isFavorite());
+    private void setDrinkIfFavorite(List<Drink> drinks) {
+        for (Drink d : drinks)
+            if (this.getFavoriteMap().containsKey(d.getName()))
+                d.setFavorite(true);
     }
 }
