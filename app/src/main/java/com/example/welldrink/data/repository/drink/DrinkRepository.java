@@ -240,7 +240,7 @@ public class DrinkRepository implements IDrinkRepository, IDrinkResponseCallback
         if (this.favoriteIngredientsLiveData.getValue() != null) {
             List<String> favorites = ((Result.Success<List<String>>) this.favoriteIngredientsLiveData.getValue()).getData();
             int i = 0;
-            while (i < favorites.size() && favorites.get(i).equals(name))
+            while (i < favorites.size() && !favorites.get(i).equals(name))
                 i++;
             if (i == favorites.size())
                 favorites.add(name);
