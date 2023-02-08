@@ -13,9 +13,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -26,6 +28,7 @@ import com.example.welldrink.ui.Activity.FirstStartActivity;
 import com.example.welldrink.ui.Activity.MainActivity;
 import com.example.welldrink.ui.viewModel.UserViewModel;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class SignupFragment extends Fragment {
 
@@ -62,11 +65,12 @@ public class SignupFragment extends Fragment {
             Navigation.findNavController(requireView()).navigate(R.id.action_signupFragment_to_loginFragment);
         });
         Button registration = view.findViewById(R.id.signup_btnSignup);
+        TextInputEditText textInputEditText = view.findViewById(R.id.signup_txtConfPsw);
         registration.setOnClickListener(v -> {
             String username = ((TextView) view.findViewById(R.id.signup_txtUsername)).getText().toString().trim();
             String email = ((TextView) view.findViewById(R.id.signup_txtEmail)).getText().toString().trim();
             String password = ((TextView) view.findViewById(R.id.signup_txtPsw)).getText().toString().trim();
-            String passwordConf = ((TextView) view.findViewById(R.id.signup_txtConfPsw)).getText().toString().trim();
+            String passwordConf = ((TextView) textInputEditText).getText().toString().trim();
             if (checkData(username, email, password, passwordConf)) {
                 if (!userViewModel.isAuthError()) {
                     Log.d("AUTH", "checkData done");
@@ -95,13 +99,15 @@ public class SignupFragment extends Fragment {
                         Snackbar.LENGTH_LONG).show();
             }
         });
+        textInputEditText.setOnEditorActionListener((v, actionId, event) -> {
+            if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE))
+                registration.performClick();
+            return false;
+        });
     }
 
     private boolean checkData(String username, String mail, String password, String passwordConf) {
-        if (password.equals(passwordConf) && isPasswordOk(password)) {
-            return true;
-        }
-        return false;
+        return password.equals(passwordConf) && isPasswordOk(password);
     }
 
     private String getErrorInserction(String username, String email, String password, String passwordConf) {

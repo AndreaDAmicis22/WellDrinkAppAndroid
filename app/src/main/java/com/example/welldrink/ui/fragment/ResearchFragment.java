@@ -90,6 +90,7 @@ public class ResearchFragment extends Fragment {
                 DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(drinkList, drink -> {
                     Bundle bundle = new Bundle();
                     bundle.putString("name", drink.getName());
+                    bundle.putBoolean("fav", drink.isFavorite());
                     Navigation.findNavController(requireView()).navigate(R.id.action_fragment_research_to_detailsActivity, bundle);
                 }, drinkViewModel);
                 researchRecycleView.setAdapter(adapter);

@@ -33,7 +33,7 @@
     <string name="fav_card_title_ingredient">Ingrediente Preferito</string>
     <string name="fav_card_title_drink">Drink Preferito</string>
     <string name="login_btnSignUp">Registrati</string>
-    <string name="login_txtOr">O</string>
+    <string name="login_txtOr">Oppure</string>
     <string name="signup_txtTitle">Iscriviti</string>
     <string name="login_txtConfPsw">Conferma Password</string>
     <string name="signup_btnBackLogin">Torna al Login</string>

@@ -12,9 +12,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -27,6 +29,8 @@ import com.example.welldrink.ui.viewModel.UserViewModel;
 import com.example.welldrink.ui.viewModel.UserViewModelFactory;
 import com.example.welldrink.util.ServiceLocator;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class LoginFragment extends Fragment {
 
@@ -63,10 +67,11 @@ public class LoginFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button loginButton = view.findViewById(R.id.login_btnSignup);
+        Button loginButton = view.findViewById(R.id.login_btnLogin);
+        TextInputEditText textInputEditText = view.findViewById(R.id.login_txtPsw);
         loginButton.setOnClickListener(v -> {
             String email = ((TextView) view.findViewById(R.id.login_txtEmail)).getText().toString().trim();
-            String password = ((TextView) view.findViewById(R.id.login_txtPsw)).getText().toString().trim();
+            String password = ((TextView) textInputEditText).getText().toString().trim();
             if (userViewModel.isAuthError()) {
                 userViewModel.getUser(email, password, true, "");
             } else {
@@ -92,6 +97,11 @@ public class LoginFragment extends Fragment {
                     Log.e("AUTH", "data empty");
                 }
             }
+        });
+        textInputEditText.setOnEditorActionListener((v, actionId, event) -> {
+            if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE))
+                loginButton.performClick();
+            return false;
         });
     }
 
