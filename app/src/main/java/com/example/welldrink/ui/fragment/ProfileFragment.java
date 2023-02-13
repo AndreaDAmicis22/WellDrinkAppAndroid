@@ -49,7 +49,7 @@ public class ProfileFragment extends Fragment {
     private final List<Button> buttonsList;
     private int selected;
     private boolean darkMode;
-
+    private List<Drink> drinkList;
     private boolean favorites;
     private RecyclerView recyclerView;
 
@@ -73,6 +73,7 @@ public class ProfileFragment extends Fragment {
         user = userViewModel.getLoggedUser();
         drinkViewModel = new ViewModelProvider(requireActivity()).get(DrinkViewModel.class);
         drinkViewModel.clearDrinkMutableLiveData();
+        this.drinkList = new ArrayList<>();
     }
 
     @Override
@@ -105,11 +106,24 @@ public class ProfileFragment extends Fragment {
         }
         drinkViewModel.getFavoritesLiveData().observe(getViewLifecycleOwner(), result -> {
             Log.d("RES", "OBSERVER FAV");
-            if (result.isSuccess() && selected == 2) {
-                List<Drink> drinkList = new ArrayList<>(((Result.Success<Map<String, Drink>>) result).getData().values());
-                Log.d("RES", "ProfileFragment: " + drinkList);
-                this.attachToRecycleViewDrink(drinkList);
-                removeLoadingScreen(view);
+            Log.e("ALERT", "OBSERVERRRRRRR");
+            if (result.isSuccess() ) {
+                List<Drink> favorites = new ArrayList<>(((Result.Success<Map<String, Drink>>) result).getData().values());
+                if(selected == 2){
+                    Log.d("RES", "ProfileFragment: " + favorites);
+                    this.attachToRecycleViewDrink(favorites);
+                    removeLoadingScreen(view);
+                }else if (selected == 0){
+                    Log.e("ALERT", "ALERT");
+                    for(Drink d : drinkList){
+                        d.setFavorite(false);
+                        for(Drink s : favorites){
+                            if(d.getName().equals(s.getName()))
+                                d.setFavorite(true);
+                        }
+                    }
+                    this.attachToRecycleViewDrink(drinkList);
+                }
             } else if (selected == 2) {
                 handleDrinkError(view);
             }
@@ -118,6 +132,7 @@ public class ProfileFragment extends Fragment {
             Log.d("RES", "PROFILE OBSERVER");
             if (result.isSuccess()) {
                 List<Drink> drinkList = ((Result.Success<List<Drink>>) result).getData();
+                this.drinkList = drinkList;
                 Log.d("RES", "ProfileFragment: " + drinkList.toString());
                 if (selected == 1) {
                     for (String s : drinkViewModel.getFavoriteIngredientsList())
@@ -125,7 +140,18 @@ public class ProfileFragment extends Fragment {
                             if (d.getName().equals(s))
                                 d.setFavorite(true);
                     attachToRecycleViewIngredient(drinkList);
-                } else
+                } else if (selected == 0){
+                    Log.e("ALERT", "ALERT");
+                    List<Drink> favorites = new ArrayList<>(((Result.Success<Map<String, Drink>>) this.drinkViewModel.getFavoritesLiveData().getValue()).getData().values());
+                    for(Drink d : drinkList){
+                        d.setFavorite(false);
+                        for(Drink s : favorites){
+                            if(d.getName().equals(s.getName()))
+                                d.setFavorite(true);
+                        }
+                    }
+                    this.attachToRecycleViewDrink(drinkList);
+                }else
                     this.attachToRecycleViewDrink(drinkList);
                 removeLoadingScreen(view);
             } else {
@@ -164,10 +190,8 @@ public class ProfileFragment extends Fragment {
         switch (selected) {
             case -1:
                 if (this.favorites) {
-                    //clear favorites (not to clear but not make them show)
-                    //maybe make this cleaner?
                     this.attachToRecycleViewDrink(new ArrayList<>());
-                    favorites = false; // this is why not clearing stuff anymore
+                    favorites = false;
                 } else
                     this.drinkViewModel.clearDrinkMutableLiveData();
                 break;

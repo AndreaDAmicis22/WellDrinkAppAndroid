@@ -34,6 +34,7 @@ import com.example.welldrink.ui.viewModel.DrinkViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ResearchFragment extends Fragment {
 
@@ -61,6 +62,7 @@ public class ResearchFragment extends Fragment {
         super.onCreate(savedInstanceState);
         drinkViewModel = new ViewModelProvider(requireActivity()).get(DrinkViewModel.class);
         drinkViewModel.clearDrinkMutableLiveData();
+        this.drinkList = new ArrayList<>();
     }
 
     @Override
@@ -82,20 +84,36 @@ public class ResearchFragment extends Fragment {
             if (res.isSuccess()) {
                 Log.d("RES", "Observer");
                 List<Drink> drinks = ((Result.Success<List<Drink>>) res).getData();
+                List<String> fav = drinkViewModel.getFavoriteIngredientsList();
+                for(Drink d : drinks){
+                    d.setFavorite(false);
+                    for(String s : fav){
+                        if(d.getName().equals(s))
+                            d.setFavorite(true);
+                    }
+                }
                 Log.d("RES", drinks.toString());
                 this.drinkList = drinks;
                 RecyclerView researchRecycleView = view.findViewById(R.id.research_rscv);
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
-                researchRecycleView.setLayoutManager(linearLayoutManager);
-                DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(drinkList, drink -> {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("name", drink.getName());
-                    bundle.putBoolean("fav", drink.isFavorite());
-                    Navigation.findNavController(requireView()).navigate(R.id.action_fragment_research_to_detailsActivity, bundle);
-                }, drinkViewModel);
-                researchRecycleView.setAdapter(adapter);
+                this.attachToRecycleViewDrink(drinkList, researchRecycleView);
             } else {
                 handleDrinkError(view);
+            }
+        });
+        drinkViewModel.getFavoritesLiveData().observe(
+                getViewLifecycleOwner(), res -> {
+            if(res.isSuccess()){
+                List<Drink> favorites = new ArrayList<>(((Result.Success<Map<String, Drink>>) res).getData().values());
+                Log.e("ALERT", drinkList.toString());
+                for(Drink d : drinkList){
+                    d.setFavorite(false);
+                    for(Drink s : favorites)
+                        if(d.getName().equals(s.getName()))
+                            d.setFavorite(true);
+                }
+                Log.e("ALERT", drinkList.toString());
+                RecyclerView researchRecycleView = view.findViewById(R.id.research_rscv);
+                this.attachToRecycleViewDrink(drinkList, researchRecycleView);
             }
         });
         SearchView searchView = requireActivity().findViewById(R.id.home_inpSearch);
@@ -143,6 +161,18 @@ public class ResearchFragment extends Fragment {
                 drinkViewModel.getDrinksByName(query);
                 break;
         }
+    }
+
+    private void attachToRecycleViewDrink(List<Drink> list, RecyclerView recyclerView) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager((requireContext()));
+        recyclerView.setLayoutManager(linearLayoutManager);
+        DrinkSmallInfoRecyclerViewAdapter adapter = new DrinkSmallInfoRecyclerViewAdapter(list, drink -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("name", drink.getName());
+            bundle.putBoolean("fav", drink.isFavorite());
+            Navigation.findNavController(requireView()).navigate(R.id.action_fragment_research_to_detailsActivity, bundle);
+        }, drinkViewModel);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override

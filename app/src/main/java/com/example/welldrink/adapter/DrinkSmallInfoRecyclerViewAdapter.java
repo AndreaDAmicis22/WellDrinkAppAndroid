@@ -91,6 +91,7 @@ public class DrinkSmallInfoRecyclerViewAdapter extends RecyclerView.Adapter<Drin
                     drinkViewModel.setDrinkFavorite((String) drinkName.getText());
                 }
                 isFavorite = !isFavorite;
+                drinkList.get(getAdapterPosition()).setFavorite(isFavorite);
             });
         }
 
