@@ -133,7 +133,6 @@ public class ProfileFragment extends Fragment {
             if (result.isSuccess()) {
                 List<Drink> drinkList = ((Result.Success<List<Drink>>) result).getData();
                 this.drinkList = drinkList;
-                Log.d("RES", "ProfileFragment: " + drinkList.toString());
                 if (selected == 1) {
                     for (String s : drinkViewModel.getFavoriteIngredientsList())
                         for (Drink d : drinkList)
